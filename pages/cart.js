@@ -35,8 +35,9 @@ function CartScreen() {
     dispatch,
   } = useContext(Store);
   const { enqueueSnackbar } = useSnackbar();
-  const updateCartHanlder = async (item, quantity) => {
+  const updateCartHanlder = async (item, quantity, size) => {
     const { data } = await axios.get(`/api/products/${item._id}`);
+    console.log(data.countInStock);
     if (data.countInStock < quantity) {
       enqueueSnackbar("Sorry. Product is out of stock", { variant: "error" });
       return;
@@ -52,6 +53,7 @@ function CartScreen() {
         price: item.price,
         image: item.image,
         quantity,
+        size,
       },
     });
     enqueueSnackbar(`${item.name} Updated in the cart`, {
@@ -115,7 +117,7 @@ function CartScreen() {
                       <TableCell align="right">
                         <NextLink href={`/product/${item.slug}`} passHref>
                           <Link>
-                            <Typography>Talla</Typography>
+                            <Typography>{item.size}</Typography>
                           </Link>
                         </NextLink>
                       </TableCell>

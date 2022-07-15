@@ -159,7 +159,15 @@ export default function Layout({ title, description, children }) {
           </Box>
         </Toolbar>
       </AppBar>
-      <Divider sx={{ backgroundColor: "white" }} />
+      <Divider
+        sx={{
+          backgroundColor: "white",
+          width: "97%",
+          margin: "auto",
+          borderTop: " 1px solid #bbb",
+          borderRadius: "5px",
+        }}
+      />
       <List>
         {categories.map((category) => (
           <NextLink

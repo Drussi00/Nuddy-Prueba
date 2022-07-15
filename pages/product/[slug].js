@@ -54,13 +54,51 @@ export default function ProductScreen(props) {
     };
     fetchData();
   }, []);
-  let size;
-  const addToCartHandler = async () => {
+  const [size, setsize] = useState("");
+  const [quantity, setquantity] = useState(0);
+
+  const addQuantity = async () => {
+    if (size !== "") {
+      if (size === "S" && quantity < product.s) {
+        setquantity(quantity + 1);
+        console.log(quantity);
+      } else if (size === "M" && quantity < product.m) {
+        setquantity(quantity + 1);
+        console.log(quantity);
+      } else if ((size = "L" && quantity < product.l)) {
+        setquantity(quantity + 1);
+      } else {
+        enqueueSnackbar("Maxima cantidad alcanzada", { variant: "error" });
+      }
+    } else {
+      enqueueSnackbar("Selecione talla", { variant: "error" });
+    }
+  };
+  const decQuantity = async () => {
+    if (size !== "") {
+      if (size === "S" && quantity > 0) {
+        setquantity(quantity - 1);
+        console.log(quantity);
+      } else if (size === "M" && quantity > 0) {
+        setquantity(quantity - 1);
+        console.log(quantity);
+      } else if ((size = "L" && quantity > 0)) {
+        setquantity(quantity - 1);
+      } else {
+        enqueueSnackbar("La cantidad debe ser mayor a 0", { variant: "error" });
+      }
+    } else {
+      enqueueSnackbar("Selecione talla", { variant: "error" });
+    }
+  };
+  const buyNowHandler = async () => {
     const existItem = cart.cartItems.find((x) => x._id === product._id);
-    const quantity = existItem ? existItem.quantity + 1 : 1;
+
     const { data } = await axios.get(`/api/products/${product._id}`);
+    console.log(data);
     if (data.countInStock < quantity) {
       enqueueSnackbar("Sorry. Product is out of stock", { variant: "error" });
+
       return;
     }
 
@@ -74,12 +112,42 @@ export default function ProductScreen(props) {
         price: product.price,
         image: urlForThumbnail(product.image),
         quantity,
+        size,
       },
     });
     enqueueSnackbar(`${product.name} added to the cart`, {
       variant: "success",
     });
     router.push("/cart");
+  };
+  const addToCartHandler = async () => {
+    const existItem = cart.cartItems.find((x) => x._id === product._id);
+
+    const { data } = await axios.get(`/api/products/${product._id}`);
+    console.log(data);
+    if (data.countInStock < quantity) {
+      enqueueSnackbar("Sorry. Product is out of stock", { variant: "error" });
+
+      return;
+    }
+
+    dispatch({
+      type: "CART_ADD_ITEM",
+      payload: {
+        _key: product._id,
+        name: product.name,
+        countInStock: product.countInStock,
+        slug: product.slug.current,
+        price: product.price,
+        image: urlForThumbnail(product.image),
+        quantity,
+        size,
+      },
+    });
+    enqueueSnackbar(`${product.name} added to the cart`, {
+      variant: "success",
+    });
+    router.push("/");
   };
   return (
     <Layout title={product?.title}>
@@ -114,17 +182,44 @@ export default function ProductScreen(props) {
                 <listItem>
                   <Grid container spacing={2}>
                     <Grid item>
-                      <Button sx={classes.but} size="small" variant="contained">
+                      <Button
+                        sx={classes.but}
+                        size="small"
+                        variant="contained"
+                        onClick={() => {
+                          setsize("S");
+                          setquantity(1);
+                          console.log(size);
+                        }}
+                      >
                         S
                       </Button>
                     </Grid>
                     <Grid item>
-                      <Button sx={classes.but} size="small" variant="contained">
+                      <Button
+                        sx={classes.but}
+                        size="small"
+                        variant="contained"
+                        onClick={() => {
+                          setsize("M");
+                          setquantity(1);
+                          console.log(size);
+                        }}
+                      >
                         M
                       </Button>
                     </Grid>
                     <Grid item>
-                      <Button sx={classes.but} size="small" variant="contained">
+                      <Button
+                        sx={classes.but}
+                        size="small"
+                        variant="contained"
+                        onClick={() => {
+                          setsize("L");
+                          console.log(size);
+                          setquantity(1);
+                        }}
+                      >
                         L
                       </Button>
                     </Grid>
@@ -138,16 +233,22 @@ export default function ProductScreen(props) {
                   variant="outlined"
                   aria-label="outlined button group"
                 >
-                  <Button color="primary" sx={classes.buttonGroup}>
+                  <Button
+                    onClick={decQuantity}
+                    color="primary"
+                    sx={classes.buttonGroup}
+                  >
                     -
                   </Button>
-                  <Button sx={classes.buttonQ}>0</Button>
-                  <Button sx={classes.buttonGroup}>+</Button>
+                  <Button sx={classes.buttonQ}>{quantity}</Button>
+                  <Button sx={classes.buttonGroup} onClick={addQuantity}>
+                    +
+                  </Button>
                 </ButtonGroup>
                 <ListItem>
                   <Button
                     sx={classes.blackline}
-                    onClick={() => router.push("/")}
+                    onClick={addToCartHandler}
                     fullWidth
                     variant=""
                   >
@@ -156,7 +257,7 @@ export default function ProductScreen(props) {
                 </ListItem>
                 <ListItem>
                   <Button
-                    onClick={addToCartHandler}
+                    onClick={buyNowHandler}
                     fullWidth
                     variant="contained"
                     sx={classes.radius}
