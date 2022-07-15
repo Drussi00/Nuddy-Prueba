@@ -27,7 +27,6 @@ import { getError } from "../utils/error";
 import axios from "axios";
 import jsCookie from "js-cookie";
 import dynamic from "next/dynamic";
-////////////////////////////////////////////////////////////////
 
 function PlaceOrderScreen() {
   const { enqueueSnackbar } = useSnackbar();

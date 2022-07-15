@@ -28,7 +28,7 @@ export default function PaymentScreen() {
 
   useEffect(() => {
     if (!shippingAddress.address) {
-      router.push("/payment");
+      router.push("/shipping");
     } else {
       setPaymentMethod(jsCookie.get("paymentMethod") || "");
     }

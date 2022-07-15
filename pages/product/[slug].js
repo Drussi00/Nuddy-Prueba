@@ -96,8 +96,8 @@ export default function ProductScreen(props) {
 
     const { data } = await axios.get(`/api/products/${product._id}`);
     console.log(data);
-    if (data.countInStock < quantity) {
-      enqueueSnackbar("Sorry. Product is out of stock", { variant: "error" });
+    if (quantity === 0) {
+      enqueueSnackbar("Seleciona talla", { variant: "error" });
 
       return;
     }
@@ -121,12 +121,10 @@ export default function ProductScreen(props) {
     router.push("/cart");
   };
   const addToCartHandler = async () => {
-    const existItem = cart.cartItems.find((x) => x._id === product._id);
-
     const { data } = await axios.get(`/api/products/${product._id}`);
     console.log(data);
-    if (data.countInStock < quantity) {
-      enqueueSnackbar("Sorry. Product is out of stock", { variant: "error" });
+    if (quantity === 0) {
+      enqueueSnackbar("Seleciona talla", { variant: "error" });
 
       return;
     }
