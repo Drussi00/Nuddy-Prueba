@@ -33,7 +33,6 @@ const classes = {
   },
   navbarButton: {
     color: "#ffffff",
-    textTransform: "initial",
   },
   fullWidth: {
     width: "100%",

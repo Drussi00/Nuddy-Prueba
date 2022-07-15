@@ -1,3 +1,4 @@
+import * as React from "react";
 import { createTheme } from "@mui/material/styles";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
@@ -24,6 +25,7 @@ import {
   useMediaQuery,
   Grid,
   IconButton,
+  ListItemButton,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
@@ -40,6 +42,140 @@ import { useSnackbar } from "notistack";
 import { getError } from "../utils/error";
 
 export default function Layout({ title, description, children }) {
+  const [stateDrawer, setstateDrawer] = React.useState({
+    top: false,
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setstateDrawer({ ...stateDrawer, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <Box
+      sx={{
+        width: "250",
+        backgroundColor: "primary.main",
+        color: "secondary.main",
+        borderRadius: "5px",
+      }}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <Box></Box>
+      <AppBar position="static" sx={classes.appbar}>
+        <Toolbar sx={classes.toolbar}>
+          <Box display="flex" alignItems="center">
+            <NextLink href="/" passHref>
+              <Link>
+                <Typography sx={classes.brand}>Nuddy Minds</Typography>
+              </Link>
+            </NextLink>
+          </Box>
+
+          <Box>
+            <Grid container spacing={10}>
+              <Grid item>
+                <Typography>Shop</Typography>
+              </Grid>
+              <Grid item>
+                <Typography>Coleciones</Typography>
+              </Grid>
+              <Grid item>
+                <Typography>Nosotros</Typography>
+              </Grid>
+            </Grid>
+          </Box>
+
+          <Box>
+            <Grid container spacing={1}>
+              <Grid item>
+                <NextLink href="/cart" passHref>
+                  <Link>
+                    <Typography component="span">
+                      {cart.cartItems.length > 0 ? (
+                        <Badge
+                          color="secondary"
+                          badgeContent={cart.cartItems.length}
+                        >
+                          <ShoppingCartIcon fontSize="small" />
+                        </Badge>
+                      ) : (
+                        <ShoppingCartIcon />
+                      )}
+                    </Typography>
+                  </Link>
+                </NextLink>
+              </Grid>
+              <Grid item>
+                {userInfo ? (
+                  <>
+                    <Button
+                      aria-controls="simple-menu"
+                      aria-haspopup="true"
+                      sx={classes.navbarButton}
+                      onClick={loginClickHandler}
+                    >
+                      {userInfo.name}
+                    </Button>
+                    <Menu
+                      id="simple-menu"
+                      anchorEl={anchorEl}
+                      keepMounted
+                      open={Boolean(anchorEl)}
+                      onClose={loginMenuCloseHandler}
+                    >
+                      <MenuItem
+                        onClick={(e) => loginMenuCloseHandler(e, "/profile")}
+                      >
+                        Profile
+                      </MenuItem>
+                      <MenuItem
+                        onClick={(e) =>
+                          loginMenuCloseHandler(e, "/order-history")
+                        }
+                      >
+                        Order History
+                      </MenuItem>
+                      <MenuItem onClick={logoutClickHandler}>Logout</MenuItem>
+                    </Menu>
+                  </>
+                ) : (
+                  <NextLink href="/login" passHref>
+                    <Link>
+                      <PersonIcon />
+                    </Link>
+                  </NextLink>
+                )}{" "}
+              </Grid>
+            </Grid>
+          </Box>
+        </Toolbar>
+      </AppBar>
+      <Divider sx={{ backgroundColor: "white" }} />
+      <List>
+        {categories.map((category) => (
+          <NextLink
+            key={category}
+            href={`/search?category=${category}`}
+            passHref
+          >
+            <ListItem button component="a" onClick={sidebarCloseHandler}>
+              <ListItemText primary={category}></ListItemText>
+            </ListItem>
+          </NextLink>
+        ))}
+      </List>
+    </Box>
+  );
+
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const { darkMode, cart, userInfo } = state;
@@ -149,22 +285,39 @@ export default function Layout({ title, description, children }) {
                 </Link>
               </NextLink>
             </Box>
-            <Box>
-              <Grid container spacing={10}>
-                <Grid item>
-                  <Typography>Shop</Typography>
+
+            <Box display="flex" alignItems="center">
+              <Grid container spacing={5}>
+                <Grid item md={4} xs={4}>
+                  <Typography>
+                    {["top"].map((anchor) => (
+                      <React.Fragment key={anchor}>
+                        <Button
+                          sx={{ color: "white" }}
+                          onClick={toggleDrawer(anchor, true)}
+                        >
+                          SHOP
+                        </Button>
+                        <Drawer
+                          anchor={anchor}
+                          open={stateDrawer[anchor]}
+                          onClose={toggleDrawer(anchor, false)}
+                        >
+                          {list(anchor)}
+                        </Drawer>
+                      </React.Fragment>
+                    ))}
+                  </Typography>
                 </Grid>
-                <Grid item>
+                <Grid item md={4} xs={4}>
                   <Typography>Coleciones</Typography>
                 </Grid>
-                <Grid item>
+                <Grid item md={4} xs={4}>
                   <Typography>Nosotros</Typography>
-                </Grid>
-                <Grid item>
-                  <Typography>Contacto</Typography>
                 </Grid>
               </Grid>
             </Box>
+
             <Box>
               <Grid container spacing={1}>
                 <Grid item>
@@ -234,7 +387,7 @@ export default function Layout({ title, description, children }) {
           {children}
         </Container>
         <Box component="footer" sx={classes.footer}>
-          <Typography>All rights reserved. Sanity Amazona.</Typography>
+          <Typography>All rights reserved. Nuddy Minds.</Typography>
         </Box>
       </ThemeProvider>
     </>
