@@ -82,10 +82,11 @@ function CartScreen() {
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Image</TableCell>
-                    <TableCell>Name</TableCell>
-                    <TableCell align="right">Quantity</TableCell>
-                    <TableCell align="right">Price</TableCell>
+                    <TableCell>Imagen</TableCell>
+                    <TableCell>Producto</TableCell>
+                    <TableCell align="right">Talla</TableCell>
+                    <TableCell align="right">Cantidad</TableCell>
+                    <TableCell align="right">Precio</TableCell>
                     <TableCell align="right">Action</TableCell>
                   </TableRow>
                 </TableHead>
@@ -108,6 +109,13 @@ function CartScreen() {
                         <NextLink href={`/product/${item.slug}`} passHref>
                           <Link>
                             <Typography>{item.name}</Typography>
+                          </Link>
+                        </NextLink>
+                      </TableCell>
+                      <TableCell align="right">
+                        <NextLink href={`/product/${item.slug}`} passHref>
+                          <Link>
+                            <Typography>Talla</Typography>
                           </Link>
                         </NextLink>
                       </TableCell>
@@ -148,8 +156,8 @@ function CartScreen() {
               <List>
                 <ListItem>
                   <Typography variant="h2">
-                    Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}{" "}
-                    items) : ${" "}
+                    Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}
+                    items) : $
                     {cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}
                   </Typography>
                 </ListItem>

@@ -114,11 +114,7 @@ export default function ProductScreen(props) {
                 <listItem>
                   <Grid container spacing={2}>
                     <Grid item>
-                      <Button
-                        sx={classes.but}
-                        width="small"
-                        variant="contained"
-                      >
+                      <Button sx={classes.but} size="small" variant="contained">
                         S
                       </Button>
                     </Grid>
@@ -151,7 +147,7 @@ export default function ProductScreen(props) {
                 <ListItem>
                   <Button
                     sx={classes.blackline}
-                    onClick={addToCartHandler}
+                    onClick={() => router.push("/")}
                     fullWidth
                     variant=""
                   >
