@@ -11,6 +11,9 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import { Grid } from "@mui/material";
+import { Image } from "@mui/icons-material";
+import NextLink from "next/link";
 
 export default function TemporaryDrawer() {
   const [stateDrawer, setstateDrawer] = React.useState({
@@ -30,8 +33,9 @@ export default function TemporaryDrawer() {
 
   const list = (anchor) => (
     <Box
+      display="flex"
+      justifyContent="spaceetween"
       sx={{
-        width: "250",
         backgroundColor: "primary.main",
         color: "secondary.main",
       }}
@@ -39,17 +43,86 @@ export default function TemporaryDrawer() {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
-        {["Shop All", "Hoodies", "T-shirt", "Long Sleeve"].map(
-          (text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          )
-        )}
-      </List>
+      <Grid container spacing={20}>
+        <Grid item md={4}>
+          <Box display="flex" sx={{ justifyContent: "center" }}>
+            <List>
+              {categories.map((category) => (
+                <NextLink
+                  key={category}
+                  href={`/search?category=${category}`}
+                  passHref
+                >
+                  <ListItem button component="a" onClick={sidebarCloseHandler}>
+                    <ListItemText primary={category}></ListItemText>
+                  </ListItem>
+                </NextLink>
+              ))}
+            </List>
+          </Box>
+        </Grid>
+        <Grid item md={2}>
+          <Box sx={{ justifyContent: "center", alignItems: "center" }}>
+            <img
+              src=""
+              alt="imagen "
+              layout="responsive"
+              width={140}
+              height={140}
+              paddingTop="10px"
+            />
+            <List>
+              {["Hoodies"].map((text, index) => (
+                <ListItem key={text} disablePadding>
+                  <ListItemButton>
+                    <ListItemText primary={text} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          </Box>
+        </Grid>
+        <Grid item md={2}>
+          <Box>
+            <img
+              src="https://w7.pngwing.com/pngs/283/43/png-transparent-long-sleeved-t-shirt-hoodie-clothing-polo-tshirt-hoodie-black.png"
+              alt="imagen "
+              layout="responsive"
+              width={140}
+              height={140}
+            />
+            <List>
+              {["T-shirt"].map((text, index) => (
+                <ListItem key={text} disablePadding>
+                  <ListItemButton>
+                    <ListItemText primary={text} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          </Box>
+        </Grid>
+        <Grid item md={3}>
+          <Box>
+            <img
+              src="https://w7.pngwing.com/pngs/283/43/png-transparent-long-sleeved-t-shirt-hoodie-clothing-polo-tshirt-hoodie-black.png"
+              alt="imagen "
+              layout="responsive"
+              width={140}
+              height={140}
+            />
+            <List>
+              {["Long-Sleeve"].map((text, index) => (
+                <ListItem key={text} disablePadding>
+                  <ListItemButton>
+                    <ListItemText primary={text} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          </Box>
+        </Grid>
+      </Grid>
     </Box>
   );
 
@@ -62,7 +135,7 @@ export default function TemporaryDrawer() {
               sx={{ color: "black" }}
               onClick={toggleDrawer(anchor, true)}
             >
-              Shop
+              Coleciones
             </Button>
             <Drawer
               anchor={anchor}

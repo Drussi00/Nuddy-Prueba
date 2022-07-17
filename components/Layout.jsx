@@ -69,7 +69,6 @@ export default function Layout({ title, description, children }) {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <Box></Box>
       <AppBar position="static" sx={classes.appbar}>
         <Toolbar sx={classes.toolbar}>
           <Box display="flex" alignItems="center">
@@ -168,19 +167,141 @@ export default function Layout({ title, description, children }) {
           borderRadius: "5px",
         }}
       />
-      <List>
-        {categories.map((category) => (
-          <NextLink
-            key={category}
-            href={`/search?category=${category}`}
-            passHref
+
+      <Grid container spacing={20}>
+        <Grid item md={4}>
+          <Box display="flex" sx={{ justifyContent: "center" }}>
+            <List>
+              {categories.map((category) => (
+                <NextLink
+                  key={category}
+                  href={`/search?category=${category}`}
+                  passHref
+                >
+                  <ListItem button component="a" onClick={sidebarCloseHandler}>
+                    <ListItemText primary={category}></ListItemText>
+                  </ListItem>
+                </NextLink>
+              ))}
+            </List>
+          </Box>
+        </Grid>
+        <Grid item md={2}>
+          <Box
+            display="flex"
+            paddingTop={4}
+            sx={{
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column ",
+            }}
           >
-            <ListItem button component="a" onClick={sidebarCloseHandler}>
-              <ListItemText primary={category}></ListItemText>
-            </ListItem>
-          </NextLink>
-        ))}
-      </List>
+            <img
+              src="https://www.pngmart.com/files/22/Long-Sleeve-Crew-Neck-T-Shirt-PNG-Pic.png"
+              alt="imagen "
+              layout="responsive"
+              width={140}
+              height={140}
+              paddingTop="10px"
+            />
+            <List margin={0}>
+              {["Hoodies"].map((category) => (
+                <NextLink
+                  key={category}
+                  href={`/search?category=${category}`}
+                  passHref
+                >
+                  <ListItem
+                    fullWidth
+                    button
+                    component="a"
+                    onClick={sidebarCloseHandler}
+                  >
+                    <ListItemText primary={category}></ListItemText>
+                  </ListItem>
+                </NextLink>
+              ))}
+            </List>
+          </Box>
+        </Grid>
+        <Grid item md={2}>
+          <Box
+            display="flex"
+            paddingTop={4}
+            sx={{
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column ",
+            }}
+          >
+            <img
+              src="https://www.pngmart.com/files/22/Long-Sleeve-Crew-Neck-T-Shirt-PNG-Pic.png"
+              alt="imagen "
+              layout="responsive"
+              width={140}
+              height={140}
+              paddingTop="10px"
+            />
+            <List margin={0}>
+              {["T-shirt"].map((category) => (
+                <NextLink
+                  key={category}
+                  href={`/search?category=${category}`}
+                  passHref
+                >
+                  <ListItem
+                    fullWidth
+                    button
+                    component="a"
+                    onClick={sidebarCloseHandler}
+                  >
+                    <ListItemText primary={category}></ListItemText>
+                  </ListItem>
+                </NextLink>
+              ))}
+            </List>
+          </Box>
+        </Grid>
+        <Grid item md={2.2}>
+          <Box
+            display="flex"
+            margin={0}
+            paddingTop={4}
+            sx={{
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column ",
+            }}
+          >
+            <img
+              src="https://www.pngmart.com/files/22/Long-Sleeve-Crew-Neck-T-Shirt-PNG-Pic.png"
+              alt="imagen "
+              layout="responsive"
+              width={140}
+              height={140}
+              paddingTop="10px"
+            />
+            <List margin={0}>
+              {["Long-Sleeves"].map((category) => (
+                <NextLink
+                  key={category}
+                  href={`/search?category=${category}`}
+                  passHref
+                >
+                  <ListItem
+                    fullWidth
+                    button
+                    component="a"
+                    onClick={sidebarCloseHandler}
+                  >
+                    <ListItemText primary={category}></ListItemText>
+                  </ListItem>
+                </NextLink>
+              ))}
+            </List>
+          </Box>
+        </Grid>
+      </Grid>
     </Box>
   );
 
