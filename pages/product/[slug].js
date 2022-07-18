@@ -158,7 +158,8 @@ export default function ProductScreen(props) {
           <Grid container spacing={6}>
             <Grid item md={6} xs={12}>
               <Image
-                src={urlFor(product.image)}
+                src={urlFor(product.image && product.image[0])}
+                key={product.image._key}
                 alt={product.name}
                 layout="responsive"
                 width={640}

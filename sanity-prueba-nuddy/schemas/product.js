@@ -16,7 +16,8 @@ export default {
     {
       name: "image",
       title: "Image",
-      type: "image",
+      type: "array",
+      of: [{ type: "image" }],
       options: {
         hotspot: true,
       },
@@ -45,22 +46,7 @@ export default {
       title: "Category",
       type: "string",
     },
-    {
-      name: "rating",
-      title: "Rating",
-      type: "number",
-    },
 
-    {
-      name: "numReviews",
-      title: "NumReviews",
-      type: "number",
-    },
-    {
-      name: "countInStock",
-      title: "CountInStock",
-      type: "number",
-    },
     {
       name: "s",
       title: "S",

@@ -20,7 +20,7 @@ const productItem = ({ product, addToCartHandler }) => {
         <CardActionArea>
           <CardMedia
             component="img"
-            image={urlForThumbnail(product.image)}
+            image={urlForThumbnail(product.image && product.image[0])}
             title={product.name}
           ></CardMedia>
           <CardContent>
