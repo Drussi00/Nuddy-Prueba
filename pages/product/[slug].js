@@ -92,10 +92,8 @@ export default function ProductScreen(props) {
     }
   };
   const buyNowHandler = async () => {
-    const existItem = cart.cartItems.find((x) => x._id === product._id);
-
     const { data } = await axios.get(`/api/products/${product._id}`);
-    console.log(data);
+
     if (quantity === 0) {
       enqueueSnackbar("Seleciona talla", { variant: "error" });
 
@@ -110,7 +108,7 @@ export default function ProductScreen(props) {
         countInStock: product.countInStock,
         slug: product.slug.current,
         price: product.price,
-        image: urlForThumbnail(product.image),
+        image: urlForThumbnail(product.image && product.image[0]),
         quantity,
         size,
       },
@@ -137,7 +135,7 @@ export default function ProductScreen(props) {
         countInStock: product.countInStock,
         slug: product.slug.current,
         price: product.price,
-        image: urlForThumbnail(product.image),
+        image: urlForThumbnail(product.image && product.image[0]),
         quantity,
         size,
       },

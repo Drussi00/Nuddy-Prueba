@@ -42,10 +42,10 @@ const ratings = [1, 2, 3, 4, 5];
 export default function SearchScreen() {
   const router = useRouter();
   const {
-    category = "all",
-    query = "all",
-    price = "all",
-    rating = "all",
+    category = " Shop All",
+    query = "Shop All",
+    price = "Shop All",
+    rating = "Shop All",
     sort = "default",
   } = router.query;
   const [state, setState] = useState({
@@ -71,18 +71,18 @@ export default function SearchScreen() {
     const fetchData = async () => {
       try {
         let gQuery = '*[_type == "product"';
-        if (category !== "all") {
+        if (category !== "Shop All") {
           gQuery += ` && category match "${category}" `;
         }
-        if (query !== "all") {
+        if (query !== "Shop All") {
           gQuery += ` && name match "${query}" `;
         }
-        if (price !== "all") {
+        if (price !== "Shop All") {
           const minPrice = Number(price.split("-")[0]);
           const maxPrice = Number(price.split("-")[1]);
           gQuery += ` && price >= ${minPrice} && price <= ${maxPrice}`;
         }
-        if (rating !== "all") {
+        if (rating !== "Shop All") {
           gQuery += ` && rating >= ${Number(rating)} `;
         }
         let order = "";
@@ -172,7 +172,6 @@ export default function SearchScreen() {
               <Box sx={classes.fullWidth}>
                 <Typography>Categories</Typography>
                 <Select fullWidth value={category} onChange={categoryHandler}>
-                  <MenuItem value="all">All</MenuItem>
                   {categories &&
                     categories.map((category) => (
                       <MenuItem key={category} value={category}>
@@ -186,7 +185,7 @@ export default function SearchScreen() {
               <Box sx={classes.fullWidth}>
                 <Typography>Prices</Typography>
                 <Select value={price} onChange={priceHandler} fullWidth>
-                  <MenuItem value="all">All</MenuItem>
+                  <MenuItem value="Shop All">Shop All</MenuItem>
                   {prices.map((price) => (
                     <MenuItem key={price.value} value={price.value}>
                       {price.name}
@@ -199,7 +198,7 @@ export default function SearchScreen() {
               <Box sx={classes.fullWidth}>
                 <Typography>Ratings</Typography>
                 <Select value={rating} onChange={ratingHandler} fullWidth>
-                  <MenuItem value="all">All</MenuItem>
+                  <MenuItem value="Shop All">Shop All</MenuItem>
                   {ratings.map((rating) => (
                     <MenuItem dispaly="flex" key={rating} value={rating}>
                       <Rating value={rating} readOnly />
@@ -216,12 +215,12 @@ export default function SearchScreen() {
             <Grid item>
               {products && products.length !== 0 ? products.length : "No"}{" "}
               Results
-              {query !== "all" && query !== "" && " : " + query}
-              {price !== "all" && " : Price " + price}
-              {rating !== "all" && " : Rating " + rating + " & up"}
-              {(query !== "all" && query !== "") ||
-              rating !== "all" ||
-              price !== "all" ? (
+              {query !== "Shop All" && query !== "" && " : " + query}
+              {price !== "Shop All" && " : Price " + price}
+              {rating !== "Shop All" && " : Rating " + rating + " & up"}
+              {(query !== "Shop All" && query !== "") ||
+              rating !== "Shop All" ||
+              price !== "Shop All" ? (
                 <Button onClick={() => router.push("/search")}>X</Button>
               ) : null}
             </Grid>

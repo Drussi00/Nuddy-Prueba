@@ -20,11 +20,11 @@ import {
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import NextLink from "next/link";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Store } from "../utils/Store";
 import axios from "axios";
 import { useSnackbar } from "notistack";
-import { urlForThumbnail } from "../utils/image";
+import { urlForThumbnail, urlFor } from "../utils/image";
 import { useRouter } from "next/router";
 function CartScreen() {
   const router = useRouter();
@@ -51,7 +51,7 @@ function CartScreen() {
         countInStock: item.countInStock,
         slug: item.slug,
         price: item.price,
-        image: item.image,
+        image: item.image && item.image[0],
         quantity,
         size,
       },
@@ -63,6 +63,7 @@ function CartScreen() {
   const removeItemHanlder = async (item) => {
     dispatch({ type: "CART_REMOVE_ITEM", payload: item });
   };
+
   return (
     <Layout title="Shopping Cart">
       <Typography component="h1" variant="h1">
