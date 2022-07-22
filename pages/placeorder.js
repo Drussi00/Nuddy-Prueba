@@ -152,6 +152,7 @@ function PlaceOrderScreen() {
                       <TableRow>
                         <TableCell>Image</TableCell>
                         <TableCell>Name</TableCell>
+                        <TableCell align="right">size</TableCell>
                         <TableCell align="right">Quantity</TableCell>
                         <TableCell align="right">Price</TableCell>
                       </TableRow>
@@ -177,6 +178,9 @@ function PlaceOrderScreen() {
                                 <Typography>{item.name}</Typography>
                               </Link>
                             </NextLink>
+                          </TableCell>
+                          <TableCell align="right">
+                            <Typography>{item.size}</Typography>
                           </TableCell>
                           <TableCell align="right">
                             <Typography>{item.quantity}</Typography>

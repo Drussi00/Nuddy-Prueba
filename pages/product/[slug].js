@@ -105,7 +105,9 @@ export default function ProductScreen(props) {
       payload: {
         _key: product._id,
         name: product.name,
-        countInStock: product.countInStock,
+        countInStockS: product.s,
+        countInStockM: product.m,
+        countInStockL: product.l,
         slug: product.slug.current,
         price: product.price,
         image: urlForThumbnail(product.image && product.image[0]),
@@ -132,7 +134,9 @@ export default function ProductScreen(props) {
       payload: {
         _key: product._id,
         name: product.name,
-        countInStock: product.countInStock,
+        countInStockS: product.s,
+        countInStockM: product.m,
+        countInStockL: product.l,
         slug: product.slug.current,
         price: product.price,
         image: urlForThumbnail(product.image && product.image[0]),
