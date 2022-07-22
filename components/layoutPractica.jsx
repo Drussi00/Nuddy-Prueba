@@ -63,15 +63,20 @@ export default function Layout({ title, description, children }) {
       },
     },
     palette: {
+      mode: darkMode ? "dark" : "light",
       primary: {
-        main: "#ffffff",
+        main: "#f0c000",
       },
       secondary: {
-        main: "#ffffff",
+        main: "#208080",
       },
     },
   });
-
+  const darkModeChangeHandler = () => {
+    dispatch({ type: darkMode ? "DARK_MODE_OFF" : "DARK_MODE_ON" });
+    const newDarkMode = !darkMode;
+    jsCookie.set("darkMode", newDarkMode ? "ON" : "OFF");
+  };
   const [anchorEl, setAnchorEl] = useState(null);
   const loginMenuCloseHandler = (e, redirect) => {
     setAnchorEl(null);
@@ -129,7 +134,7 @@ export default function Layout({ title, description, children }) {
   return (
     <>
       <Head>
-        <title>{title ? `${title} - Nuddy minds` : "Nuddy minds"}</title>
+        <title>{title ? `${title} - Sanity Amazona` : "Sanity Amazona"}</title>
         {description && <meta name="description" content={description}></meta>}
       </Head>
       <ThemeProvider theme={theme}>
@@ -145,7 +150,6 @@ export default function Layout({ title, description, children }) {
               >
                 <MenuIcon sx={classes.navbarButton} />
               </IconButton>
-              <SearchIcon />
             </Box>
             <Drawer
               anchor="left"
@@ -254,16 +258,11 @@ export default function Layout({ title, description, children }) {
             </Box>
           </Toolbar>
         </AppBar>
-        <Container
-          component="main"
-          disableGutters="true"
-          maxWidth="false"
-          sx={classes.main}
-        >
+        <Container component="main" sx={classes.main}>
           {children}
         </Container>
         <Box component="footer" sx={classes.footer}>
-          <Typography>All rights reserved. Nuddy minds.</Typography>
+          <Typography>All rights reserved. Sanity Amazona.</Typography>
         </Box>
       </ThemeProvider>
     </>

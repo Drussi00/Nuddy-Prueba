@@ -1,4 +1,11 @@
-import { CircularProgress, Typography, Alert, Grid } from "@mui/material";
+import {
+  CircularProgress,
+  Typography,
+  Alert,
+  Grid,
+  Container,
+  Box,
+} from "@mui/material";
 import Layout from "../components/Layout";
 import client from "../utils/client";
 import { useState, useEffect, useContext } from "react";
@@ -8,6 +15,8 @@ import axios from "axios";
 import { urlForThumbnail } from "../utils/image";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
+import Carousel from "../components/Carousel";
+import ProductosIndex from "./ProductosIndex";
 
 export default function Home() {
   const router = useRouter();
@@ -66,13 +75,11 @@ export default function Home() {
       ) : error ? (
         <Alert variant="danger">{error}</Alert>
       ) : (
-        <Grid container spacing={3}>
+        <Grid container spacing={20}>
           {products.map((product) => (
-            <Grid item md={4} key={product.slug}>
-              <ProductItem
-                addToCartHandler={addToCartHandler}
-                product={product}
-              />
+            <Grid item md={12} sm={12} key={product.slug} sx={{}}>
+              <Carousel product={product} />
+              <ProductosIndex product={product} />
             </Grid>
           ))}
         </Grid>

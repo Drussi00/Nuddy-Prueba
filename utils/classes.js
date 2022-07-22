@@ -9,20 +9,19 @@ const classes = {
     fontSize: "13px",
   },
   main: {
-    marginTop: 2,
-    minHeight: "80vh",
+    marginTop: 0,
+    minHeight: "100vh",
   },
   footer: {
     marginTop: 1,
     textAlign: "center",
   },
   appbar: {
-    backgroundColor: "#000000",
+    backgroundColor: "#ffffff",
     "& a": {
-      color: "#ffffff",
+      color: "#000000",
       marginLeft: 1,
     },
-    borderRadius: "0 0 15px 15px",
   },
   toolbar: {
     justifyContent: "space-between",
@@ -32,7 +31,7 @@ const classes = {
     fontSize: "1.5rem",
   },
   navbarButton: {
-    color: "#ffffff",
+    color: "#000000",
   },
   fullWidth: {
     width: "100%",
@@ -82,6 +81,18 @@ const classes = {
   radius: { borderRadius: "100px" },
   buttonQ: { width: "80px", borderWidth: "1px", borderColor: "black" },
   buttonGroup: { borderWidth: "1px", borderColor: "black" },
+  productosIndex: {
+    borderWidth: "1px",
+    boxSizing: " border-box",
+    width: "100%vw",
+    background: "#A7D1E7",
+    borderWidth: " 3px 0px",
+    borderstyle: "solid",
+    borderColor: "#ffffff",
+    textAlign: "center",
+    alignItems: "center",
+    justifyContent: "center",
+  },
 };
 
 export default classes;
