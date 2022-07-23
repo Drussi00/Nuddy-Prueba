@@ -82,16 +82,17 @@ const classes = {
   buttonQ: { width: "80px", borderWidth: "1px", borderColor: "black" },
   buttonGroup: { borderWidth: "1px", borderColor: "black" },
   productosIndex: {
-    borderWidth: "1px",
-    boxSizing: " border-box",
+    borderWidth: "1.5px",
+    borderStyle: "solid",
+    borderColor: "black",
     width: "100%vw",
     background: "#A7D1E7",
-    borderWidth: " 3px 0px",
-    borderstyle: "solid",
-    borderColor: "#ffffff",
     textAlign: "center",
     alignItems: "center",
     justifyContent: "center",
+  },
+  imageP: {
+    filter: "drop-shadow(0px 18px 36px rgba(0, 0, 0, 0.27))",
   },
 };
 

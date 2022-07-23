@@ -16,7 +16,7 @@ import { urlForThumbnail } from "../utils/image";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import Carousel from "../components/Carousel";
-import ProductosIndex from "./ProductosIndex";
+import ProductosIndex from "../components/ProductosIndex";
 
 export default function Home() {
   const router = useRouter();
@@ -42,32 +42,7 @@ export default function Home() {
     };
     fetchData();
   }, []);
-  const addToCartHandler = async (product) => {
-    const existItem = cart.cartItems.find((x) => x._id === product._id);
-    const quantity = existItem ? existItem.quantity + 1 : 1;
-    const { data } = await axios.get(`/api/products/${product._id}`);
-    if (data.countInStock < quantity) {
-      enqueueSnackbar("Sorry. Product is out of stock", { variant: "error" });
-      return;
-    }
 
-    dispatch({
-      type: "CART_ADD_ITEM",
-      payload: {
-        _key: product._id,
-        name: product.name,
-        countInStock: product.countInStock,
-        slug: product.slug.current,
-        price: product.price,
-        image: urlForThumbnail(product.image),
-        quantity,
-      },
-    });
-    enqueueSnackbar(`${product.name} added to the cart`, {
-      variant: "success",
-    });
-    router.push("/cart");
-  };
   return (
     <Layout>
       {loading ? (
@@ -76,12 +51,10 @@ export default function Home() {
         <Alert variant="danger">{error}</Alert>
       ) : (
         <Grid container spacing={20}>
-          {products.map((product) => (
-            <Grid item md={12} sm={12} key={product.slug} sx={{}}>
-              <Carousel product={product} />
-              <ProductosIndex product={product} />
-            </Grid>
-          ))}
+          <Grid item md={12} sm={12} sx={{}}>
+            <Carousel products={products} />
+            <ProductosIndex products={products} />
+          </Grid>
         </Grid>
       )}
     </Layout>
