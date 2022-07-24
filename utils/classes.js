@@ -13,7 +13,8 @@ const classes = {
     minHeight: "100vh",
   },
   footer: {
-    marginTop: 1,
+    marginTop: 5,
+    marginBottom: 5,
     textAlign: "center",
   },
   appbar: {
@@ -92,7 +93,7 @@ const classes = {
     justifyContent: "center",
   },
   imageP: {
-    filter: "drop-shadow(0px 18px 36px rgba(0, 0, 0, 0.27))",
+    filter: " drop-shadow(-2px 26px 18px rgba(0, 0, 0, 0.6));",
   },
 };
 

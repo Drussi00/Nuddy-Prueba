@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { urlForThumbnail } from "../utils/image";
 import { useRouter } from "next/router";
+
 const productItem = ({ product, addToCartHandler }) => {
   const router = useRouter();
   return (
@@ -25,7 +26,6 @@ const productItem = ({ product, addToCartHandler }) => {
           ></CardMedia>
           <CardContent>
             <Typography>{product.name}</Typography>
-            <Rating value={product.rating} readonly></Rating>
           </CardContent>
         </CardActionArea>
       </NextLink>

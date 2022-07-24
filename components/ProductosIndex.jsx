@@ -22,7 +22,7 @@ const ProductosIndex = ({ products }) => {
         </Typography>
       </Box>
 
-      <Container>
+      <Container sx={{}}>
         <Box
           display="flex"
           sx={{ justifyContent: "center", paddingTop: "20px" }}
