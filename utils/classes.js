@@ -61,11 +61,10 @@ const classes = {
     },
   },
   searchButton: {
-    backgroundColor: "#f8c040",
     padding: 1,
-    borderRadius: "0 5px 5px 0",
+    borderRadius: "0 0px 0px 0",
     "& span": {
-      color: "#000000",
+      color: "black",
     },
   },
   title: { fontWeight: "bold", fontSize: "3rem" },

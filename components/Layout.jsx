@@ -41,11 +41,12 @@ import { getError } from "../utils/error";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import EmailIcon from "@mui/icons-material/Email";
-
+import { styled, alpha } from "@mui/material/styles";
 export default function Layout({ title, description, children }) {
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const { darkMode, cart, userInfo } = state;
+
   const theme = createTheme({
     components: {
       MuiLink: {
@@ -149,7 +150,26 @@ export default function Layout({ title, description, children }) {
               >
                 <MenuIcon sx={classes.navbarButton} />
               </IconButton>
-              <SearchIcon sx={classes.navbarButton} />
+              <Box sx={isDesktop ? classes.visible : classes.hidden}>
+                <form onSubmit={submitHandler}>
+                  <Box sx={classes.searchForm}>
+                    {" "}
+                    <IconButton
+                      type="submit"
+                      sx={classes.searchButton}
+                      aria-label="search"
+                    >
+                      <SearchIcon sx={classes.navbarButton} />
+                    </IconButton>
+                    <InputBase
+                      name="query"
+                      sx={classes.searchInput}
+                      placeholder="Search products"
+                      onChange={queryChangeHandler}
+                    />
+                  </Box>
+                </form>
+              </Box>
             </Box>
             <Drawer
               anchor="left"
@@ -191,7 +211,7 @@ export default function Layout({ title, description, children }) {
               </List>
             </Drawer>
 
-            <Box display="flex">
+            <Box display="flex" sx={{ paddingRight: "200px" }}>
               <NextLink href="/" passHref>
                 <Link>
                   <Typography sx={classes.brand}>Nuddy Minds </Typography>
@@ -199,7 +219,7 @@ export default function Layout({ title, description, children }) {
               </NextLink>
             </Box>
 
-            <Box>
+            <Box display="flex">
               <NextLink href="/cart" passHref>
                 <Link>
                   <Typography component="span">
@@ -216,6 +236,7 @@ export default function Layout({ title, description, children }) {
                   </Typography>
                 </Link>
               </NextLink>
+
               {userInfo ? (
                 <>
                   <Button

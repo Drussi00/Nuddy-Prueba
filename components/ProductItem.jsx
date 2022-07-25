@@ -16,28 +16,24 @@ import { useRouter } from "next/router";
 const productItem = ({ product, addToCartHandler }) => {
   const router = useRouter();
   return (
-    <Card>
+    <Card raised={true} sx={{ textDecoration: "none" }}>
       <NextLink href={`/product/${product.slug.current}`} passHref>
         <CardActionArea>
           <CardMedia
             component="img"
             image={urlForThumbnail(product.image && product.image[0])}
             title={product.name}
+            sx={{ backgroundColor: "black", borderRadius: "20px" }}
           ></CardMedia>
-          <CardContent>
-            <Typography>{product.name}</Typography>
-          </CardContent>
         </CardActionArea>
-      </NextLink>
-      <CardActions>
-        <Typography>${product.price}</Typography>
-      </CardActions>
-
-      <Button size="small" color="primary">
-        <NextLink href={`/product/${product.slug.current}`} passHref>
-          add to cart
-        </NextLink>
-      </Button>
+      </NextLink>{" "}
+      <CardContent>
+        <Typography component="h5" variant="h5" align="center">
+          {product.name}
+        </Typography>{" "}
+        <Typography align="center">${product.price}</Typography>
+      </CardContent>
+      <CardActions></CardActions>
     </Card>
   );
 };
