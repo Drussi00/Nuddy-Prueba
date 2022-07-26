@@ -2,6 +2,7 @@ import {
   Alert,
   Button,
   CircularProgress,
+  Container,
   Table,
   TableBody,
   TableCell,
@@ -63,45 +64,47 @@ function OrderHistoryScreen() {
   }, [router, userInfo]);
   return (
     <Layout title="Order History">
-      <Typography component="h1" variant="h1">
-        Order History
-      </Typography>
-      {loading ? (
-        <CircularProgress />
-      ) : error ? (
-        <Alert variant="danger">{error}</Alert>
-      ) : (
-        <TableContainer>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>ID</TableCell>
-                <TableCell>DATE</TableCell>
-                <TableCell>TOTAL</TableCell>
-                <TableCell>PAID</TableCell>
-                <TableCell>ACTION</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {orders.map((order) => (
-                <TableRow key={order._id}>
-                  <TableCell>{order._id}</TableCell>
-                  <TableCell>{order.createdAt}</TableCell>
-                  <TableCell>${order.totalPrice}</TableCell>
-                  <TableCell>
-                    {order.isPaid ? `paid at ${order.paidAt}` : "not paid"}
-                  </TableCell>
-                  <TableCell>
-                    <NextLink href={`/order/${order._id}`} passHref>
-                      <Button variant="contained">Details</Button>
-                    </NextLink>
-                  </TableCell>
+      <Container>
+        <Typography component="h1" variant="h1">
+          Order History
+        </Typography>
+        {loading ? (
+          <CircularProgress />
+        ) : error ? (
+          <Alert variant="danger">{error}</Alert>
+        ) : (
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>ID</TableCell>
+                  <TableCell>DATE</TableCell>
+                  <TableCell>TOTAL</TableCell>
+                  <TableCell>PAID</TableCell>
+                  <TableCell>ACTION</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )}
+              </TableHead>
+              <TableBody>
+                {orders.map((order) => (
+                  <TableRow key={order._id}>
+                    <TableCell>{order._id}</TableCell>
+                    <TableCell>{order.createdAt}</TableCell>
+                    <TableCell>${order.totalPrice}</TableCell>
+                    <TableCell>
+                      {order.isPaid ? `paid at ${order.paidAt}` : "not paid"}
+                    </TableCell>
+                    <TableCell>
+                      <NextLink href={`/order/${order._id}`} passHref>
+                        <Button variant="contained">Details</Button>
+                      </NextLink>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
+      </Container>
     </Layout>
   );
 }

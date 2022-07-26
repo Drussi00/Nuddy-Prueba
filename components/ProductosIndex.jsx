@@ -5,48 +5,42 @@ import {
   Divider,
   Grid,
   Typography,
+  Link,
 } from "@mui/material";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import classes from "../utils/classes";
 import { urlForThumbnail, urlFor } from "../utils/image";
-
-const ProductosIndex = ({ products }) => {
+import NextLink from "next/link";
+const ProductosIndex = ({ products, filteredH, filteredL, filteredT }) => {
   const [indexI, setindexI] = useState(0);
   const [indexC, setindexC] = useState(1);
   const [indexD, setindexD] = useState(2);
-  const [clicked, setClicked] = useState("Hoodies");
 
-  useEffect(() => {
-    products.map((product) => {
-      console.log(product.category);
-    });
-    const filteredArray = products.filter(
-      (product) => product.category === clicked
-    );
-  }, []);
+  const [category, setCategory] = useState(filteredH);
   ////////////////////////////////////////////////////////////////
+
   const RightHanlder = () => {
     if (
-      indexI < products.length - 1 &&
-      indexC < products.length - 1 &&
-      indexD < products.length - 1
+      indexI < category.length - 1 &&
+      indexC < category.length - 1 &&
+      indexD < category.length - 1
     ) {
       setindexI(indexI + 1);
       setindexC(indexC + 1);
       setindexD(indexD + 1);
     } else {
-      if (indexD === products.length - 1) {
+      if (indexD === category.length - 1) {
         setindexI(indexI + 1);
         setindexC(indexC + 1);
         setindexD(0);
       } else {
-        if (indexC === products.length - 1) {
+        if (indexC === category.length - 1) {
           setindexI(indexI + 1);
           setindexC(0);
           setindexD(indexD + 1);
         } else {
-          if (indexI === products.length - 1) {
+          if (indexI === category.length - 1) {
             setindexI(0);
             setindexC(indexC + 1);
             setindexD(indexD + 1);
@@ -58,19 +52,19 @@ const ProductosIndex = ({ products }) => {
 
   const leftHanlder = () => {
     if (indexI === 0 && indexC === 1 && indexD === 2) {
-      setindexI(products.length - 1);
+      setindexI(category.length - 1);
       setindexC(0);
       setindexD(1);
     } else {
-      if (indexI === products.length - 1) {
+      if (indexI === category.length - 1) {
         setindexI(indexI - 1);
-        setindexC(products.length - 1);
+        setindexC(category.length - 1);
         setindexD(0);
       } else {
-        if (indexC === products.length - 1) {
+        if (indexC === category.length - 1) {
           setindexI(indexI - 1);
           setindexC(indexC - 1);
-          setindexD(products.length - 1);
+          setindexD(category.length - 1);
         } else {
           setindexI(indexI - 1);
           setindexC(indexC - 1);
@@ -88,7 +82,7 @@ const ProductosIndex = ({ products }) => {
         </Typography>
       </Box>
 
-      <Container sx={{}}>
+      <Container>
         <Box
           display="flex"
           sx={{ justifyContent: "center", paddingTop: "20px" }}
@@ -110,9 +104,7 @@ const ProductosIndex = ({ products }) => {
             <Grid item>
               <Button
                 onClick={() => {
-                  console.log(clicked);
-                  setClicked("T-Shirt");
-                  console.log(clicked);
+                  setCategory(filteredT);
                 }}
               >
                 <Typography component="h6" variant="h6">
@@ -123,9 +115,7 @@ const ProductosIndex = ({ products }) => {
             <Grid item>
               <Button
                 onClick={() => {
-                  console.log(clicked);
-                  setClicked("Hoodies");
-                  console.log(clicked);
+                  setCategory(filteredH);
                 }}
               >
                 <Typography component="h6" variant="h6">
@@ -136,9 +126,7 @@ const ProductosIndex = ({ products }) => {
             <Grid item>
               <Button
                 onClick={() => {
-                  console.log(clicked);
-                  setClicked("Longs");
-                  console.log(clicked);
+                  setCategory(filteredL);
                 }}
               >
                 <Typography component="h6" variant="h6">
@@ -148,6 +136,7 @@ const ProductosIndex = ({ products }) => {
             </Grid>
           </Grid>
         </Box>
+
         <Box
           display="flex"
           sx={{
@@ -171,7 +160,7 @@ const ProductosIndex = ({ products }) => {
                 width="200"
                 height="200"
                 src={urlFor(
-                  products[indexI].image && products[indexI].image[0]
+                  category[indexI].image && category[indexI].image[0]
                 )}
               ></img>
             </Grid>
@@ -180,7 +169,7 @@ const ProductosIndex = ({ products }) => {
                 width="400"
                 height="400"
                 src={urlFor(
-                  products[indexC].image && products[indexC].image[0]
+                  category[indexC].image && category[indexC].image[0]
                 )}
               ></img>
             </Grid>{" "}
@@ -189,7 +178,7 @@ const ProductosIndex = ({ products }) => {
                 width="200"
                 height="200"
                 src={urlFor(
-                  products[indexD].image && products[indexD].image[0]
+                  category[indexD].image && category[indexD].image[0]
                 )}
               ></img>
             </Grid>
@@ -292,7 +281,14 @@ const ProductosIndex = ({ products }) => {
               width: "12%",
             }}
           >
-            The Basic
+            <NextLink
+              href={`/product/${category[indexC].slug.current}`}
+              passHref
+            >
+              <Link sx={{ textDecoration: "none" }}>
+                {category[indexC].name}
+              </Link>
+            </NextLink>
           </Button>
         </Box>
       </Container>

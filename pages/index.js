@@ -31,6 +31,7 @@ export default function Home() {
     loading: true,
   });
   const { loading, error, products } = state;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -42,7 +43,13 @@ export default function Home() {
     };
     fetchData();
   }, []);
-
+  const filteredT = products.filter(
+    (product) => product.category === "T-Shirt"
+  );
+  const filteredH = products.filter(
+    (product) => product.category === "Hoodies"
+  );
+  const filteredL = products.filter((product) => product.category === "Longs");
   return (
     <Layout>
       {loading ? (
@@ -53,7 +60,12 @@ export default function Home() {
         <Grid container spacing={20}>
           <Grid item md={12} sm={12} sx={{}}>
             <Carousel products={products} />
-            <ProductosIndex products={products} />
+            <ProductosIndex
+              products={products}
+              filteredH={filteredH}
+              filteredT={filteredT}
+              filteredL={filteredL}
+            />
             <Box
               sx={{
                 width: "100%",
