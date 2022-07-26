@@ -6,7 +6,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import classes from "../utils/classes";
 import { urlForThumbnail, urlFor } from "../utils/image";
@@ -15,29 +15,71 @@ const ProductosIndex = ({ products }) => {
   const [indexI, setindexI] = useState(0);
   const [indexC, setindexC] = useState(1);
   const [indexD, setindexD] = useState(2);
-  const changeSweaterUpHanlder = () => {
-    {
-      console.log(products.length);
-      console.log(indexD);
-    }
-    if (indexD === products.length) {
-      setindexI(0);
-      setindexC(1);
-      setindexD(2);
-    }
-    if (indexD <= products.length - 2) {
+  const [clicked, setClicked] = useState("Hoodies");
+
+  useEffect(() => {
+    products.map((product) => {
+      console.log(product.category);
+    });
+    const filteredArray = products.filter(
+      (product) => product.category === clicked
+    );
+  }, []);
+  ////////////////////////////////////////////////////////////////
+  const RightHanlder = () => {
+    if (
+      indexI < products.length - 1 &&
+      indexC < products.length - 1 &&
+      indexD < products.length - 1
+    ) {
       setindexI(indexI + 1);
       setindexC(indexC + 1);
       setindexD(indexD + 1);
     } else {
       if (indexD === products.length - 1) {
-        setindexI(products.length - 2);
-        setindexC(products.length - 1);
+        setindexI(indexI + 1);
+        setindexC(indexC + 1);
         setindexD(0);
+      } else {
+        if (indexC === products.length - 1) {
+          setindexI(indexI + 1);
+          setindexC(0);
+          setindexD(indexD + 1);
+        } else {
+          if (indexI === products.length - 1) {
+            setindexI(0);
+            setindexC(indexC + 1);
+            setindexD(indexD + 1);
+          }
+        }
       }
     }
   };
-  const changeSweaterDownHanlder = () => {};
+
+  const leftHanlder = () => {
+    if (indexI === 0 && indexC === 1 && indexD === 2) {
+      setindexI(products.length - 1);
+      setindexC(0);
+      setindexD(1);
+    } else {
+      if (indexI === products.length - 1) {
+        setindexI(indexI - 1);
+        setindexC(products.length - 1);
+        setindexD(0);
+      } else {
+        if (indexC === products.length - 1) {
+          setindexI(indexI - 1);
+          setindexC(indexC - 1);
+          setindexD(products.length - 1);
+        } else {
+          setindexI(indexI - 1);
+          setindexC(indexC - 1);
+          setindexD(indexD - 1);
+        }
+      }
+    }
+  };
+
   return (
     <Box>
       <Box display="flex" sx={classes.productosIndex}>
@@ -66,19 +108,43 @@ const ProductosIndex = ({ products }) => {
             }}
           >
             <Grid item>
-              <Typography component="h6" variant="h6">
-                T-Shirt
-              </Typography>
+              <Button
+                onClick={() => {
+                  console.log(clicked);
+                  setClicked("T-Shirt");
+                  console.log(clicked);
+                }}
+              >
+                <Typography component="h6" variant="h6">
+                  T-Shirt
+                </Typography>
+              </Button>
             </Grid>
             <Grid item>
-              <Typography component="h6" variant="h6">
-                Hoodies
-              </Typography>
+              <Button
+                onClick={() => {
+                  console.log(clicked);
+                  setClicked("Hoodies");
+                  console.log(clicked);
+                }}
+              >
+                <Typography component="h6" variant="h6">
+                  Hoodies
+                </Typography>
+              </Button>
             </Grid>
             <Grid item>
-              <Typography component="h6" variant="h6">
-                Longs
-              </Typography>
+              <Button
+                onClick={() => {
+                  console.log(clicked);
+                  setClicked("Longs");
+                  console.log(clicked);
+                }}
+              >
+                <Typography component="h6" variant="h6">
+                  Longs
+                </Typography>
+              </Button>
             </Grid>
           </Grid>
         </Box>
@@ -149,7 +215,7 @@ const ProductosIndex = ({ products }) => {
           <Grid container spacing={50} sx={{ justifyContent: "center" }}>
             <Grid item>
               <button
-                onClick={changeSweaterUpHanlder}
+                onClick={leftHanlder}
                 style={{
                   width: "30px",
                   height: "30px",
@@ -164,7 +230,20 @@ const ProductosIndex = ({ products }) => {
               <Grid>
                 <Button
                   onClick={() => {
-                    changeSweaterUpHanlder();
+                    leftHanlder();
+                  }}
+                  style={{
+                    width: "10px",
+                    height: "40px",
+                    backgroundColor: "white",
+                    borderRadius: "50%",
+                    fontSize: "16px",
+                    backgroundColor: "black ",
+                  }}
+                ></Button>
+                <Button
+                  onClick={() => {
+                    RightHanlder();
                   }}
                   style={{
                     width: "10px",

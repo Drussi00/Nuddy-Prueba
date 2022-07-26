@@ -42,6 +42,8 @@ import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import EmailIcon from "@mui/icons-material/Email";
 import { styled, alpha } from "@mui/material/styles";
+
+////////////////////////////////////////////////////////////////
 export default function Layout({ title, description, children }) {
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
