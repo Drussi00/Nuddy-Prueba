@@ -17,6 +17,7 @@ import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import Carousel from "../components/Carousel";
 import ProductosIndex from "../components/ProductosIndex";
+import ColecionesIndex from "../components/ColecionesIndex";
 
 export default function Home() {
   const router = useRouter();
@@ -30,12 +31,15 @@ export default function Home() {
     error: "",
     loading: true,
   });
+  const [images, setimages] = useState({ images: [] });
   const { loading, error, products } = state;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const products = await client.fetch(`*[_type == 'product']`);
+        const images = await client.fetch(`*[_type == 'images']`);
+        setimages(images);
         setState({ products, loading: false });
       } catch (error) {
         setState({ loading: false, error: error.message });
@@ -57,71 +61,16 @@ export default function Home() {
       ) : error ? (
         <Alert variant="danger">{error}</Alert>
       ) : (
-        <Grid container spacing={20}>
+        <Grid container spacing={0}>
           <Grid item md={12} sm={12} sx={{}}>
-            <Carousel products={products} />
+            <Carousel images={images} />
             <ProductosIndex
               products={products}
               filteredH={filteredH}
               filteredT={filteredT}
               filteredL={filteredL}
             />
-            <Box
-              sx={{
-                width: "100%",
-                height: "100vh",
-                backgroundColor: "#A7D1E7",
-                borderStyle: "solid",
-                borderColor: "black",
-                borderWidth: "2px",
-              }}
-            >
-              <Container>
-                <Box
-                  display="flex"
-                  sx={{ justifyContent: "center", paddingTop: "30px" }}
-                >
-                  <Typography component="h4" variant="h4">
-                    Coleciones
-                  </Typography>
-                </Box>
-                <Box>
-                  <Grid
-                    container
-                    spacing={2}
-                    sx={{ paddingTop: "30px", justifyContent: "center" }}
-                  >
-                    <Grid item>
-                      <Box
-                        sx={{
-                          width: "350px",
-                          height: "550px",
-                          backgroundColor: "white",
-                        }}
-                      ></Box>
-                    </Grid>
-                    <Grid item>
-                      <Box
-                        sx={{
-                          width: "350px",
-                          height: "550px",
-                          backgroundColor: "white",
-                        }}
-                      ></Box>
-                    </Grid>
-                    <Grid item>
-                      <Box
-                        sx={{
-                          width: "350px",
-                          height: "550px",
-                          backgroundColor: "white",
-                        }}
-                      ></Box>
-                    </Grid>
-                  </Grid>
-                </Box>
-              </Container>
-            </Box>
+            <ColecionesIndex />
           </Grid>
         </Grid>
       )}

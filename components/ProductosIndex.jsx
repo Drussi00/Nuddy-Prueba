@@ -75,7 +75,7 @@ const ProductosIndex = ({ products, filteredH, filteredL, filteredT }) => {
   };
 
   return (
-    <Box>
+    <Box sx={{ height: "100vh" }}>
       <Box display="flex" sx={classes.productosIndex}>
         <Typography>
           Envio gratis a todo el pais por compras superiores a $200.000
@@ -94,8 +94,9 @@ const ProductosIndex = ({ products, filteredH, filteredL, filteredT }) => {
         <Box display="flex">
           <Grid
             container
-            spacing={10}
+            spacing={11}
             sx={{
+              zIndex: "100",
               justifyContent: "center",
               paddingTop: "20px",
               alignItems: "center",
@@ -141,7 +142,7 @@ const ProductosIndex = ({ products, filteredH, filteredL, filteredT }) => {
           display="flex"
           sx={{
             justifyContent: "center",
-            paddingTop: "20px",
+            paddingTop: "0px",
             alignItems: "center",
             paddingBottom: "50px",
           }}
@@ -193,75 +194,6 @@ const ProductosIndex = ({ products, filteredH, filteredL, filteredT }) => {
             margin: "auto",
           }}
         ></Box>
-        <Box
-          display="flex"
-          sx={{
-            justifyContent: "center",
-            paddingTop: "20px",
-            alignItems: "center",
-          }}
-        >
-          <Grid container spacing={50} sx={{ justifyContent: "center" }}>
-            <Grid item>
-              <button
-                onClick={leftHanlder}
-                style={{
-                  width: "30px",
-                  height: "30px",
-                  backgroundColor: "white",
-                  borderRadius: "50%",
-                  fontSize: "16px",
-                }}
-              ></button>
-            </Grid>
-
-            <Grid item>
-              <Grid>
-                <Button
-                  onClick={() => {
-                    leftHanlder();
-                  }}
-                  style={{
-                    width: "10px",
-                    height: "40px",
-                    backgroundColor: "white",
-                    borderRadius: "50%",
-                    fontSize: "16px",
-                    backgroundColor: "black ",
-                  }}
-                ></Button>
-                <Button
-                  onClick={() => {
-                    RightHanlder();
-                  }}
-                  style={{
-                    width: "10px",
-                    height: "40px",
-                    backgroundColor: "white",
-                    borderRadius: "50%",
-                    fontSize: "16px",
-                    backgroundColor: "black ",
-                  }}
-                ></Button>
-              </Grid>
-            </Grid>
-
-            <Grid item>
-              <button
-                onClick={() => {
-                  changeSweaterUpHanlder;
-                }}
-                style={{
-                  width: "30px",
-                  height: "30px",
-                  backgroundColor: "white",
-                  borderRadius: "50%",
-                  fontSize: "16px",
-                }}
-              ></button>
-            </Grid>
-          </Grid>
-        </Box>
         <Box
           display="flex"
           sx={{
