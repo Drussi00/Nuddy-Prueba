@@ -45,7 +45,6 @@ function PlaceOrderScreen() {
   const shippingPrice = itemsPrice > 200 ? 0 : 15;
   const taxPrice = round2(itemsPrice * 0.15);
   const totalPrice = round2(itemsPrice + shippingPrice + taxPrice);
-
   useEffect(() => {
     if (!paymentMethod) {
       router.push("/payment");
@@ -58,31 +57,62 @@ function PlaceOrderScreen() {
   const placeOrderHandler = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.post(
-        "/api/orders",
-        {
-          orderItems: cartItems.map((x) => ({
-            ...x,
-            countInStock: undefined,
-            slug: undefined,
-          })),
-          shippingAddress,
-          paymentMethod,
-          itemsPrice,
-          shippingPrice,
-          taxPrice,
-          totalPrice,
-        },
-        {
-          headers: {
-            authorization: `Bearer ${userInfo.token}`,
+      if(paymentMethod === "PayPal"){
+        const { data } = await axios.post(
+          "/api/orders/PayPal",
+          {
+            orderItems: cartItems.map((x) => ({
+              ...x,
+              countInStock: undefined,
+              slug: undefined,
+            })),
+            shippingAddress,
+            paymentMethod,
+            itemsPrice,
+            shippingPrice,
+            taxPrice,
+            totalPrice,
           },
-        }
-      );
-      dispatch({ type: "CART_CLEAR" });
-      jsCookie.remove("cartItems");
-      setLoading(false);
-      router.push(`/order/${data}`);
+          {
+            headers: {
+              authorization: `Bearer ${userInfo.token}`,
+            },
+          }
+        );
+        dispatch({ type: "CART_CLEAR" });
+        jsCookie.remove("cartItems");
+        setLoading(false);
+        
+        router.push(`/order/PayPal/${data}`);
+      }else{
+        const { data } = await axios.post(
+          "/api/orders/MercadoPago",
+          {
+            orderItems: cartItems.map((x) => ({
+              ...x,
+              countInStock: undefined,
+              slug: undefined,
+            })),
+            shippingAddress,
+            paymentMethod,
+            itemsPrice,
+            shippingPrice,
+            taxPrice,
+            totalPrice,
+          },
+          {
+            headers: {
+              authorization: `Bearer ${userInfo.token}`,
+            },
+          }
+        );
+        console.log(data);
+        dispatch({ type: "CART_CLEAR" });
+        jsCookie.remove("cartItems");
+        setLoading(false);
+        router.push(`/order/MercadoPago/${data.global}`);
+      }
+   
     } catch (err) {
       setLoading(false);
       enqueueSnackbar(getError(err), { variant: "error" });
