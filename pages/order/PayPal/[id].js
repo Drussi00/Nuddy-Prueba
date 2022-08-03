@@ -21,11 +21,11 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import React, { useContext, useEffect, useReducer } from "react";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
-import Layout from "../../components/Layout";
-import classes from "../../utils/classes";
-import { Store } from "../../utils/Store";
+import Layout from "../../../components/Layout";
+import classes from "../../../utils/classes";
+import { Store } from "../../../utils/Store";
 import { useRouter } from "next/router";
-import { getError } from "../../utils/error";
+import { getError } from "../../../utils/error";
 import axios from "axios";
 import { useSnackbar } from "notistack";
 
@@ -86,7 +86,7 @@ function OrderScreen({ params }) {
     const fetchOrder = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`/api/orders/${orderId}`, {
+        const { data } = await axios.get(`/api/orders/PayPal/${orderId}`, {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
 
