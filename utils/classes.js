@@ -4,6 +4,7 @@ const classes = {
   section: {
     marginTop: 1,
     marginBottom: 1,
+    justifyContent: "center",
   },
   smallText: {
     fontSize: "13px",
@@ -93,6 +94,16 @@ const classes = {
   },
   imageP: {
     filter: " drop-shadow(-2px 26px 18px rgba(0, 0, 0, 0.6));",
+  },
+  card: {
+    cursor: "pointer",
+    transform: "scale(1, 1)",
+    transition: "transform 0.5s ease",
+    color: "black",
+    "&:hover": {
+      backgroundColor: "black",
+      transform: "scale(1.1, 1.1)",
+    },
   },
 };
 

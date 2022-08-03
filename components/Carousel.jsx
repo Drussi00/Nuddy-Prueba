@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect } from "react";
+
 import Carousel from "react-bootstrap/Carousel";
 import { urlFor } from "../utils/image";
 

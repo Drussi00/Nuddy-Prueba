@@ -1,6 +1,9 @@
 import { createTheme } from "@mui/material/styles";
+import "bootstrap/dist/css/bootstrap.min.css";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
+import Dropdown from "react-bootstrap/Dropdown";
+import CloseIcon from "@mui/icons-material/Close";
 import {
   AppBar,
   Badge,
@@ -174,42 +177,108 @@ export default function Layout({ title, description, children }) {
               </Box>
             </Box>
             <Drawer
+              sx={{ width: "250px" }}
               anchor="left"
               open={sidbarVisible}
               onClose={sidebarCloseHandler}
             >
               <List>
-                <ListItem>
+                <ListItem sx={{ paddingTop: "0" }}>
                   <Box
+                    sx={{ width: "220px" }}
                     display="flex"
                     alignItems="center"
-                    justifyContent="space-between"
+                    justifyContent="end"
                   >
-                    <Typography>Shopping by category</Typography>
-                    <IconButton
-                      aria-label="close"
-                      onClick={sidebarCloseHandler}
-                    >
-                      <CancelIcon />
-                    </IconButton>
+                    <Box display="flex">
+                      <IconButton
+                        aria-label="close"
+                        onClick={sidebarCloseHandler}
+                      >
+                        <CloseIcon sx={{ color: "black" }} />
+                      </IconButton>
+                    </Box>
                   </Box>
                 </ListItem>
                 <Divider light />
-                {categories.map((category) => (
-                  <NextLink
-                    key={category}
-                    href={`/search?category=${category}`}
-                    passHref
+                <Dropdown style={{ zIndex: "100%" }}>
+                  <Dropdown.Toggle variant="" id="dropdown-basic">
+                    Shop
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu
+                    style={{ backgroundColor: "white", border: "none" }}
                   >
-                    <ListItem
-                      button
-                      component="a"
-                      onClick={sidebarCloseHandler}
-                    >
-                      <ListItemText primary={category}></ListItemText>
-                    </ListItem>
-                  </NextLink>
-                ))}
+                    {categories.map((category) => (
+                      <NextLink
+                        key={category}
+                        href={`/search?category=${category}`}
+                        passHref
+                      >
+                        <ListItem
+                          button
+                          component="a"
+                          onClick={sidebarCloseHandler}
+                        >
+                          <ListItemText primary={category}></ListItemText>
+                        </ListItem>
+                      </NextLink>
+                    ))}
+                    <Dropdown style={{ border: "none" }}>
+                      <Dropdown.Toggle variant="" id="dropdown-basic">
+                        Coleciones
+                      </Dropdown.Toggle>
+
+                      <Dropdown.Menu
+                        style={{
+                          backgroundColor: "transparent",
+                          border: "none",
+                        }}
+                      >
+                        {categories.map((category) => (
+                          <NextLink
+                            key={category}
+                            href={`/search?category=${category}`}
+                            passHref
+                          >
+                            <ListItem
+                              button
+                              component="a"
+                              onClick={sidebarCloseHandler}
+                            >
+                              <ListItemText primary={category}></ListItemText>
+                            </ListItem>
+                          </NextLink>
+                        ))}
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </Dropdown.Menu>
+                </Dropdown>
+                <Dropdown>
+                  <Dropdown.Toggle variant="" id="dropdown-basic">
+                    Coleciones
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu
+                    style={{ backgroundColor: "transparent", border: "none" }}
+                  >
+                    {categories.map((category) => (
+                      <NextLink
+                        key={category}
+                        href={`/search?category=${category}`}
+                        passHref
+                      >
+                        <ListItem
+                          button
+                          component="a"
+                          onClick={sidebarCloseHandler}
+                        >
+                          <ListItemText primary={category}></ListItemText>
+                        </ListItem>
+                      </NextLink>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
               </List>
             </Drawer>
 

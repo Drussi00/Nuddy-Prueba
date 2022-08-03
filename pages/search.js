@@ -1,9 +1,13 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Alert,
   Button,
+  ButtonGroup,
   CircularProgress,
   Container,
+  FormControl,
   Grid,
+  InputLabel,
   List,
   ListItem,
   MenuItem,
@@ -22,23 +26,7 @@ import classes from "../utils/classes";
 import client from "../utils/client";
 import { urlForThumbnail } from "../utils/image";
 import { Store } from "../utils/Store";
-
-const prices = [
-  {
-    name: "$1 to $50",
-    value: "1-50",
-  },
-  {
-    name: "$51 to $200",
-    value: "51-200",
-  },
-  {
-    name: "$201 to $1000",
-    value: "201-1000",
-  },
-];
-
-const ratings = [1, 2, 3, 4, 5];
+import Dropdown from "react-bootstrap/Dropdown";
 
 export default function SearchScreen() {
   const router = useRouter();
@@ -163,6 +151,11 @@ export default function SearchScreen() {
     });
     router.push("/cart");
   };
+  const [age, setAge] = React.useState("");
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
 
   return (
     <Layout title="search">
@@ -172,77 +165,64 @@ export default function SearchScreen() {
         </Typography>
       </Box>
       <Container>
-        <Grid sx={classes.section} container spacing={2}>
-          <Grid item md={3}>
-            <List>
-              <ListItem>
-                <Box sx={classes.fullWidth}>
-                  <Typography>Categories</Typography>
-                  <Select fullWidth value={category} onChange={categoryHandler}>
-                    {categories &&
-                      categories.map((category) => (
-                        <MenuItem key={category} value={category}>
-                          {category}
-                        </MenuItem>
-                      ))}
-                  </Select>
-                </Box>
-              </ListItem>
-              <ListItem>
-                <Box sx={classes.fullWidth}>
-                  <Typography>Prices</Typography>
-                  <Select value={price} onChange={priceHandler} fullWidth>
-                    <MenuItem value="Shop All">Shop All</MenuItem>
-                    {prices.map((price) => (
-                      <MenuItem key={price.value} value={price.value}>
-                        {price.name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </Box>
-              </ListItem>
-              <ListItem>
-                <Box sx={classes.fullWidth}>
-                  <Typography>Ratings</Typography>
-                  <Select value={rating} onChange={ratingHandler} fullWidth>
-                    <MenuItem value="Shop All">Shop All</MenuItem>
-                    {ratings.map((rating) => (
-                      <MenuItem dispaly="flex" key={rating} value={rating}>
-                        <Rating value={rating} readOnly />
-                        <Typography component="span">&amp; Up</Typography>
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </Box>
-              </ListItem>
-            </List>
-          </Grid>
+        <Grid sx={classes.section} container spacing={0}>
+          {" "}
           <Grid item md={9}>
-            <Grid container justifyContent="space-between" alignItems="center">
-              <Grid item>
-                {products && products.length !== 0 ? products.length : "No"}{" "}
-                Results
-                {query !== "Shop All" && query !== "" && " : " + query}
-                {price !== "Shop All" && " : Price " + price}
-                {rating !== "Shop All" && " : Rating " + rating + " & up"}
-                {(query !== "Shop All" && query !== "") ||
-                rating !== "Shop All" ||
-                price !== "Shop All" ? (
-                  <Button onClick={() => router.push("/search")}>X</Button>
-                ) : null}
-              </Grid>
+            <Grid
+              container
+              justifyContent="space-between"
+              alignItems="center"
+              sx={{ justifyContent: "center" }}
+            >
+              <ButtonGroup
+                variant="outlined"
+                aria-label="outlined button group"
+                sx={{
+                  border: "1.5px solid black",
+                  borderRadius: "8px ",
+                }}
+              >
+                <Select
+                  label="Filtrar"
+                  fullWidth
+                  value={category}
+                  onChange={categoryHandler}
+                  sx={{
+                    width: "120px",
+                    height: "45px",
+                    borderRight: "1px solid black",
+                    borderColor: "none",
+                    borderRadius: "0 ",
+                  }}
+                  inputProps={{ "aria-label": "Without label" }}
+                >
+                  {categories &&
+                    categories.map((category) => (
+                      <MenuItem key={category} value={category}>
+                        {category}
+                      </MenuItem>
+                    ))}
+                </Select>
+                <Button sx={{ width: "900px", border: "none" }}>Hoodie</Button>
 
-              <Grid item>
-                <Typography component="span" sx={classes.sort}>
-                  Sort by
-                </Typography>
-                <Select value={sort} onChange={sortHandler}>
+                <Select
+                  value={sort}
+                  onChange={sortHandler}
+                  sx={{
+                    width: "100",
+                    height: "45px",
+                    border: "none",
+                    borderLeft: "1px solid black",
+                    border: "none",
+                    borderRadius: "0 ",
+                  }}
+                  inputProps={{ "aria-label": "Without label" }}
+                >
                   <MenuItem value="default">Default</MenuItem>
                   <MenuItem value="lowest">Price: Low to High</MenuItem>
                   <MenuItem value="highest">Price: High to Low</MenuItem>
-                  <MenuItem value="toprated">Customer Reviews</MenuItem>
                 </Select>
-              </Grid>
+              </ButtonGroup>
             </Grid>
 
             <Grid sx={classes.section} container spacing={3}>
