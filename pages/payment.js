@@ -68,8 +68,8 @@ export default function PaymentScreen() {
                     control={<Radio />}
                   ></FormControlLabel>
                   <FormControlLabel
-                    label="Stripe"
-                    value="Stripe"
+                    label="MercadoPago"
+                    value="MercadoPago"
                     control={<Radio />}
                   ></FormControlLabel>
                   <FormControlLabel

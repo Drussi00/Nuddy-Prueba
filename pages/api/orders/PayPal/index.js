@@ -1,13 +1,14 @@
 import axios from "axios";
 import nc from "next-connect";
-import { isAuth } from "../../../utils/auth";
-import config from "../../../utils/config";
+import { isAuth } from "../../../../utils/auth";
+import config from "../../../../utils/config";
 
 const handler = nc();
 
 handler.use(isAuth);
 
 handler.post(async (req, res) => {
+  console.log(req.body)
   const projectId = config.projectId;
   const dataset = config.dataset;
   const tokenWithWriteAccess = process.env.SANITY_AUTH_TOKEN;
