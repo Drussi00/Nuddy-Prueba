@@ -14,10 +14,13 @@ import {
   MenuItem,
   Rating,
   Select,
+  Box,
   Typography,
 } from "@mui/material";
+
 import NextLink from "next/link";
-import { Box } from "@mui/system";
+
+
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
