@@ -9,6 +9,7 @@ import {
   Typography,
   Button,
   Rating,
+  Box,
 } from "@mui/material";
 import { urlForThumbnail } from "../utils/image";
 import { useRouter } from "next/router";
@@ -17,7 +18,7 @@ import classes from "../utils/classes";
 const productItem = ({ product, addToCartHandler }) => {
   const router = useRouter();
   return (
-    <div raised={true} style={classes.card}>
+    <Box raised={true} sx={classes.card}>
       <NextLink href={`/product/${product.slug.current}`} passHref>
         <CardActionArea>
           <CardMedia
@@ -35,7 +36,7 @@ const productItem = ({ product, addToCartHandler }) => {
         <Typography align="center">${product.price}</Typography>
       </CardContent>
       <CardActions></CardActions>
-    </div>
+    </Box>
   );
 };
 

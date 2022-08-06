@@ -133,7 +133,7 @@ export default function Layout({ title, description, children }) {
   };
   const submitHandler = (e) => {
     e.preventDefault();
-    router.push(`/search?query=${query}`);
+    router.push(`/search?query=${query}&category=Shop%20All`);
   };
 
   return (
@@ -169,7 +169,7 @@ export default function Layout({ title, description, children }) {
                     <InputBase
                       name="query"
                       sx={classes.searchInput}
-                      placeholder="Search products"
+                      placeholder="Busca Productos"
                       onChange={queryChangeHandler}
                     />
                   </Box>
@@ -224,14 +224,21 @@ export default function Layout({ title, description, children }) {
                         </ListItem>
                       </NextLink>
                     ))}
-                    <Dropdown style={{ border: "none" }}>
+                    <Dropdown
+                      className="coleciones1"
+                      style={{
+                        border: "none",
+                        backgroundColor: "white",
+                        zIndex: "100%",
+                      }}
+                    >
                       <Dropdown.Toggle variant="" id="dropdown-basic">
                         Coleciones
                       </Dropdown.Toggle>
 
                       <Dropdown.Menu
                         style={{
-                          backgroundColor: "transparent",
+                          backgroundColor: "white",
                           border: "none",
                         }}
                       >
@@ -250,17 +257,35 @@ export default function Layout({ title, description, children }) {
                             </ListItem>
                           </NextLink>
                         ))}
+                        <NextLink href={`/nosotros}`} passHref>
+                          <ListItem
+                            button
+                            component="a"
+                            onClick={sidebarCloseHandler}
+                          >
+                            <ListItemText>Nosotros</ListItemText>
+                          </ListItem>
+                        </NextLink>
                       </Dropdown.Menu>
                     </Dropdown>
+                    <NextLink href={`/nosotros}`} passHref>
+                      <ListItem
+                        button
+                        component="a"
+                        onClick={sidebarCloseHandler}
+                      >
+                        <ListItemText>Nosotros</ListItemText>
+                      </ListItem>
+                    </NextLink>
                   </Dropdown.Menu>
                 </Dropdown>
-                <Dropdown>
+                <Dropdown className="coleciones2">
                   <Dropdown.Toggle variant="" id="dropdown-basic">
                     Coleciones
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu
-                    style={{ backgroundColor: "transparent", border: "none" }}
+                    style={{ backgroundColor: "white", border: "none" }}
                   >
                     {categories.map((category) => (
                       <NextLink
@@ -277,8 +302,22 @@ export default function Layout({ title, description, children }) {
                         </ListItem>
                       </NextLink>
                     ))}
+                    <NextLink href={`/nosotros}`} passHref>
+                      <ListItem
+                        button
+                        component="a"
+                        onClick={sidebarCloseHandler}
+                      >
+                        <ListItemText>Nosotros</ListItemText>
+                      </ListItem>
+                    </NextLink>
                   </Dropdown.Menu>
                 </Dropdown>
+                <NextLink href={`/nosotros}`} passHref>
+                  <ListItem button component="a" onClick={sidebarCloseHandler}>
+                    <ListItemText>Nosotros</ListItemText>
+                  </ListItem>
+                </NextLink>
               </List>
             </Drawer>
 
