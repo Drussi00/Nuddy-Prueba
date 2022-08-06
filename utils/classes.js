@@ -101,7 +101,6 @@ const classes = {
     transition: "transform 0.5s ease",
     color: "black",
     "&:hover": {
-      backgroundColor: "black",
       transform: "scale(1.1, 1.1)",
     },
   },

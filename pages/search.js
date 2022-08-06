@@ -10,11 +10,13 @@ import {
   InputLabel,
   List,
   ListItem,
+  ListItemText,
   MenuItem,
   Rating,
   Select,
   Typography,
 } from "@mui/material";
+import NextLink from "next/link";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -26,7 +28,6 @@ import classes from "../utils/classes";
 import client from "../utils/client";
 import { urlForThumbnail } from "../utils/image";
 import { Store } from "../utils/Store";
-import Dropdown from "react-bootstrap/Dropdown";
 
 export default function SearchScreen() {
   const router = useRouter();
@@ -113,12 +114,6 @@ export default function SearchScreen() {
   const sortHandler = (e) => {
     filterSearch({ sort: e.target.value });
   };
-  const priceHandler = (e) => {
-    filterSearch({ price: e.target.value });
-  };
-  const ratingHandler = (e) => {
-    filterSearch({ rating: e.target.value });
-  };
 
   const {
     state: { cart },
@@ -151,12 +146,8 @@ export default function SearchScreen() {
     });
     router.push("/cart");
   };
-  const [age, setAge] = React.useState("");
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-
+  const [cat, setcat] = useState("Shop All");
   return (
     <Layout title="search">
       <Box display="flex" sx={classes.productosIndex}>
@@ -183,7 +174,7 @@ export default function SearchScreen() {
                 }}
               >
                 <Select
-                  label="Filtrar"
+                  label={category}
                   fullWidth
                   value={category}
                   onChange={categoryHandler}
@@ -196,14 +187,27 @@ export default function SearchScreen() {
                   }}
                   inputProps={{ "aria-label": "Without label" }}
                 >
-                  {categories &&
-                    categories.map((category) => (
-                      <MenuItem key={category} value={category}>
-                        {category}
-                      </MenuItem>
-                    ))}
+                  {categories.map((category) => (
+                    <MenuItem value={category}>
+                      <NextLink
+                        key={category}
+                        href={`/search?category=${category}`}
+                        passHref
+                      >
+                        <ListItem
+                          button
+                          component="a"
+                          onClick={() => {
+                            setcat(category);
+                          }}
+                        >
+                          <ListItemText primary={category}></ListItemText>
+                        </ListItem>
+                      </NextLink>
+                    </MenuItem>
+                  ))}
                 </Select>
-                <Button sx={{ width: "900px", border: "none" }}>Hoodie</Button>
+                <Button sx={{ width: "800px", border: "none" }}>{cat}</Button>
 
                 <Select
                   value={sort}
@@ -218,9 +222,9 @@ export default function SearchScreen() {
                   }}
                   inputProps={{ "aria-label": "Without label" }}
                 >
-                  <MenuItem value="default">Default</MenuItem>
-                  <MenuItem value="lowest">Price: Low to High</MenuItem>
-                  <MenuItem value="highest">Price: High to Low</MenuItem>
+                  <MenuItem value="default">Ordenar</MenuItem>
+                  <MenuItem value="lowest">Precio: Menor a Mayor</MenuItem>
+                  <MenuItem value="highest">Precio: Mayor a Menor</MenuItem>
                 </Select>
               </ButtonGroup>
             </Grid>
