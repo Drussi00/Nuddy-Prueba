@@ -4,7 +4,10 @@ import { isAuth } from "../../../../utils/auth";
 const handler = nc();
 handler.use(isAuth);
 handler.post(async (req, res) => {
-  console.log("entra")
+
+  console.log(mercadopago);
+  console.log("entra");
+
   let preference = {
     items: req.body.orderItems.map((producto)=>{
       return {
@@ -18,9 +21,7 @@ handler.post(async (req, res) => {
 
   console.log(preference);
   try {
-    const response = await mercadopago.preferences.create(
-      preference
-    );
+    const response = await mercadopago.preferences.create(preference);
 
     res.status(201).json({
       global: response.body.id,
