@@ -189,24 +189,11 @@ export default function SearchScreen() {
                     borderRadius: "0 ",
                   }}
                   inputProps={{ "aria-label": "Without label" }}
+                  className="borrarFieldet"
                 >
                   {categories.map((category) => (
-                    <MenuItem value={category}>
-                      <NextLink
-                        key={category}
-                        href={`/search?category=${category}`}
-                        passHref
-                      >
-                        <ListItem
-                          button
-                          component="a"
-                          onClick={() => {
-                            setcat(category);
-                          }}
-                        >
-                          <ListItemText primary={category}></ListItemText>
-                        </ListItem>
-                      </NextLink>
+                    <MenuItem value={category} onClick={() => router.push(`/search?category=${category}`)}>
+                       {category}
                     </MenuItem>
                   ))}
                 </Select>
@@ -224,6 +211,7 @@ export default function SearchScreen() {
                     borderRadius: "0 ",
                   }}
                   inputProps={{ "aria-label": "Without label" }}
+                  className="borrarFieldet"
                 >
                   <MenuItem value="default">Ordenar</MenuItem>
                   <MenuItem value="lowest">Precio: Menor a Mayor</MenuItem>
