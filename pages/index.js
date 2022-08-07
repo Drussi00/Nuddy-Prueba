@@ -20,6 +20,18 @@ import ProductosIndex from "../components/ProductosIndex";
 import ColecionesIndex from "../components/ColecionesIndex";
 
 export default function Home() {
+  const [Width, setWidth] = useState(window.innerWidth); 
+  const cambiarTamaño = ()=>{
+    setWidth(window.innerWidth);
+  }
+  useEffect(()=>{
+    window.addEventListener('resize',cambiarTamaño);
+    return ()=>{
+      window.removeEventListener('resize', cambiarTamaño)
+   }
+ })
+  
+
   const router = useRouter();
   const {
     state: { cart },
@@ -54,6 +66,8 @@ export default function Home() {
     (product) => product.category === "Hoodies"
   );
   const filteredL = products.filter((product) => product.category === "Longs");
+
+  console.log(Width)
   return (
     <Layout>
       {loading ? (

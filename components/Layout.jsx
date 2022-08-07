@@ -48,6 +48,8 @@ import { styled, alpha } from "@mui/material/styles";
 
 ////////////////////////////////////////////////////////////////
 export default function Layout({ title, description, children }) {
+ 
+  
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const { darkMode, cart, userInfo } = state;
@@ -321,7 +323,7 @@ export default function Layout({ title, description, children }) {
               </List>
             </Drawer>
 
-            <Box display="flex" sx={{ paddingRight: "200px" }}>
+            <Box display="flex" sx={{ paddingRight: isDesktop?"200px":"0" }}>
               <NextLink href="/" passHref>
                 <Link>
                   <Typography sx={classes.brand}>Nuddy Minds </Typography>
@@ -349,6 +351,7 @@ export default function Layout({ title, description, children }) {
 
               {userInfo ? (
                 <>
+                {(isDesktop)?<>
                   <Button
                     aria-controls="simple-menu"
                     aria-haspopup="true"
@@ -377,7 +380,7 @@ export default function Layout({ title, description, children }) {
                       Order History
                     </MenuItem>
                     <MenuItem onClick={logoutClickHandler}>Logout</MenuItem>
-                  </Menu>
+                  </Menu></>:null}
                 </>
               ) : (
                 <NextLink href="/login" passHref>
