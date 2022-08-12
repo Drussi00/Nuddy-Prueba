@@ -9,7 +9,6 @@ const classes = {
   },
   main: {
     marginTop: 0,
-    minHeight: "100vh",
   },
   footer: {
     marginTop: 5,
@@ -129,6 +128,10 @@ const classes = {
       borderWidth: "2",
       textDecorationThickness: "1.5px",
     },
+  },
+  visibleI: {
+    display: "initial",
+    filter: " drop-shadow(-2px 26px 18px rgba(0, 0, 0, 0.6));",
   },
 };
 

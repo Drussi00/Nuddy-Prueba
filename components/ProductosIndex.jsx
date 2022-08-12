@@ -6,6 +6,7 @@ import {
   Grid,
   Typography,
   Link,
+  useMediaQuery,
 } from "@mui/material";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -73,11 +74,11 @@ const ProductosIndex = ({ products, filteredH, filteredL, filteredT }) => {
       }
     }
   };
-
+  const isDesktop = useMediaQuery("(min-width:600px)");
   return (
-    <Box sx={{ height: "100vh" }}>
+    <Box sx={{ height: isDesktop ? "100vh" : "900px" }}>
       <Box display="flex" sx={classes.productosIndex}>
-        <Typography>
+        <Typography sx={{ fontWeight: "bold" }}>
           Envio gratis a todo el pais por compras superiores a $200.000
         </Typography>
       </Box>
@@ -94,7 +95,7 @@ const ProductosIndex = ({ products, filteredH, filteredL, filteredT }) => {
         <Box display="flex">
           <Grid
             container
-            spacing={11}
+            spacing={isDesktop ? 8 : 4}
             sx={{
               zIndex: "100",
               justifyContent: "center",
@@ -104,7 +105,7 @@ const ProductosIndex = ({ products, filteredH, filteredL, filteredT }) => {
           >
             <Grid item>
               <Button
-                sx={classes.catBut}
+                sx={{ ...classes.catBut }}
                 onClick={() => {
                   setCategory(filteredT);
                 }}
@@ -126,7 +127,7 @@ const ProductosIndex = ({ products, filteredH, filteredL, filteredT }) => {
                 </Typography>
               </Button>
             </Grid>
-            <Grid item>
+            <Grid item sm={1}>
               <Button
                 onClick={() => {
                   setCategory(filteredL);
@@ -159,7 +160,7 @@ const ProductosIndex = ({ products, filteredH, filteredL, filteredT }) => {
               alignItems: "center",
             }}
           >
-            <Grid item sx={classes.imageP}>
+            <Grid item sx={isDesktop ? classes.visibleI : classes.hidden}>
               <img
                 width="200"
                 height="200"
@@ -177,7 +178,7 @@ const ProductosIndex = ({ products, filteredH, filteredL, filteredT }) => {
                 )}
               ></img>
             </Grid>{" "}
-            <Grid item sx={classes.imageP}>
+            <Grid item sx={isDesktop ? classes.visibleI : classes.hidden}>
               <img
                 width="200"
                 height="200"
@@ -207,8 +208,21 @@ const ProductosIndex = ({ products, filteredH, filteredL, filteredT }) => {
           }}
         >
           {" "}
+          <Button
+            size="large"
+            sx={{
+              backgroundColor: "white",
+              borderRadius: "10px",
+              color: "black",
+              border: " 2px solid black",
+              width: "10%",
+            }}
+            onClick={leftHanlder}
+          >
+            Prev
+          </Button>
           <NextLink href={`/product/${category[indexC].slug.current}`} passHref>
-            <Link>
+            <Link sx={{ textDecoration: "none" }}>
               <Button
                 size="large"
                 sx={{
@@ -223,6 +237,19 @@ const ProductosIndex = ({ products, filteredH, filteredL, filteredT }) => {
               </Button>
             </Link>
           </NextLink>
+          <Button
+            size="large"
+            sx={{
+              backgroundColor: "white",
+              borderRadius: "10px",
+              color: "black",
+              border: " 2px solid black",
+              width: "10%",
+            }}
+            onClick={RightHanlder}
+          >
+            Next
+          </Button>
         </Box>
       </Container>
     </Box>

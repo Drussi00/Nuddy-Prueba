@@ -16,6 +16,7 @@ import {
   Select,
   Typography,
   Pagination,
+  useMediaQuery,
 } from "@mui/material";
 import NextLink from "next/link";
 import { Box } from "@mui/system";
@@ -30,9 +31,11 @@ import client from "../utils/client";
 import { urlForThumbnail } from "../utils/image";
 import { Store } from "../utils/Store";
 
-const pageSize = 9;
 export default function SearchScreen() {
-  const [productsL, setproductsL] = useState();
+  const isDesktop = useMediaQuery("(min-width:600px)");
+
+  const pageSize = isDesktop ? "9" : "3";
+
   const router = useRouter();
   const {
     category = " Shop All",
@@ -173,17 +176,18 @@ export default function SearchScreen() {
     });
   };
   console.log(productsView);
+
   return (
     <Layout title="search">
       <Box display="flex" sx={classes.productosIndex}>
-        <Typography>
+        <Typography sx={{ fontWeight: "bold" }}>
           Envio gratis a todo el pais por compras superiores a $200.000
         </Typography>
       </Box>
       <Container sx={{ paddingTop: "10px" }}>
         <Grid sx={classes.section} container spacing={0}>
           {" "}
-          <Grid item md={9}>
+          <Grid item md={12}>
             <Grid
               container
               justifyContent="space-between"
@@ -224,7 +228,16 @@ export default function SearchScreen() {
                     </MenuItem>
                   ))}
                 </Select>
-                <Button sx={{ width: "800px", border: "none" }}>
+                <Button
+                  sx={{
+                    width: isDesktop ? "800px" : "150px",
+                    border: "none",
+                    "&:hover": {
+                      border: "none",
+                      backgroundColor: "transparent",
+                    },
+                  }}
+                >
                   Shop all
                 </Button>
 
@@ -255,9 +268,16 @@ export default function SearchScreen() {
               ) : error ? (
                 <Alert>{error}</Alert>
               ) : (
-                <Grid container spacing={6} sx={{ paddingTop: "40px" }}>
+                <Grid
+                  container
+                  spacing={6}
+                  sx={{
+                    paddingTop: isDesktop ? "40px" : "0px",
+                    margin: isDesktop ? 0 : "15px",
+                  }}
+                >
                   {productsView.map((product) => (
-                    <Grid item md={4} key={product.name}>
+                    <Grid item md={4} sm={12} key={product.name}>
                       <ProductItem
                         product={product}
                         addToCartHandler={addToCartHandler}
@@ -273,6 +293,8 @@ export default function SearchScreen() {
                 sx={{ margin: "20px 0px" }}
               >
                 <Pagination
+                  shape="rounded"
+                  variant="outlined"
                   page={pageU}
                   count={Math.ceil(productsLengt / pageSize)}
                   onChange={handlePageChange}

@@ -50,7 +50,7 @@ import { styled, alpha } from "@mui/material/styles";
 export default function Layout({ title, description, children }) {
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
-  const { darkMode, cart, userInfo } = state;
+  const { cart, userInfo } = state;
 
   const theme = createTheme({
     components: {
@@ -182,65 +182,128 @@ export default function Layout({ title, description, children }) {
               open={sidbarVisible}
               onClose={sidebarCloseHandler}
             >
-              <List>
-                <ListItem sx={{ paddingTop: "0" }}>
-                  <Box
-                    sx={{ width: "220px" }}
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="end"
-                  >
-                    <Box display="flex">
-                      <IconButton
-                        aria-label="close"
-                        onClick={sidebarCloseHandler}
+              <Box>
+                <Box>
+                  <List>
+                    <ListItem sx={{ paddingTop: "0" }}>
+                      <Box
+                        sx={{ width: "220px" }}
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="end"
                       >
-                        <CloseIcon sx={{ color: "black" }} />
-                      </IconButton>
-                    </Box>
-                  </Box>
-                </ListItem>
-                <Divider light />
-                <Dropdown style={{ zIndex: "100%" }}>
-                  <Dropdown.Toggle variant="" id="dropdown-basic">
-                    Shop
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu
-                    style={{ backgroundColor: "white", border: "none" }}
-                  >
-                    {categories.map((category) => (
-                      <NextLink
-                        key={category}
-                        href={`/search?category=${category}`}
-                        passHref
-                      >
-                        <ListItem
-                          button
-                          component="a"
-                          onClick={sidebarCloseHandler}
-                        >
-                          <ListItemText primary={category}></ListItemText>
-                        </ListItem>
-                      </NextLink>
-                    ))}
+                        <Box display="flex">
+                          <IconButton
+                            aria-label="close"
+                            onClick={sidebarCloseHandler}
+                          >
+                            <CloseIcon sx={{ color: "black" }} />
+                          </IconButton>
+                        </Box>
+                      </Box>
+                    </ListItem>
+                    <Divider light />
                     <Dropdown
-                      className="coleciones1"
                       style={{
-                        border: "none",
-                        backgroundColor: "white",
                         zIndex: "100%",
+                        "&:hover": { border: "none" },
                       }}
                     >
+                      <Dropdown.Toggle
+                        sx={{ fontWeight: "bold" }}
+                        variant=""
+                        id="dropdown-basic"
+                      >
+                        Shop
+                      </Dropdown.Toggle>
+
+                      <Dropdown.Menu
+                        style={{ backgroundColor: "white", border: "none" }}
+                      >
+                        {categories.map((category) => (
+                          <NextLink
+                            key={category}
+                            href={`/search?category=${category}`}
+                            passHref
+                            sx={{}}
+                          >
+                            <ListItem
+                              button
+                              component="a"
+                              onClick={sidebarCloseHandler}
+                              sx={{
+                                fontWeight: "normal",
+                                "&:hover": { color: "black" },
+                              }}
+                            >
+                              <ListItemText primary={category}></ListItemText>
+                            </ListItem>
+                          </NextLink>
+                        ))}
+                        <Dropdown
+                          className="coleciones1"
+                          style={{
+                            border: "none",
+                            backgroundColor: "white",
+                            zIndex: "100%",
+                          }}
+                        >
+                          <Dropdown.Toggle variant="" id="dropdown-basic">
+                            Coleciones
+                          </Dropdown.Toggle>
+
+                          <Dropdown.Menu
+                            style={{
+                              backgroundColor: "white",
+                              border: "none",
+                            }}
+                          >
+                            {categories.map((category) => (
+                              <NextLink
+                                key={category}
+                                href={`/search?category=${category}`}
+                                passHref
+                              >
+                                <ListItem
+                                  button
+                                  component="a"
+                                  onClick={sidebarCloseHandler}
+                                >
+                                  <ListItemText
+                                    primary={category}
+                                  ></ListItemText>
+                                </ListItem>
+                              </NextLink>
+                            ))}
+                            <NextLink href={`/nosotros}`} passHref>
+                              <ListItem
+                                button
+                                component="a"
+                                onClick={sidebarCloseHandler}
+                              >
+                                <ListItemText>Nosotros</ListItemText>
+                              </ListItem>
+                            </NextLink>
+                          </Dropdown.Menu>
+                        </Dropdown>
+                        <NextLink href={`/nosotros}`} passHref>
+                          <ListItem
+                            button
+                            component="a"
+                            onClick={sidebarCloseHandler}
+                          >
+                            <ListItemText>Nosotros</ListItemText>
+                          </ListItem>
+                        </NextLink>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                    <Dropdown className="coleciones2">
                       <Dropdown.Toggle variant="" id="dropdown-basic">
                         Coleciones
                       </Dropdown.Toggle>
 
                       <Dropdown.Menu
-                        style={{
-                          backgroundColor: "white",
-                          border: "none",
-                        }}
+                        style={{ backgroundColor: "white", border: "none" }}
                       >
                         {categories.map((category) => (
                           <NextLink
@@ -277,51 +340,26 @@ export default function Layout({ title, description, children }) {
                         <ListItemText>Nosotros</ListItemText>
                       </ListItem>
                     </NextLink>
-                  </Dropdown.Menu>
-                </Dropdown>
-                <Dropdown className="coleciones2">
-                  <Dropdown.Toggle variant="" id="dropdown-basic">
-                    Coleciones
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu
-                    style={{ backgroundColor: "white", border: "none" }}
-                  >
-                    {categories.map((category) => (
-                      <NextLink
-                        key={category}
-                        href={`/search?category=${category}`}
-                        passHref
-                      >
-                        <ListItem
-                          button
-                          component="a"
-                          onClick={sidebarCloseHandler}
-                        >
-                          <ListItemText primary={category}></ListItemText>
-                        </ListItem>
-                      </NextLink>
-                    ))}
-                    <NextLink href={`/nosotros}`} passHref>
-                      <ListItem
-                        button
-                        component="a"
-                        onClick={sidebarCloseHandler}
-                      >
-                        <ListItemText>Nosotros</ListItemText>
-                      </ListItem>
-                    </NextLink>
-                  </Dropdown.Menu>
-                </Dropdown>
-                <NextLink href={`/nosotros}`} passHref>
-                  <ListItem button component="a" onClick={sidebarCloseHandler}>
-                    <ListItemText>Nosotros</ListItemText>
-                  </ListItem>
-                </NextLink>
-              </List>
+                  </List>
+                </Box>
+                <Box
+                  display="flex"
+                  sx={{
+                    justifyContent: "space-around",
+                    paddingTop: isDesktop ? "450px" : "410px",
+                  }}
+                >
+                  <WhatsAppIcon fontSize="large" />
+                  <InstagramIcon fontSize="large" />
+                  <EmailIcon fontSize="large" />
+                </Box>{" "}
+              </Box>
             </Drawer>
 
-            <Box display="flex" sx={{ paddingRight: "200px" }}>
+            <Box
+              display="flex"
+              sx={{ paddingRight: isDesktop ? "200px" : "0px" }}
+            >
               <NextLink href="/" passHref>
                 <Link>
                   <Typography sx={classes.brand}>Nuddy Minds </Typography>
@@ -346,7 +384,6 @@ export default function Layout({ title, description, children }) {
                   </Typography>
                 </Link>
               </NextLink>
-
               {userInfo ? (
                 <>
                   <Button
@@ -367,16 +404,12 @@ export default function Layout({ title, description, children }) {
                     <MenuItem
                       onClick={(e) => loginMenuCloseHandler(e, "/profile")}
                     >
-                      Profile
+                      Perfil
                     </MenuItem>
-                    <MenuItem
-                      onClick={(e) =>
-                        loginMenuCloseHandler(e, "/order-history")
-                      }
-                    >
-                      Order History
+
+                    <MenuItem onClick={logoutClickHandler}>
+                      Cerrar sesion
                     </MenuItem>
-                    <MenuItem onClick={logoutClickHandler}>Logout</MenuItem>
                   </Menu>
                 </>
               ) : (
@@ -399,9 +432,12 @@ export default function Layout({ title, description, children }) {
         </Container>
         <Divider sx={{ color: "black" }} />
         <Box display="flex" component="footer" sx={classes.footer}>
-          <Grid container spacing={130}>
-            <Grid item sx={{ marginLeft: "40px" }}>
-              <Box>
+          <Grid container spacing={isDesktop ? 130 : 10}>
+            <Grid
+              item
+              sx={{ paddingLeft: "10px", marginLeft: isDesktop ? "40px" : "0" }}
+            >
+              <Box sx={{ margin: 0 }}>
                 <Box>
                   <Typography align="justify">All rights reserved. </Typography>
                 </Box>

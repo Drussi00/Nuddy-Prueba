@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Container,
   FormControl,
@@ -8,6 +9,7 @@ import {
   Radio,
   RadioGroup,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import jsCookie from "js-cookie";
 import { useRouter } from "next/router";
@@ -45,64 +47,68 @@ export default function PaymentScreen() {
       router.push("/placeorder");
     }
   };
+  const isDesktop = useMediaQuery("(min-width:600px)");
   return (
     <Layout title="Payment Method">
-      <Container>
-        <CheckoutWizard activeStep={2}></CheckoutWizard>
-        <Form onSubmit={submitHandler}>
-          <Typography component="h1" variant="h1">
-            Payment Method
-          </Typography>
-          <List>
-            <ListItem>
-              <FormControl component="fieldset">
-                <RadioGroup
-                  aria-label="Payment Method"
-                  name="paymentMethod"
-                  value={paymentMethod}
-                  onChange={(e) => setPaymentMethod(e.target.value)}
+      <Container sx={{ paddingBottom: isDesktop ? "200px" : "150px" }}>
+        <Box>
+          <CheckoutWizard activeStep={2}></CheckoutWizard>
+          <Form onSubmit={submitHandler}>
+            <Typography component="h1" variant="h1">
+              Metodo de pago
+            </Typography>
+            <List>
+              <ListItem>
+                <FormControl component="fieldset">
+                  <RadioGroup
+                    aria-label="Payment Method"
+                    name="paymentMethod"
+                    value={paymentMethod}
+                    onChange={(e) => setPaymentMethod(e.target.value)}
+                  >
+                    <FormControlLabel
+                      label="PayPal"
+                      value="PayPal"
+                      control={<Radio />}
+                    ></FormControlLabel>
+                    <FormControlLabel
+                      label="MercadoPago"
+                      value="MercadoPago"
+                      control={<Radio />}
+                    ></FormControlLabel>
+                  </RadioGroup>
+                </FormControl>
+              </ListItem>
+              <ListItem>
+                <Button
+                  fullWidth
+                  type="submit"
+                  variant="contained"
+                  sx={{
+                    backgroundColor: "#A7D1E7",
+                    "&:hover": {
+                      backgroundColor: "#A7D1E7",
+                      transform: "scale(1, 1.1)",
+                    },
+                  }}
                 >
-                  <FormControlLabel
-                    label="PayPal"
-                    value="PayPal"
-                    control={<Radio />}
-                  ></FormControlLabel>
-                  <FormControlLabel
-                    label="MercadoPago"
-                    value="MercadoPago"
-                    control={<Radio />}
-                  ></FormControlLabel>
-                  <FormControlLabel
-                    label="Cash"
-                    value="Cash"
-                    control={<Radio />}
-                  ></FormControlLabel>
-                </RadioGroup>
-              </FormControl>
-            </ListItem>
-            <ListItem>
-              <Button
-                fullWidth
-                type="submit"
-                variant="contained"
-                color="primary"
-              >
-                Continue
-              </Button>
-            </ListItem>
-            <ListItem>
-              <Button
-                fullWidth
-                type="button"
-                variant="contained"
-                color="secondary"
-                onClick={() => router.push("/shipping")}
-              >
-                Back
-              </Button>
-            </ListItem>
-          </List>
-        </Form>
+                  Continue
+                </Button>
+              </ListItem>
+              <ListItem>
+                <Button
+                  fullWidth
+                  type="button"
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => router.push("/shipping")}
+                >
+                  Back
+                </Button>
+              </ListItem>
+            </List>
+          </Form>
+        </Box>
       </Container>
     </Layout>
   );

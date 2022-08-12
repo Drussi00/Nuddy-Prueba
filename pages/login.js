@@ -4,6 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import NextLink from "next/link";
 import Form from "../components/Form";
 import {
+  Box,
   Button,
   Container,
   Link,
@@ -11,6 +12,7 @@ import {
   ListItem,
   TextField,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 import axios from "axios";
@@ -50,90 +52,112 @@ export default function LoginScreen() {
       enqueueSnackbar(getError(err), { variant: "error" });
     }
   };
+  const isDesktop = useMediaQuery("(min-width:600px)");
   return (
     <Layout title="Login">
       <Container>
-        <Form onSubmit={handleSubmit(submitHandler)}>
-          <Typography component="h1" variant="h1">
-            Login
-          </Typography>
-          <List>
-            <ListItem>
-              <Controller
-                name="email"
-                control={control}
-                defaultValue=""
-                rules={{
-                  required: true,
-                  pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
-                }}
-                render={({ field }) => (
-                  <TextField
-                    variant="outlined"
-                    fullWidth
-                    id="email"
-                    label="Email"
-                    inputProps={{ type: "email" }}
-                    error={Boolean(errors.email)}
-                    helperText={
-                      errors.email
-                        ? errors.email.type === "pattern"
-                          ? "Email is not valid"
-                          : "Email is required"
-                        : ""
-                    }
-                    {...field}
-                  ></TextField>
-                )}
-              ></Controller>
-            </ListItem>
-            <ListItem>
-              <Controller
-                name="password"
-                control={control}
-                defaultValue=""
-                rules={{
-                  required: true,
-                  minLength: 6,
-                }}
-                render={({ field }) => (
-                  <TextField
-                    variant="outlined"
-                    fullWidth
-                    id="password"
-                    label="Password"
-                    inputProps={{ type: "password" }}
-                    error={Boolean(errors.password)}
-                    helperText={
-                      errors.password
-                        ? errors.password.type === "minLength"
-                          ? "Password length is more than 5"
-                          : "Password is required"
-                        : ""
-                    }
-                    {...field}
-                  ></TextField>
-                )}
-              ></Controller>
-            </ListItem>
-            <ListItem>
-              <Button
-                variant="contained"
-                type="submit"
-                fullWidth
-                color="primary"
-              >
-                Login
-              </Button>
-            </ListItem>
-            <ListItem>
-              Do not have an account?{" "}
-              <NextLink href={`/register?redirect=${redirect || "/"}`} passHref>
-                <Link>Register</Link>
-              </NextLink>
-            </ListItem>
-          </List>
-        </Form>
+        <Box sx={{ paddingBottom: isDesktop ? "220px" : "200px" }}>
+          {" "}
+          <Form onSubmit={handleSubmit(submitHandler)}>
+            <Typography component="h1" variant="h1">
+              Iniciar Sesion
+            </Typography>
+            <List>
+              <ListItem>
+                <Controller
+                  name="email"
+                  control={control}
+                  defaultValue=""
+                  rules={{
+                    required: true,
+                    pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                  }}
+                  render={({ field }) => (
+                    <TextField
+                      variant="outlined"
+                      fullWidth
+                      id="email"
+                      label="Email"
+                      inputProps={{ type: "email" }}
+                      error={Boolean(errors.email)}
+                      helperText={
+                        errors.email
+                          ? errors.email.type === "pattern"
+                            ? "Email is not valid"
+                            : "Email is required"
+                          : ""
+                      }
+                      {...field}
+                    ></TextField>
+                  )}
+                ></Controller>
+              </ListItem>
+              <ListItem>
+                <Controller
+                  name="password"
+                  control={control}
+                  defaultValue=""
+                  rules={{
+                    required: true,
+                    minLength: 6,
+                  }}
+                  render={({ field }) => (
+                    <TextField
+                      variant="outlined"
+                      fullWidth
+                      id="password"
+                      label="Contraseña"
+                      inputProps={{ type: "password" }}
+                      error={Boolean(errors.password)}
+                      helperText={
+                        errors.password
+                          ? errors.password.type === "minLength"
+                            ? "Password length is more than 5"
+                            : "Password is required"
+                          : ""
+                      }
+                      {...field}
+                    ></TextField>
+                  )}
+                ></Controller>
+              </ListItem>
+              <ListItem>
+                <Button
+                  variant="contained"
+                  type="submit"
+                  fullWidth
+                  sx={{
+                    backgroundColor: "#A7D1E7",
+                    "&:hover": {
+                      transform: "scale(1, 1.1)",
+                      backgroundColor: "#A7D1E7",
+                    },
+                  }}
+                >
+                  Iniciar Sesion
+                </Button>
+              </ListItem>
+              <ListItem>
+                ¿Todavia no tienes una cuenta?
+                <NextLink
+                  href={`/register?redirect=${redirect || "/"}`}
+                  passHref
+                >
+                  <Link
+                    sx={{
+                      paddingLeft: "10px",
+                      color: "#A7D1E7",
+                      "&:hover": { color: "#A7D1E7" },
+                    }}
+                  >
+                    {" "}
+                    Registrate
+                  </Link>
+                </NextLink>
+              </ListItem>
+            </List>
+          </Form>
+        </Box>
       </Container>
     </Layout>
   );

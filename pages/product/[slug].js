@@ -116,7 +116,7 @@ export default function ProductScreen(props) {
         size,
       },
     });
-    enqueueSnackbar(`${product.name} added to the cart`, {
+    enqueueSnackbar(`${product.name} Agregada al Carrito`, {
       variant: "success",
     });
     router.push("/cart");
@@ -150,6 +150,7 @@ export default function ProductScreen(props) {
     });
     router.push("/");
   };
+
   return (
     <Layout title={product?.title}>
       <Box display="flex" sx={classes.productosIndex}>
@@ -185,7 +186,7 @@ export default function ProductScreen(props) {
                   </ListItem>
                   <Divider sx={classes.line} />
                   <ListItem>
-                    <Typography>Tallas</Typography>
+                    <Typography sx={{ fontWeight: "bold" }}>Tallas:</Typography>
                   </ListItem>
                   <listItem>
                     <Grid container spacing={2}>
@@ -232,7 +233,9 @@ export default function ProductScreen(props) {
                     </Grid>
                   </listItem>
                   <ListItem>
-                    <Typography>Cantidad</Typography>
+                    <Typography sx={{ fontWeight: "bold" }}>
+                      Cantidad:
+                    </Typography>
                   </ListItem>
                   <ButtonGroup
                     sx={classes.buttonGroup}

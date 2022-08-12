@@ -57,7 +57,7 @@ function PlaceOrderScreen() {
   const placeOrderHandler = async () => {
     try {
       setLoading(true);
-      if(paymentMethod === "PayPal"){
+      if (paymentMethod === "PayPal") {
         const { data } = await axios.post(
           "/api/orders/PayPal",
           {
@@ -82,9 +82,9 @@ function PlaceOrderScreen() {
         dispatch({ type: "CART_CLEAR" });
         jsCookie.remove("cartItems");
         setLoading(false);
-        
+
         router.push(`/order/PayPal/${data}`);
-      }else{
+      } else {
         const { data } = await axios.post(
           "/api/orders/MercadoPago",
           {
@@ -112,7 +112,6 @@ function PlaceOrderScreen() {
         setLoading(false);
         router.push(`/order/MercadoPago/${data.global}`);
       }
-   
     } catch (err) {
       setLoading(false);
       enqueueSnackbar(getError(err), { variant: "error" });
@@ -123,7 +122,7 @@ function PlaceOrderScreen() {
       <Container>
         <CheckoutWizard activeStep={3}></CheckoutWizard>
         <Typography component="h1" variant="h1">
-          Place Order
+          Crear Orden
         </Typography>
 
         <Grid container spacing={1}>
@@ -132,7 +131,7 @@ function PlaceOrderScreen() {
               <List>
                 <ListItem>
                   <Typography component="h2" variant="h2">
-                    Shipping Address
+                    Direccion
                   </Typography>
                 </ListItem>
                 <ListItem>
@@ -146,7 +145,7 @@ function PlaceOrderScreen() {
                     variant="contianed"
                     color="secondary"
                   >
-                    Edit
+                    Editar
                   </Button>
                 </ListItem>
               </List>
@@ -155,7 +154,7 @@ function PlaceOrderScreen() {
               <List>
                 <ListItem>
                   <Typography component="h2" variant="h2">
-                    Payment Method
+                    Metodo de pago
                   </Typography>
                 </ListItem>
                 <ListItem>{paymentMethod}</ListItem>
@@ -165,7 +164,7 @@ function PlaceOrderScreen() {
                     variant="contianed"
                     color="secondary"
                   >
-                    Edit
+                    Editar
                   </Button>
                 </ListItem>
               </List>
@@ -174,7 +173,7 @@ function PlaceOrderScreen() {
               <List>
                 <ListItem>
                   <Typography component="h2" variant="h2">
-                    Order Items
+                    Productos
                   </Typography>
                 </ListItem>
                 <ListItem>
@@ -182,11 +181,11 @@ function PlaceOrderScreen() {
                     <Table>
                       <TableHead>
                         <TableRow>
-                          <TableCell>Image</TableCell>
-                          <TableCell>Name</TableCell>
-                          <TableCell align="right">size</TableCell>
-                          <TableCell align="right">Quantity</TableCell>
-                          <TableCell align="right">Price</TableCell>
+                          <TableCell>Imagen</TableCell>
+                          <TableCell>Nombre</TableCell>
+                          <TableCell align="right">Talla</TableCell>
+                          <TableCell align="right">Cantidad</TableCell>
+                          <TableCell align="right">Precio</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -233,12 +232,12 @@ function PlaceOrderScreen() {
             <Card sx={classes.section}>
               <List>
                 <ListItem>
-                  <Typography variant="h2">Order Summary</Typography>
+                  <Typography variant="h2">Resumen de la Orden</Typography>
                 </ListItem>
                 <ListItem>
                   <Grid container>
                     <Grid item xs={6}>
-                      <Typography>Items:</Typography>
+                      <Typography>Productos:</Typography>
                     </Grid>
                     <Grid item xs={6}>
                       <Typography align="right">${itemsPrice}</Typography>
@@ -248,7 +247,7 @@ function PlaceOrderScreen() {
                 <ListItem>
                   <Grid container>
                     <Grid item xs={6}>
-                      <Typography>Shipping:</Typography>
+                      <Typography>Costo de envio:</Typography>
                     </Grid>
                     <Grid item xs={6}>
                       <Typography align="right">${shippingPrice}</Typography>
@@ -273,11 +272,17 @@ function PlaceOrderScreen() {
                   <Button
                     onClick={placeOrderHandler}
                     variant="contained"
-                    color="primary"
+                    sx={{
+                      backgroundColor: "#A7D1E7",
+                      "&:hover": {
+                        backgroundColor: "#A7D1E7",
+                        transform: "scale(1, 1.1)",
+                      },
+                    }}
                     fullWidth
                     disabled={loading}
                   >
-                    Place Order
+                    Crear Orden
                   </Button>
                 </ListItem>
                 {loading && (

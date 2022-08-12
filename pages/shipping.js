@@ -5,6 +5,7 @@ import {
   ListItem,
   TextField,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import React, { useContext, useEffect } from "react";
 import CheckoutWizard from "../components/CheckoutWizard";
@@ -58,14 +59,13 @@ export default function ShippingScreen() {
     );
     router.push("/payment");
   };
+  const isDesktop = useMediaQuery("(min-width:600px)");
   return (
     <Layout title="Shipping Address">
-      <Container>
+      <Container sx={{ paddingBottom: isDesktop ? "40px" : "-60px" }}>
         <CheckoutWizard activeStep={1}></CheckoutWizard>
         <Form onSubmit={handleSubmit(submitHandler)}>
-          <Typography component="h1" variant="h1">
-            Shipping Address
-          </Typography>
+          <Typography component="h1" variant="h1"></Typography>
           <List>
             <ListItem>
               <Controller
@@ -81,7 +81,7 @@ export default function ShippingScreen() {
                     variant="outlined"
                     fullWidth
                     id="fullName"
-                    label="Full Name"
+                    label="Nombre Completo"
                     inputProps={{ type: "fullName" }}
                     error={Boolean(errors.fullName)}
                     helperText={
@@ -110,7 +110,7 @@ export default function ShippingScreen() {
                     variant="outlined"
                     fullWidth
                     id="address"
-                    label="Address"
+                    label="Direccion"
                     inputProps={{ type: "address" }}
                     error={Boolean(errors.address)}
                     helperText={
@@ -118,6 +118,35 @@ export default function ShippingScreen() {
                         ? errors.address.type === "minLength"
                           ? "Address length is more than 1"
                           : "Address is required"
+                        : ""
+                    }
+                    {...field}
+                  ></TextField>
+                )}
+              ></Controller>
+            </ListItem>
+            <ListItem>
+              <Controller
+                name="country"
+                control={control}
+                defaultValue=""
+                rules={{
+                  required: true,
+                  minLength: 2,
+                }}
+                render={({ field }) => (
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    id="Pais"
+                    label="Pais"
+                    inputProps={{ type: "country" }}
+                    error={Boolean(errors.country)}
+                    helperText={
+                      errors.country
+                        ? errors.country.type === "minLength"
+                          ? "Country length is more than 1"
+                          : "Country is required"
                         : ""
                     }
                     {...field}
@@ -139,7 +168,7 @@ export default function ShippingScreen() {
                     variant="outlined"
                     fullWidth
                     id="city"
-                    label="City"
+                    label="Ciudad"
                     inputProps={{ type: "city" }}
                     error={Boolean(errors.city)}
                     helperText={
@@ -168,7 +197,7 @@ export default function ShippingScreen() {
                     variant="outlined"
                     fullWidth
                     id="postalCode"
-                    label="Postal Code"
+                    label="Telefono"
                     inputProps={{ type: "postalCode" }}
                     error={Boolean(errors.postalCode)}
                     helperText={
@@ -183,41 +212,19 @@ export default function ShippingScreen() {
                 )}
               ></Controller>
             </ListItem>
-            <ListItem>
-              <Controller
-                name="country"
-                control={control}
-                defaultValue=""
-                rules={{
-                  required: true,
-                  minLength: 2,
-                }}
-                render={({ field }) => (
-                  <TextField
-                    variant="outlined"
-                    fullWidth
-                    id="postalCode"
-                    label="Country"
-                    inputProps={{ type: "country" }}
-                    error={Boolean(errors.country)}
-                    helperText={
-                      errors.country
-                        ? errors.country.type === "minLength"
-                          ? "Country length is more than 1"
-                          : "Country is required"
-                        : ""
-                    }
-                    {...field}
-                  ></TextField>
-                )}
-              ></Controller>
-            </ListItem>
+
             <ListItem>
               <Button
+                sx={{
+                  backgroundColor: "#A7D1E7",
+                  "&:hover": {
+                    backgroundColor: "#A7D1E7",
+                    transform: "scale(1, 1.1)",
+                  },
+                }}
                 variant="contained"
                 type="submit"
                 fullWidth
-                color="primary"
               >
                 Continue
               </Button>

@@ -6,13 +6,15 @@ import {
   Grid,
   Container,
   Box,
+  useMediaQuery,
 } from "@mui/material";
 export default function ColecionesIndex() {
+  const isDesktop = useMediaQuery("(min-width:600px)");
   return (
     <Box
       sx={{
         width: "100%",
-        height: "100vh",
+        height: isDesktop ? "100vh" : "1900px",
         backgroundColor: "#A7D1E7",
         borderStyle: "solid",
         borderColor: "black",
