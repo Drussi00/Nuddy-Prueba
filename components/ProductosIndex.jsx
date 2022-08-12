@@ -104,6 +104,7 @@ const ProductosIndex = ({ products, filteredH, filteredL, filteredT }) => {
           >
             <Grid item>
               <Button
+                sx={classes.catBut}
                 onClick={() => {
                   setCategory(filteredT);
                 }}
@@ -118,6 +119,7 @@ const ProductosIndex = ({ products, filteredH, filteredL, filteredT }) => {
                 onClick={() => {
                   setCategory(filteredH);
                 }}
+                sx={classes.catBut}
               >
                 <Typography component="h6" variant="h6">
                   Hoodies
@@ -129,6 +131,7 @@ const ProductosIndex = ({ products, filteredH, filteredL, filteredT }) => {
                 onClick={() => {
                   setCategory(filteredL);
                 }}
+                sx={classes.catBut}
               >
                 <Typography component="h6" variant="h6">
                   Longs
@@ -203,25 +206,23 @@ const ProductosIndex = ({ products, filteredH, filteredL, filteredT }) => {
             paddingBottom: "60px",
           }}
         >
-          <Button
-            size="large"
-            sx={{
-              backgroundColor: "white",
-              borderRadius: "10px",
-              color: "black",
-              border: " 2px solid black",
-              width: "12%",
-            }}
-          >
-            <NextLink
-              href={`/product/${category[indexC].slug.current}`}
-              passHref
-            >
-              <Link sx={{ textDecoration: "none" }}>
+          {" "}
+          <NextLink href={`/product/${category[indexC].slug.current}`} passHref>
+            <Link>
+              <Button
+                size="large"
+                sx={{
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  color: "black",
+                  border: " 2px solid black",
+                  width: "100%",
+                }}
+              >
                 {category[indexC].name}
-              </Link>
-            </NextLink>
-          </Button>
+              </Button>
+            </Link>
+          </NextLink>
         </Box>
       </Container>
     </Box>

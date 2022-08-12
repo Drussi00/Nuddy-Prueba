@@ -15,6 +15,7 @@ import {
   Rating,
   Select,
   Typography,
+  Pagination,
 } from "@mui/material";
 import NextLink from "next/link";
 import { Box } from "@mui/system";
@@ -29,7 +30,9 @@ import client from "../utils/client";
 import { urlForThumbnail } from "../utils/image";
 import { Store } from "../utils/Store";
 
+const pageSize = 9;
 export default function SearchScreen() {
+  const [productsL, setproductsL] = useState();
   const router = useRouter();
   const {
     category = " Shop All",
@@ -43,10 +46,13 @@ export default function SearchScreen() {
     products: [],
     error: "",
     loading: true,
+    productsView: [],
+    productsLengt: 0,
   });
 
-  const { loading, products, error } = state;
+  const { loading, products, error, productsView, productsLengt } = state;
   const [categories, setCategories] = useState([]);
+  const [pageU, setpage] = useState(1);
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -85,8 +91,15 @@ export default function SearchScreen() {
         gQuery += `] ${order}`;
         setState({ loading: true });
 
-        const products = await client.fetch(gQuery);
-        setState({ products, loading: false });
+        products = await client.fetch(gQuery);
+
+        setState({
+          products,
+          loading: false,
+          productsView: products.slice(0, pageSize),
+          productsLengt: products.length,
+        });
+        setpage(1);
       } catch (err) {
         setState({ error: err.message, loading: false });
       }
@@ -146,8 +159,20 @@ export default function SearchScreen() {
     });
     router.push("/cart");
   };
-
-  const [cat, setcat] = useState("Shop All");
+  const handlePageChange = (e, page) => {
+    setpage(page);
+    const from = (page - 1) * pageSize;
+    const to = (page - 1) * pageSize + pageSize;
+    console.log(from, to);
+    console.log(products);
+    setState({
+      productsView: products.slice(from, to),
+      loading: false,
+      products,
+      productsLengt,
+    });
+  };
+  console.log(productsView);
   return (
     <Layout title="search">
       <Box display="flex" sx={classes.productosIndex}>
@@ -155,7 +180,7 @@ export default function SearchScreen() {
           Envio gratis a todo el pais por compras superiores a $200.000
         </Typography>
       </Box>
-      <Container>
+      <Container sx={{ paddingTop: "10px" }}>
         <Grid sx={classes.section} container spacing={0}>
           {" "}
           <Grid item md={9}>
@@ -189,12 +214,19 @@ export default function SearchScreen() {
                   className="borrarFieldet"
                 >
                   {categories.map((category) => (
-                    <MenuItem value={category} onClick={() => router.push(`/search?category=${category}`)}>
-                       {category}
+                    <MenuItem
+                      value={category}
+                      onClick={() =>
+                        router.push(`/search?category=${category}`)
+                      }
+                    >
+                      {category}
                     </MenuItem>
                   ))}
                 </Select>
-                <Button sx={{ width: "800px", border: "none" }}>{cat}</Button>
+                <Button sx={{ width: "800px", border: "none" }}>
+                  Shop all
+                </Button>
 
                 <Select
                   value={sort}
@@ -223,8 +255,8 @@ export default function SearchScreen() {
               ) : error ? (
                 <Alert>{error}</Alert>
               ) : (
-                <Grid container spacing={3}>
-                  {products.map((product) => (
+                <Grid container spacing={6} sx={{ paddingTop: "40px" }}>
+                  {productsView.map((product) => (
                     <Grid item md={4} key={product.name}>
                       <ProductItem
                         product={product}
@@ -234,6 +266,18 @@ export default function SearchScreen() {
                   ))}
                 </Grid>
               )}
+              <Box
+                justifyContent={"center"}
+                alignItems={"center"}
+                display="flex"
+                sx={{ margin: "20px 0px" }}
+              >
+                <Pagination
+                  page={pageU}
+                  count={Math.ceil(productsLengt / pageSize)}
+                  onChange={handlePageChange}
+                />
+              </Box>
             </Grid>
           </Grid>
         </Grid>

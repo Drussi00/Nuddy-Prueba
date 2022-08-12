@@ -1,5 +1,3 @@
-
-
 const classes = {
   section: {
     marginTop: 1,
@@ -70,18 +68,37 @@ const classes = {
   },
   title: { fontWeight: "bold", fontSize: "3rem" },
   bold: { fontWeight: "bold", fontSize: "2.2rem" },
-  line: { background: "black", height: "2px" },
-  but: { fontSize: "12px", border: "1px solid black ", borderWidth: ".1" },
+  line: { border: "1px solid black", height: "2px", opacity: "1" },
+  but: {
+    fontSize: "12px",
+    border: "1.5px solid black ",
+    borderWidth: ".1",
+    backgroundColor: "#A7D1E7",
+    "&:hover": {
+      backgroundColor: "#A7D1E7",
+      transform: "scale(1.1, 1.1)",
+    },
+  },
   blackline: {
     borderBottomStyle: "solid",
     fontWeight: "bold",
     textDecoration: "underline ",
     borderWidth: "1",
     textDecorationThickness: "1.5px",
+    "&:hover": {
+      transform: "scale(1.1, 1.1)",
+      backgroundColor: "transparent",
+      textDecoration: "underline ",
+      borderWidth: "1",
+      textDecorationThickness: "1.5px",
+    },
   },
   radius: { borderRadius: "100px" },
   buttonQ: { width: "80px", borderWidth: "1px", borderColor: "black" },
-  buttonGroup: { borderWidth: "1px", borderColor: "black" },
+  buttonGroup: {
+    borderWidth: "1px",
+    borderColor: "black",
+  },
   productosIndex: {
     borderWidth: "1.5px",
     borderStyle: "solid",
@@ -102,6 +119,15 @@ const classes = {
     color: "black",
     "&:hover": {
       transform: "scale(1.1, 1.1)",
+    },
+  },
+  catBut: {
+    "&:hover": {
+      transform: "scale(1.1, 1.1)",
+      backgroundColor: "transparent",
+      textDecoration: "underline ",
+      borderWidth: "2",
+      textDecorationThickness: "1.5px",
     },
   },
 };
