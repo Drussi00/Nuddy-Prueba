@@ -26,7 +26,11 @@ export default function ColecionesIndex() {
           display="flex"
           sx={{ justifyContent: "center", paddingTop: "30px" }}
         >
-          <Typography component="h4" variant="h4">
+          <Typography
+            sx={{ fontWeight: "bold", fontFamily: " coolvetica, sans-serif" }}
+            component="h4"
+            variant="h4"
+          >
             Coleciones
           </Typography>
         </Box>

@@ -66,7 +66,11 @@ export default function RegisterScreen() {
       <Container>
         <Box sx={{ paddingBottom: isDesktop ? "90px" : "50px" }}>
           <Form onSubmit={handleSubmit(submitHandler)}>
-            <Typography component="h1" variant="h1">
+            <Typography
+              sx={{ fontWeight: "bold", fontFamily: " coolvetica, sans-serif" }}
+              component="h1"
+              variant="h1"
+            >
               Registrate
             </Typography>
             <List>

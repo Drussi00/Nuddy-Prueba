@@ -34,7 +34,7 @@ import { Store } from "../utils/Store";
 export default function SearchScreen() {
   const isDesktop = useMediaQuery("(min-width:600px)");
 
-  const pageSize = isDesktop ? "9" : "3";
+  const pageSize = isDesktop ? 9 : 3;
 
   const router = useRouter();
   const {
@@ -180,7 +180,9 @@ export default function SearchScreen() {
   return (
     <Layout title="search">
       <Box display="flex" sx={classes.productosIndex}>
-        <Typography sx={{ fontWeight: "bold" }}>
+        <Typography
+          sx={{ fontWeight: "bold", fontFamily: " coolvetica, sans-serif" }}
+        >
           Envio gratis a todo el pais por compras superiores a $200.000
         </Typography>
       </Box>
@@ -276,14 +278,18 @@ export default function SearchScreen() {
                     margin: isDesktop ? 0 : "15px",
                   }}
                 >
-                  {productsView.map((product) => (
-                    <Grid item md={4} sm={12} key={product.name}>
-                      <ProductItem
-                        product={product}
-                        addToCartHandler={addToCartHandler}
-                      />
-                    </Grid>
-                  ))}
+                  {productsView.length !== 0 ? (
+                    productsView.map((product) => (
+                      <Grid item md={4} sm={12} key={product.name}>
+                        <ProductItem
+                          product={product}
+                          addToCartHandler={addToCartHandler}
+                        />
+                      </Grid>
+                    ))
+                  ) : (
+                    <h1> No hay resultados de tu busqueda </h1>
+                  )}
                 </Grid>
               )}
               <Box

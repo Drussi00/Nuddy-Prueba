@@ -59,7 +59,11 @@ export default function LoginScreen() {
         <Box sx={{ paddingBottom: isDesktop ? "220px" : "200px" }}>
           {" "}
           <Form onSubmit={handleSubmit(submitHandler)}>
-            <Typography component="h1" variant="h1">
+            <Typography
+              sx={{ fontWeight: "bold", fontFamily: " coolvetica, sans-serif" }}
+              component="h1"
+              variant="h1"
+            >
               Iniciar Sesion
             </Typography>
             <List>

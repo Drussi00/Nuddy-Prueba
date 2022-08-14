@@ -40,7 +40,9 @@ export default function PaymentScreen() {
   const submitHandler = (e) => {
     e.preventDefault();
     if (!paymentMethod) {
-      enqueueSnackbar("Payment method is required", { variant: "error" });
+      enqueueSnackbar("Elegir metodo de pago es Obligatorio ", {
+        variant: "error",
+      });
     } else {
       dispatch({ type: "SAVE_PAYMENT_METHOD", payload: paymentMethod });
       jsCookie.set("paymentMethod", paymentMethod);
@@ -54,7 +56,11 @@ export default function PaymentScreen() {
         <Box>
           <CheckoutWizard activeStep={2}></CheckoutWizard>
           <Form onSubmit={submitHandler}>
-            <Typography component="h1" variant="h1">
+            <Typography
+              sx={{ fontWeight: "bold", fontFamily: " coolvetica, sans-serif" }}
+              component="h1"
+              variant="h1"
+            >
               Metodo de pago
             </Typography>
             <List>

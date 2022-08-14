@@ -66,13 +66,24 @@ function CartScreen() {
   return (
     <Layout title="Shopping Cart">
       <Container>
-        <Box sx={{ paddingBottom: isDesktop ? "340px" : "0 " }}>
-          <Typography component="h1" variant="h1">
+        <Box sx={{ paddingBottom: isDesktop ? "420px" : "0 " }}>
+          <Typography
+            sx={{ fontWeight: "bold", fontFamily: " coolvetica, sans-serif" }}
+            component="h1"
+            variant="h1"
+          >
             Carrito de compras
           </Typography>
           {cartItems.length === 0 ? (
             <Box sx={{ paddingBottom: isDesktop ? "0" : "400px" }}>
-              <Typography>El Carrito de compras esta vacio </Typography>
+              <Typography
+                sx={{
+                  fontWeight: "bold",
+                  fontFamily: " coolvetica, sans-serif",
+                }}
+              >
+                El Carrito de compras esta vacio{" "}
+              </Typography>
               <NextLink href="/" passHref>
                 <Link>Sigue comprando </Link>
               </NextLink>
@@ -88,12 +99,58 @@ function CartScreen() {
                   <Table>
                     <TableHead>
                       <TableRow>
-                        <TableCell>Imagen</TableCell>
-                        <TableCell>Producto</TableCell>
-                        <TableCell align="right">Talla</TableCell>
-                        <TableCell align="right">Cantidad</TableCell>
-                        <TableCell align="right">Precio</TableCell>
-                        <TableCell align="right">Eliminar</TableCell>
+                        <TableCell
+                          sx={{
+                            fontWeight: "bold",
+                            fontFamily: " coolvetica, sans-serif",
+                          }}
+                        >
+                          Imagen
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            fontWeight: "bold",
+                            fontFamily: " coolvetica, sans-serif",
+                          }}
+                        >
+                          Producto
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            fontWeight: "bold",
+                            fontFamily: " coolvetica, sans-serif",
+                          }}
+                          align="right"
+                        >
+                          Talla
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            fontWeight: "bold",
+                            fontFamily: " coolvetica, sans-serif",
+                          }}
+                          align="right"
+                        >
+                          Cantidad
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            fontWeight: "bold",
+                            fontFamily: " coolvetica, sans-serif",
+                          }}
+                          align="right"
+                        >
+                          Precio
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            fontWeight: "bold",
+                            fontFamily: " coolvetica, sans-serif",
+                          }}
+                          align="right"
+                        >
+                          Eliminar
+                        </TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -183,7 +240,13 @@ function CartScreen() {
                 <Card>
                   <List>
                     <ListItem>
-                      <Typography variant="h2">
+                      <Typography
+                        sx={{
+                          fontWeight: "bold",
+                          fontFamily: " coolvetica, sans-serif",
+                        }}
+                        variant="h2"
+                      >
                         Subtotal (
                         {cartItems.reduce((a, c) => a + c.quantity, 0)}
                         items) : $
