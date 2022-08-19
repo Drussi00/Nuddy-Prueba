@@ -1,31 +1,13 @@
-import {
-  CircularProgress,
-  Typography,
-  Alert,
-  Grid,
-  Container,
-  Box,
-} from "@mui/material";
+import { CircularProgress, Alert, Grid } from "@mui/material";
 import Layout from "../components/Layout";
 import client from "../utils/client";
-import { useState, useEffect, useContext } from "react";
-import ProductItem from "../components/ProductItem";
-import { Store } from "../utils/Store";
-import axios from "axios";
-import { urlForThumbnail } from "../utils/image";
-import { useRouter } from "next/router";
-import { useSnackbar } from "notistack";
+import { useState, useEffect } from "react";
+
 import Carousel from "../components/Carousel";
 import ProductosIndex from "../components/ProductosIndex";
 import ColecionesIndex from "../components/ColecionesIndex";
 
 export default function Home() {
-  const router = useRouter();
-  const {
-    state: { cart },
-    dispatch,
-  } = useContext(Store);
-  const { enqueueSnackbar } = useSnackbar();
   const [state, setState] = useState({
     products: [],
     error: "",
@@ -61,9 +43,11 @@ export default function Home() {
       ) : error ? (
         <Alert variant="danger">{error}</Alert>
       ) : (
-        <Grid container spacing={0}>
-          <Grid item md={12} sm={12} sx={{}}>
+        <Grid container spacing={0} sx={{ justifyContent: "center" }}>
+          <Grid item md={7} sx={{ justifyContent: "center" }}>
             <Carousel images={images} />
+          </Grid>
+          <Grid item md={12} sm={12} sx={{}}>
             <ProductosIndex
               products={products}
               filteredH={filteredH}

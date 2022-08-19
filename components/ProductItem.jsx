@@ -1,22 +1,18 @@
 import React from "react";
 import NextLink from "next/link";
 import {
-  Card,
   CardActionArea,
   CardActions,
   CardMedia,
   CardContent,
   Typography,
-  Button,
-  Rating,
   Box,
 } from "@mui/material";
 import { urlForThumbnail } from "../utils/image";
-import { useRouter } from "next/router";
+
 import classes from "../utils/classes";
 
-const productItem = ({ product, addToCartHandler }) => {
-  const router = useRouter();
+const productItem = ({ product }) => {
   return (
     <Box raised={true} sx={classes.card}>
       <NextLink href={`/product/${product.slug.current}`} passHref>

@@ -8,8 +8,6 @@ import {
   Link,
   List,
   ListItem,
-  MenuItem,
-  Select,
   Table,
   TableBody,
   TableCell,
@@ -22,11 +20,11 @@ import {
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import NextLink from "next/link";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Store } from "../utils/Store";
-import axios from "axios";
+// import axios from "axios";
 import { useSnackbar } from "notistack";
-import { urlForThumbnail, urlFor } from "../utils/image";
+
 import { useRouter } from "next/router";
 function CartScreen() {
   const router = useRouter();
@@ -36,29 +34,29 @@ function CartScreen() {
     },
     dispatch,
   } = useContext(Store);
-  const { enqueueSnackbar } = useSnackbar();
-  const updateCartHanlder = async (item, quantity, size) => {
-    const { data } = await axios.get(`/api/products/${item._id}`);
+  // const { enqueueSnackbar } = useSnackbar();
+  // const updateCartHanlder = async (item, quantity, size) => {
+  //   const { data } = await axios.get(`/api/products/${item._id}`);
 
-    dispatch({
-      type: "CART_ADD_ITEM",
-      payload: {
-        _key: item._key,
-        name: item.name,
-        countInStockS: item.s,
-        countInStockM: item.m,
-        countInStockL: item.l,
-        slug: item.slug,
-        price: item.price,
-        image: item.image && item.image[0],
-        quantity,
-        size,
-      },
-    });
-    enqueueSnackbar(`${item.name} Updated in the cart`, {
-      variant: "success",
-    });
-  };
+  //   dispatch({
+  //     type: "CART_ADD_ITEM",
+  //     payload: {
+  //       _key: item._key,
+  //       name: item.name,
+  //       countInStockS: item.s,
+  //       countInStockM: item.m,
+  //       countInStockL: item.l,
+  //       slug: item.slug,
+  //       price: item.price,
+  //       image: item.image && item.image[0],
+  //       quantity,
+  //       size,
+  //     },
+  //   });
+  //   enqueueSnackbar(`${item.name} Updated in the cart`, {
+  //     variant: "success",
+  //   });
+  // };
   const removeItemHanlder = async (item) => {
     dispatch({ type: "CART_REMOVE_ITEM", payload: item });
   };
@@ -84,7 +82,7 @@ function CartScreen() {
               >
                 El Carrito de compras esta vacio{" "}
               </Typography>
-              <NextLink href="/" passHref>
+              <NextLink href="/search" passHref>
                 <Link>Sigue comprando </Link>
               </NextLink>
             </Box>

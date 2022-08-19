@@ -22,7 +22,6 @@ import {
   ListItemText,
   Menu,
   MenuItem,
-  Switch,
   ThemeProvider,
   Toolbar,
   Typography,
@@ -30,7 +29,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import CancelIcon from "@mui/icons-material/Cancel";
+
 import Head from "next/head";
 import NextLink from "next/link";
 import classes from "../utils/classes";
@@ -44,7 +43,6 @@ import { getError } from "../utils/error";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import EmailIcon from "@mui/icons-material/Email";
-import { styled, alpha } from "@mui/material/styles";
 
 ////////////////////////////////////////////////////////////////
 export default function Layout({ title, description, children }) {
@@ -112,18 +110,30 @@ export default function Layout({ title, description, children }) {
 
   const { enqueueSnackbar } = useSnackbar();
   const [categories, setCategories] = useState([]);
+  const [coleciones, setcoleciones] = useState([]);
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const { data } = await axios.get(`/api/products/categories`);
         setCategories(data);
+        console.log(categories);
       } catch (err) {
         enqueueSnackbar(getError(err), { variant: "error" });
       }
     };
     fetchCategories();
-  }, [enqueueSnackbar, setCategories]);
+    const fetchColeciones = async () => {
+      try {
+        const { data } = await axios.get(`/api/products/coleciones`);
+        setcoleciones(data);
+        console.log(categories);
+      } catch (err) {
+        enqueueSnackbar(getError(err), { variant: "error" });
+      }
+    };
+    fetchColeciones();
+  }, [enqueueSnackbar, setCategories, setcoleciones]);
 
   const isDesktop = useMediaQuery("(min-width:600px)");
 
@@ -258,10 +268,10 @@ export default function Layout({ title, description, children }) {
                               border: "none",
                             }}
                           >
-                            {categories.map((category) => (
+                            {coleciones.map((colecion) => (
                               <NextLink
-                                key={category}
-                                href={`/search?category=${category}`}
+                                key={colecion}
+                                href={`/search?colecion=${colecion}&category=Shop+All`}
                                 passHref
                               >
                                 <ListItem
@@ -270,7 +280,7 @@ export default function Layout({ title, description, children }) {
                                   onClick={sidebarCloseHandler}
                                 >
                                   <ListItemText
-                                    primary={category}
+                                    primary={colecion}
                                   ></ListItemText>
                                 </ListItem>
                               </NextLink>
@@ -305,10 +315,10 @@ export default function Layout({ title, description, children }) {
                       <Dropdown.Menu
                         style={{ backgroundColor: "white", border: "none" }}
                       >
-                        {categories.map((category) => (
+                        {coleciones.map((colecion) => (
                           <NextLink
-                            key={category}
-                            href={`/search?category=${category}`}
+                            key={colecion}
+                            href={`/search?colecion=${colecion}&category=Shop+All`}
                             passHref
                           >
                             <ListItem
@@ -316,7 +326,7 @@ export default function Layout({ title, description, children }) {
                               component="a"
                               onClick={sidebarCloseHandler}
                             >
-                              <ListItemText primary={category}></ListItemText>
+                              <ListItemText primary={colecion}></ListItemText>
                             </ListItem>
                           </NextLink>
                         ))}
@@ -392,7 +402,7 @@ export default function Layout({ title, description, children }) {
                     sx={classes.navbarButton}
                     onClick={loginClickHandler}
                   >
-                    {userInfo.name}
+                    {isDesktop ? userInfo.name : <PersonIcon />}
                   </Button>
                   <Menu
                     id="simple-menu"
@@ -430,20 +440,21 @@ export default function Layout({ title, description, children }) {
         >
           {children}
         </Container>
-        <Divider sx={{ color: "black" }} />
+        <Divider sx={{ color: "black", opacity: "1" }} />
         <Box display="flex" component="footer" sx={classes.footer}>
-          <Grid container spacing={isDesktop ? 130 : 10}>
+          <Grid sx={{ zIndex: "-5" }} container spacing={isDesktop ? 130 : 6}>
             <Grid
               item
-              sx={{ paddingLeft: "10px", marginLeft: isDesktop ? "40px" : "0" }}
+              sx={{
+                paddingLeft: "10px",
+                marginLeft: isDesktop ? "40px" : "15px",
+              }}
             >
-              <Box sx={{ margin: 0 }}>
-                <Box>
-                  <Typography align="justify">All rights reserved. </Typography>
-                </Box>
-                <Box>
-                  <Typography align="justify"> Nuddy minds.</Typography>
-                </Box>
+              <Box>
+                <Typography align="justify">All rights reserved. </Typography>
+              </Box>
+              <Box>
+                <Typography align="justify"> Nuddy minds.</Typography>
               </Box>
             </Grid>
             <Grid item>

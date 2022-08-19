@@ -51,6 +51,10 @@ const classes = {
     backgroundColor: "#ffffff",
     borderRadius: 1,
   },
+  imagec: {
+    minWidth: "670px",
+    height: "670px",
+  },
   searchInput: {
     paddingLeft: 1,
     color: "#000000",
@@ -58,6 +62,7 @@ const classes = {
       color: "#606060",
     },
   },
+  n: {},
   searchButton: {
     padding: 1,
     borderRadius: "0 0px 0px 0",
@@ -65,10 +70,23 @@ const classes = {
       color: "black",
     },
   },
-  title: { fontWeight: "bold", fontSize: "3rem" },
+  title: {
+    fontWeight: "bold",
+    fontSize: "3rem",
+    fontFamily: " coolvetica, sans-serif",
+  },
+  titleMobile: {
+    fontWeight: "bold",
+    fontSize: "3rem",
+    fontFamily: " coolvetica, sans-serif",
+    textAlign: "center",
+  },
   bold: { fontWeight: "bold", fontSize: "2.2rem" },
   line: { border: "1px solid black", height: "2px", opacity: "1" },
   but: {
+    fontWeight: "bold",
+    fontFamily: " coolvetica, sans-serif",
+    transform: "scale(1.1, 1.1)",
     fontSize: "12px",
     border: "1.5px solid black ",
     borderWidth: ".1",
@@ -84,6 +102,9 @@ const classes = {
     textDecoration: "underline ",
     borderWidth: "1",
     textDecorationThickness: "1.5px",
+    fontWeight: "bold",
+    fontFamily: " coolvetica, sans-serif",
+
     "&:hover": {
       transform: "scale(1.1, 1.1)",
       backgroundColor: "transparent",
@@ -95,6 +116,9 @@ const classes = {
   radius: { borderRadius: "100px" },
   buttonQ: { width: "80px", borderWidth: "1px", borderColor: "black" },
   buttonGroup: {
+    fontWeight: "bold",
+    fontFamily: " coolvetica, sans-serif",
+
     borderWidth: "1px",
     borderColor: "black",
   },
@@ -134,6 +158,32 @@ const classes = {
     zIndex: "-5",
     display: "initial",
     filter: " drop-shadow(-2px 26px 18px rgba(0, 0, 0, 0.6));",
+  },
+  buyNow: {
+    backgroundColor: "#A7D1E7",
+    color: "black",
+    border: "1.5px solid black",
+
+    fontWeight: "bold",
+    fontFamily: " coolvetica, sans-serif",
+
+    "&:hover": {
+      backgroundColor: "#A7D1E7",
+      transform: "scale(1.1, 1.1)",
+    },
+  },
+  selected: {
+    border: "1.5px solid black",
+    fontWeight: "bold",
+    fontFamily: " coolvetica, sans-serif",
+
+    fontSize: "12px",
+    border: "1.5px solid black ",
+    borderWidth: ".1",
+
+    "&:hover": {
+      transform: "scale(1.1, 1.1)",
+    },
   },
 };
 

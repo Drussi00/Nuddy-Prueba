@@ -2,18 +2,17 @@ import {
   Box,
   Button,
   Container,
-  Divider,
   Grid,
   Typography,
   Link,
   useMediaQuery,
 } from "@mui/material";
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import classes from "../utils/classes";
-import { urlForThumbnail, urlFor } from "../utils/image";
+import { urlFor } from "../utils/image";
 import NextLink from "next/link";
-const ProductosIndex = ({ products, filteredH, filteredL, filteredT }) => {
+const ProductosIndex = ({ filteredH, filteredL, filteredT }) => {
   const [indexI, setindexI] = useState(0);
   const [indexC, setindexC] = useState(1);
   const [indexD, setindexD] = useState(2);
@@ -191,7 +190,7 @@ const ProductosIndex = ({ products, filteredH, filteredL, filteredT }) => {
               <div>
                 <Button onClick={leftHanlder}>
                   <span
-                    class="left"
+                    className="left"
                     style={{ "&:after": { borderTop: "0.5em solid blue" } }}
                   ></span>
                 </Button>
@@ -208,6 +207,7 @@ const ProductosIndex = ({ products, filteredH, filteredL, filteredT }) => {
             </Grid>
             <Grid item className="imageC" sx={{ ...classes.imageP }}>
               <img
+                className="imageP"
                 width={isDesktop ? "400px" : "300px"}
                 height={isDesktop ? "400px" : "300px"}
                 src={urlFor(
@@ -224,10 +224,15 @@ const ProductosIndex = ({ products, filteredH, filteredL, filteredT }) => {
                 )}
               ></img>
             </Grid>
-            <Grid item md={1} className="butright">
+            <Grid
+              sx={{ position: "relative", right: "50px" }}
+              item
+              md={1}
+              className="butright"
+            >
               <div>
                 <Button onClick={rightHanlder}>
-                  <span class="right"></span>
+                  <span className="right"></span>
                 </Button>
               </div>
             </Grid>
@@ -235,6 +240,7 @@ const ProductosIndex = ({ products, filteredH, filteredL, filteredT }) => {
         </Box>
 
         <Box
+          className="butname"
           display="flex"
           sx={{
             justifyContent: "center",
@@ -243,7 +249,6 @@ const ProductosIndex = ({ products, filteredH, filteredL, filteredT }) => {
             paddingBottom: "",
           }}
         >
-          {" "}
           <NextLink href={`/product/${category[indexC].slug.current}`} passHref>
             <Link sx={{ textDecoration: "none" }}>
               <Button

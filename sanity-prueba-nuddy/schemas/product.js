@@ -46,6 +46,11 @@ export default {
       title: "Category",
       type: "string",
     },
+    {
+      name: "colecion",
+      title: "Colecion",
+      type: "string",
+    },
 
     {
       name: "s",

@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  CircularProgress,
-  Typography,
-  Alert,
-  Grid,
-  Container,
-  Box,
-  useMediaQuery,
-} from "@mui/material";
+import { Typography, Grid, Container, Box, useMediaQuery } from "@mui/material";
 export default function ColecionesIndex() {
   const isDesktop = useMediaQuery("(min-width:600px)");
   return (

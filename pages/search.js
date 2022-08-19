@@ -5,20 +5,14 @@ import {
   ButtonGroup,
   CircularProgress,
   Container,
-  FormControl,
   Grid,
-  InputLabel,
-  List,
-  ListItem,
-  ListItemText,
   MenuItem,
-  Rating,
   Select,
   Typography,
   Pagination,
   useMediaQuery,
 } from "@mui/material";
-import NextLink from "next/link";
+
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -33,12 +27,16 @@ import { Store } from "../utils/Store";
 
 export default function SearchScreen() {
   const isDesktop = useMediaQuery("(min-width:600px)");
+  const [pageSize, setpageSize] = useState(0);
 
-  const pageSize = isDesktop ? 9 : 3;
+  useEffect(() => {
+    setpageSize(isDesktop ? 9 : 3);
+  }, [isDesktop]);
 
   const router = useRouter();
   const {
-    category = " Shop All",
+    category = "Shop All",
+    colecion = "Shop All",
     query = "Shop All",
     price = "Shop All",
     rating = "Shop All",
@@ -73,9 +71,13 @@ export default function SearchScreen() {
         if (category !== "Shop All") {
           gQuery += ` && category match "${category}" `;
         }
+        if (colecion !== "Shop All") {
+          gQuery += ` && colecion match "${colecion}" `;
+        }
         if (query !== "Shop All") {
           gQuery += ` && name match "${query}" `;
         }
+
         if (price !== "Shop All") {
           const minPrice = Number(price.split("-")[0]);
           const maxPrice = Number(price.split("-")[1]);
@@ -94,13 +96,13 @@ export default function SearchScreen() {
         gQuery += `] ${order}`;
         setState({ loading: true });
 
-        products = await client.fetch(gQuery);
+        const fetchProducts = await client.fetch(gQuery);
 
         setState({
-          products,
+          products: fetchProducts,
           loading: false,
-          productsView: products.slice(0, pageSize),
-          productsLengt: products.length,
+          productsView: fetchProducts.slice(0, pageSize),
+          productsLengt: fetchProducts.length,
         });
         setpage(1);
       } catch (err) {
@@ -108,9 +110,16 @@ export default function SearchScreen() {
       }
     };
     fetchData();
-  }, [category, price, query, rating, sort]);
+  }, [category, price, query, rating, sort, colecion]);
 
-  const filterSearch = ({ category, sort, searchQuery, price, rating }) => {
+  const filterSearch = ({
+    category,
+    sort,
+    searchQuery,
+    price,
+    rating,
+    colecion,
+  }) => {
     const path = router.pathname;
     const { query } = router;
     if (searchQuery) query.searchQuery = searchQuery;
@@ -118,7 +127,7 @@ export default function SearchScreen() {
     if (sort) query.sort = sort;
     if (price) query.price = price;
     if (rating) query.rating = rating;
-
+    if (colecion) query.colecion = colecion;
     router.push({
       pathname: path,
       query: query,
@@ -126,6 +135,9 @@ export default function SearchScreen() {
   };
   const categoryHandler = (e) => {
     filterSearch({ category: e.target.value });
+  };
+  const colecionHandler = (e) => {
+    filterSearch({ colecion: e.target.value });
   };
   const sortHandler = (e) => {
     filterSearch({ sort: e.target.value });

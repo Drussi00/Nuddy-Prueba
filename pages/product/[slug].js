@@ -13,6 +13,7 @@ import {
   Divider,
   ButtonGroup,
   Container,
+  useMediaQuery,
 } from "@mui/material";
 import Image from "next/image";
 import NextLink from "next/link";
@@ -150,11 +151,17 @@ export default function ProductScreen(props) {
     });
     router.push("/");
   };
-
+  const [index, setIndex] = useState(0);
+  const isDesktop = useMediaQuery("(min-width:600px)");
+  const [selectedS, setselectedS] = useState(false);
+  const [selectedM, setselectedM] = useState(false);
+  const [selectedL, setselectedL] = useState(false);
   return (
     <Layout title={product?.title}>
       <Box display="flex" sx={classes.productosIndex}>
-        <Typography>
+        <Typography
+          sx={{ fontWeight: "bold", fontFamily: " coolvetica, sans-serif" }}
+        >
           Envio gratis a todo el pais por compras superiores a $200.000
         </Typography>
       </Box>
@@ -167,14 +174,36 @@ export default function ProductScreen(props) {
           <Box>
             <Grid container spacing={6}>
               <Grid item md={6} xs={12}>
-                <Image
-                  src={urlFor(product.image && product.image[0])}
-                  key={product.image._key}
-                  alt={product.name}
-                  layout="responsive"
-                  width={640}
-                  height={640}
-                />
+                <Typography
+                  sx={isDesktop ? classes.hidden : classes.titleMobile}
+                >
+                  {product.name}
+                </Typography>
+                <Box display={"flex"} sx={{ justifyContent: "center" }}>
+                  <Image
+                    className="big-image"
+                    src={urlFor(product.image && product.image[index])}
+                    key={product.image._key}
+                    alt={product.name}
+                    width={400}
+                    height={400}
+                  />
+                </Box>
+                <Box sx={{ zIndex: "1" }}>
+                  <div className="small-images-container">
+                    {product.image?.map((item, i) => (
+                      <img
+                        src={urlFor(item)}
+                        className={
+                          i === index
+                            ? "small-image selected-image"
+                            : "small-image"
+                        }
+                        onMouseEnter={() => setIndex(i)}
+                      />
+                    ))}
+                  </div>
+                </Box>
               </Grid>
               <Grid item md={6} xs={12}>
                 <List>
@@ -186,46 +215,61 @@ export default function ProductScreen(props) {
                   </ListItem>
                   <Divider sx={classes.line} />
                   <ListItem>
-                    <Typography sx={{ fontWeight: "bold" }}>Tallas:</Typography>
+                    <Typography
+                      sx={{
+                        fontWeight: "bold",
+                        fontFamily: " coolvetica, sans-serif",
+                      }}
+                    >
+                      Tallas:
+                    </Typography>
                   </ListItem>
                   <listItem>
                     <Grid container spacing={2}>
                       <Grid item>
                         <Button
-                          sx={classes.but}
                           size="small"
                           variant=""
                           onClick={() => {
                             setsize("S");
                             setquantity(1);
+                            setselectedS(true);
+                            setselectedM(false);
+                            setselectedL(false);
                           }}
+                          sx={selectedS ? classes.but : classes.selected}
                         >
                           S
                         </Button>
                       </Grid>
                       <Grid item>
                         <Button
-                          sx={classes.but}
                           size="small"
                           variant=""
                           onClick={() => {
                             setsize("M");
                             setquantity(1);
+                            setselectedS(false);
+                            setselectedM(true);
+                            setselectedL(false);
                           }}
+                          sx={selectedM ? classes.but : classes.selected}
                         >
                           M
                         </Button>
                       </Grid>
                       <Grid item>
                         <Button
-                          sx={classes.but}
                           size="small"
                           variant=""
                           onClick={() => {
                             setsize("L");
-
+                            setselectedS(false);
+                            setselectedM(false);
+                            setselectedL(true);
                             setquantity(1);
                           }}
+                          sx={selectedL ? classes.but : classes.selected}
                         >
                           L
                         </Button>
@@ -233,7 +277,12 @@ export default function ProductScreen(props) {
                     </Grid>
                   </listItem>
                   <ListItem>
-                    <Typography sx={{ fontWeight: "bold" }}>
+                    <Typography
+                      sx={{
+                        fontWeight: "bold",
+                        fontFamily: " coolvetica, sans-serif",
+                      }}
+                    >
                       Cantidad:
                     </Typography>
                   </ListItem>
@@ -265,15 +314,7 @@ export default function ProductScreen(props) {
                       onClick={buyNowHandler}
                       fullWidth
                       variant="contained"
-                      sx={{
-                        backgroundColor: "#A7D1E7",
-                        color: "black",
-                        border: "1.5px solid black",
-                        "&:hover": {
-                          backgroundColor: "#A7D1E7",
-                          transform: "scale(1.1, 1.1)",
-                        },
-                      }}
+                      sx={classes.buyNow}
                     >
                       Comprar ahora
                     </Button>

@@ -32,6 +32,35 @@
   display: inline;
 }
 
+.MuiGrid-root
+  .MuiGrid-item
+  .MuiGrid-grid-xs-12
+  .MuiGrid-grid-md-6
+  .css-1fyyp8j-MuiGrid-root {
+  padding-top: 0;
+}
+.small-images-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  padding-bottom: 30px;
+}
+.small-image {
+  border-radius: 8px;
+  background-color: #ebebeb;
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+}
+.big-image {
+  border-radius: 8px;
+  filter: drop-shadow(-2px 26px 18px rgba(0, 0, 0, 0.6));
+  cursor: pointer;
+  padding-top: 20px;
+}
+.selected-image {
+  background-color: #a7d1e7;
+}
 .left {
   display: inline-block;
   width: 4em;
@@ -77,9 +106,15 @@
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+.imagec {
+  min-width: 670px;
+  height: 670px;
+  object-fit: contain;
+}
 @media screen and (max-width: 600px) {
-  body {
-    background-color: black;
+  .imagec {
+    min-width: 100%;
+    height: 400px;
   }
   .MuiGrid-root
     MuiGrid-item.MuiGrid-grid-sm-1.MuiGrid-grid-md-1.css-f734e1-MuiGrid-root {
@@ -98,14 +133,13 @@
     bottom: 360px;
     left: 120px;
   }
-  .imageC {
-    position: relative;
-    bottom: 120px;
-    left: 0px;
-  }
+
   .butname {
     position: relative;
     bottom: 250px;
-    left: 0px;
+  }
+  .imageP {
+    position: relative;
+    bottom: 110px;
   }
 }
