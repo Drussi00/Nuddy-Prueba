@@ -3,7 +3,6 @@ import {
   Card,
   Container,
   Grid,
-  Link,
   List,
   ListItem,
   Table,
@@ -14,9 +13,9 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import NextLink from "next/link";
+
 import dynamic from "next/dynamic";
-import Image from "next/image";
+
 import React from "react";
 import Layout from "../../../components/Layout";
 import classes from "../../../utils/classes";

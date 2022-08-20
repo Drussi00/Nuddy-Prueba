@@ -133,7 +133,7 @@ export default function Layout({ title, description, children }) {
       }
     };
     fetchColeciones();
-  }, [enqueueSnackbar, setCategories, setcoleciones]);
+  }, [enqueueSnackbar, setCategories, setcoleciones, categories]);
 
   const isDesktop = useMediaQuery("(min-width:600px)");
 

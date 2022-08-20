@@ -23,7 +23,7 @@ import NextLink from "next/link";
 import { useContext } from "react";
 import { Store } from "../utils/Store";
 // import axios from "axios";
-import { useSnackbar } from "notistack";
+// import { useSnackbar } from "notistack";
 
 import { useRouter } from "next/router";
 function CartScreen() {

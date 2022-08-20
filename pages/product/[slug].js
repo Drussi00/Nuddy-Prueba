@@ -2,13 +2,10 @@ import {
   Alert,
   Box,
   Button,
-  Card,
   CircularProgress,
   Grid,
-  Link,
   List,
   ListItem,
-  Rating,
   Typography,
   Divider,
   ButtonGroup,
@@ -16,7 +13,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import Image from "next/image";
-import NextLink from "next/link";
+
 import { useContext, useEffect, useState } from "react";
 import { useSnackbar } from "notistack";
 import Layout from "../../components/Layout";
@@ -30,10 +27,7 @@ import { useRouter } from "next/router";
 export default function ProductScreen(props) {
   const router = useRouter();
   const { slug } = props;
-  const {
-    state: { cart },
-    dispatch,
-  } = useContext(Store);
+  const { dispatch } = useContext(Store);
   const { enqueueSnackbar } = useSnackbar();
   const [state, setState] = useState({
     product: null,
@@ -55,7 +49,7 @@ export default function ProductScreen(props) {
       }
     };
     fetchData();
-  }, []);
+  }, [slug, state]);
   const [size, setsize] = useState("");
   const [quantity, setquantity] = useState(0);
 
@@ -94,7 +88,7 @@ export default function ProductScreen(props) {
     }
   };
   const buyNowHandler = async () => {
-    const { data } = await axios.get(`/api/products/${product._id}`);
+    // const { data } = await axios.get(`/api/products/${product._id}`);
 
     if (quantity === 0) {
       enqueueSnackbar("Seleciona talla", { variant: "error" });
@@ -192,7 +186,11 @@ export default function ProductScreen(props) {
                 <Box sx={{ zIndex: "1" }}>
                   <div className="small-images-container">
                     {product.image?.map((item, i) => (
-                      <img
+                      <Image
+                        key={item.key}
+                        width={70}
+                        height={70}
+                        alt={item.name}
                         src={urlFor(item)}
                         className={
                           i === index

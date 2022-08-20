@@ -110,7 +110,7 @@ export default function SearchScreen() {
       }
     };
     fetchData();
-  }, [category, price, query, rating, sort, colecion]);
+  }, [category, price, query, rating, sort, colecion, pageSize]);
 
   const filterSearch = ({
     category,
@@ -136,9 +136,9 @@ export default function SearchScreen() {
   const categoryHandler = (e) => {
     filterSearch({ category: e.target.value });
   };
-  const colecionHandler = (e) => {
-    filterSearch({ colecion: e.target.value });
-  };
+  // const colecionHandler = (e) => {
+  //   filterSearch({ colecion: e.target.value });
+  // };
   const sortHandler = (e) => {
     filterSearch({ sort: e.target.value });
   };
@@ -233,6 +233,7 @@ export default function SearchScreen() {
                 >
                   {categories.map((category) => (
                     <MenuItem
+                      key={category}
                       value={category}
                       onClick={() =>
                         router.push(`/search?category=${category}`)
@@ -263,7 +264,7 @@ export default function SearchScreen() {
                     height: "45px",
                     border: "none",
                     borderLeft: "1px solid black",
-                    border: "none",
+
                     borderRadius: "0 ",
                   }}
                   inputProps={{ "aria-label": "Without label" }}
