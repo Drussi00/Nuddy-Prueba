@@ -81,11 +81,8 @@ export default function Layout({ title, description, children }) {
   });
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const loginMenuCloseHandler = (e, redirect) => {
+  const loginMenuCloseHandler = () => {
     setAnchorEl(null);
-    if (redirect) {
-      router.push(redirect);
-    }
   };
   const loginClickHandler = (e) => {
     setAnchorEl(e.currentTarget);
@@ -400,7 +397,7 @@ export default function Layout({ title, description, children }) {
                     aria-controls="simple-menu"
                     aria-haspopup="true"
                     sx={classes.navbarButton}
-                    onClick={loginClickHandler}
+                    onClick={(e) => loginClickHandler(e)}
                   >
                     {userInfo.name}
                   </Button>

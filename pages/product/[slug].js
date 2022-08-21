@@ -61,7 +61,7 @@ export default function ProductScreen(props) {
       } else if (size === "M" && quantity < product.m) {
         setquantity(quantity + 1);
         console.log(quantity);
-      } else if ((size = "L" && quantity < product.l)) {
+      } else if (size === "L" && quantity < product.l) {
         setquantity(quantity + 1);
       } else {
         enqueueSnackbar("Maxima cantidad alcanzada", { variant: "error" });
@@ -78,7 +78,7 @@ export default function ProductScreen(props) {
       } else if (size === "M" && quantity > 0) {
         setquantity(quantity - 1);
         console.log(quantity);
-      } else if ((size = "L" && quantity > 0)) {
+      } else if (size === "L" && quantity > 0) {
         setquantity(quantity - 1);
       } else {
         enqueueSnackbar("La cantidad debe ser mayor a 0", { variant: "error" });
