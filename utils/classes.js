@@ -185,6 +185,12 @@ const classes = {
       transform: "scale(1.1, 1.1)",
     },
   },
+  productsIndexBox: {
+    justifyContent: "center",
+    paddingTop: "0px",
+    alignItems: "center",
+    paddingBottom: "50px",
+  },
 };
 
 export default classes;

@@ -11,8 +11,9 @@ import {
   Typography,
   Pagination,
   useMediaQuery,
+  Link,
 } from "@mui/material";
-
+import NextLink from "next/link";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -301,7 +302,31 @@ export default function SearchScreen() {
                       </Grid>
                     ))
                   ) : (
-                    <h1> No hay resultados de tu busqueda </h1>
+                    <NextLink
+                      sx={{
+                        textDecoration: "none",
+                        paddingLeft: "420px",
+                      }}
+                      href="/search?category=Shop+All"
+                      passHref
+                    >
+                      <Link
+                        sx={{
+                          textDecoration: "none",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            textDecoration: "none",
+                            paddingLeft: isDesktop ? "420px" : "10px",
+                            color: "black",
+                            "&:hover": { color: "#A7D1E7" },
+                          }}
+                        >
+                          No hay resultados de tu busqueda, sigue buscando
+                        </Typography>
+                      </Link>
+                    </NextLink>
                   )}
                 </Grid>
               )}

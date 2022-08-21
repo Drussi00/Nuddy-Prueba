@@ -402,7 +402,7 @@ export default function Layout({ title, description, children }) {
                     sx={classes.navbarButton}
                     onClick={loginClickHandler}
                   >
-                    {isDesktop ? userInfo.name : <PersonIcon />}
+                    {userInfo.name}
                   </Button>
                   <Menu
                     id="simple-menu"

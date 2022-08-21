@@ -168,15 +168,7 @@ const ProductosIndex = ({ filteredH, filteredL, filteredT }) => {
           </Grid>
         </Box>
 
-        <Box
-          display="flex"
-          sx={{
-            justifyContent: "center",
-            paddingTop: "0px",
-            alignItems: "center",
-            paddingBottom: "50px",
-          }}
-        >
+        <Box display="flex">
           <Grid
             container
             spacing={8}
