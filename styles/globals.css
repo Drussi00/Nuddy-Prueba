@@ -1,5 +1,5 @@
 .borrarFieldet
-  .MuiOutlinedInput-root.MuiInputBase-root.MuiInputBase-colorPrimary.MuiInputBase-fullWidth.borrarFieldet.css-rhiper {
+  .MuiOutlinedInput-root.MuiInputBase-root.MuiInputBase-colorPrimary.MuiInputBase-fullWidth.borrarFieldet {
   display: none;
 }
 
@@ -15,30 +15,23 @@
   transform: "scale(1.1, 1.1)";
 }
 
-.MuiTypography-root.MuiTypography-body1.MuiListItemText-primary.css-10hburv-MuiTypography-root {
+.MuiTypography-root.MuiTypography-body1.MuiListItemText-primary {
   font-size: 15px;
   font-weight: bold;
   width: 100%;
   font-family: coolvetica, sans-serif;
 }
-.MuiTypography-root.MuiTypography-body1.MuiListItemText-primary.css-10hburv-MuiTypography-root:hover {
+.MuiTypography-root.MuiTypography-body1.MuiListItemText-primary:hover {
   color: #a7d1e7;
 }
 
-.MuiTypography-inherit.MuiLink-root.MuiLink-underlineHover.css-680nlr-MuiTypography-root-MuiLink-root {
+.MuiTypography-inherit.MuiLink-root.MuiLink-underlineHover {
   text-decoration: none;
 }
-.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAppBar-colorPrimary.MuiAppBar-positionStatic.css-3d6ndr-MuiPaper-root-MuiAppBar-root {
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAppBar-colorPrimary.MuiAppBar-positionStatic {
   display: inline;
 }
 
-.MuiGrid-root
-  .MuiGrid-item
-  .MuiGrid-grid-xs-12
-  .MuiGrid-grid-md-6
-  .css-1fyyp8j-MuiGrid-root {
-  padding-top: 0;
-}
 .small-images-container {
   display: flex;
   gap: 10px;
