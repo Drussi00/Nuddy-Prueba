@@ -209,7 +209,10 @@ export default function ProductScreen(props) {
                     <Typography sx={classes.title}>{product.name}</Typography>
                   </ListItem>
                   <ListItem>
-                    <Typography sx={classes.bold}>${product.price}</Typography>
+                    <Typography sx={classes.bold}>
+                      {" "}
+                      ${new Intl.NumberFormat().format(parseInt(product.price))}
+                    </Typography>
                   </ListItem>
                   <Divider sx={classes.line} />
                   <ListItem>

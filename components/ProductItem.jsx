@@ -26,10 +26,17 @@ const productItem = ({ product }) => {
         </CardActionArea>
       </NextLink>{" "}
       <CardContent>
-        <Typography component="h5" variant="h5" align="center">
+        <Typography
+          component="h5"
+          variant="h5"
+          align="center"
+          sx={{ fontFamily: " coolvetica, sans-serif" }}
+        >
           {product.name}
         </Typography>{" "}
-        <Typography align="center">${product.price}</Typography>
+        <Typography align="center" sx={classes.typo}>
+          ${new Intl.NumberFormat().format(parseInt(product.price))}
+        </Typography>
       </CardContent>
       <CardActions></CardActions>
     </Box>

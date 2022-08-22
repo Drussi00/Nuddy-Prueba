@@ -130,7 +130,7 @@ export default function Layout({ title, description, children }) {
       }
     };
     fetchColeciones();
-  }, [enqueueSnackbar, setCategories, setcoleciones, categories]);
+  }, []);
 
   const isDesktop = useMediaQuery("(min-width:600px)");
 
@@ -430,8 +430,8 @@ export default function Layout({ title, description, children }) {
           </Toolbar>
         </AppBar>
         <Container
-          component="main"
           disableGutters="true"
+          component="main"
           maxWidth="false"
           sx={classes.main}
         >

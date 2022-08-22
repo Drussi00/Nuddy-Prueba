@@ -191,6 +191,10 @@ const classes = {
     alignItems: "center",
     paddingBottom: "50px",
   },
+  typo: {
+    fontWeight: "500",
+    fontFamily: " coolvetica, sans-serif",
+  },
 };
 
 export default classes;

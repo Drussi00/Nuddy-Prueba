@@ -8,7 +8,6 @@ function carousel({ images }) {
     <Carousel controls={false}>
       <Carousel.Item interval={2000}>
         <img
-          objectFit="cover"
           className="d-block  imagec"
           src={urlFor(images[0].image[0])}
           alt="First slide"
