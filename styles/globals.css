@@ -1,4 +1,5 @@
-.MuiOutlinedInput-root.MuiInputBase-root.MuiInputBase-colorPrimary.MuiInputBase-fullWidth.borrarFieldet {
+.MuiOutlinedInput-root.MuiInputBase-root.MuiInputBase-colorPrimary.MuiInputBase-fullWidth.borrarFieldet
+  fieldset {
   display: none;
 }
 
