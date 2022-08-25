@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import Carousel from "../components/Carousel";
 import ProductosIndex from "../components/ProductosIndex";
 import ColecionesIndex from "../components/ColecionesIndex";
+import Categories from "../components/Categories";
 
 export default function Home() {
   const [state, setState] = useState({
@@ -35,7 +36,8 @@ export default function Home() {
   const filteredH = products.filter(
     (product) => product.category === "Hoodies"
   );
-  const filteredL = products.filter((product) => product.category === "Longs");
+  const filteredC = products.filter((product) => product.category === "Cargo");
+  const filteredS = products.filter((product) => product.category === "Shorts");
   return (
     <Layout>
       {loading ? (
@@ -44,17 +46,15 @@ export default function Home() {
         <Alert variant="danger">{error}</Alert>
       ) : (
         <Grid container spacing={0} sx={{ justifyContent: "center" }}>
-          <Grid item md={7} sx={{ justifyContent: "center" }}>
-            <Carousel images={images} />
-          </Grid>
-          <Grid item md={12} sm={12} sx={{}}>
+          <Grid item md={12} sm={12} sx={{ position: "relative" }}>
+            <Categories />
             <ProductosIndex
               products={products}
               filteredH={filteredH}
               filteredT={filteredT}
-              filteredL={filteredL}
+              filteredC={filteredC}
+              filteredS={filteredS}
             />
-            <ColecionesIndex />
           </Grid>
         </Grid>
       )}

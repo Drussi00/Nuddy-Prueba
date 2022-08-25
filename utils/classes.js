@@ -123,14 +123,13 @@ const classes = {
     borderColor: "black",
   },
   productosIndex: {
-    borderWidth: "1.5px",
-    borderStyle: "solid",
-    borderColor: "black",
     width: "100%vw",
     background: "#A7D1E7",
     textAlign: "center",
     alignItems: "center",
     justifyContent: "center",
+    marginBottom: "20px",
+    marginTop: "15px",
   },
   imageP: {
     filter: " drop-shadow(-2px 26px 18px rgba(0, 0, 0, 0.6));",
@@ -194,6 +193,11 @@ const classes = {
   typo: {
     fontWeight: "500",
     fontFamily: " coolvetica, sans-serif",
+  },
+  productIndex: {
+    fontWeight: "bold",
+    fontFamily: " coolvetica, sans-serif",
+    textTransform: "none",
   },
 };
 

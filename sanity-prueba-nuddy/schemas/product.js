@@ -37,9 +37,9 @@ export default {
       },
     },
     {
-      name: "brand",
-      title: "Brand",
-      type: "string",
+      name: "favorito",
+      title: "Favorito",
+      type: "bolean",
     },
     {
       name: "category",

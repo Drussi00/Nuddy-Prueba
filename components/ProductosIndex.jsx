@@ -12,7 +12,7 @@ import { useState } from "react";
 import classes from "../utils/classes";
 import { urlFor } from "../utils/image";
 import NextLink from "next/link";
-const ProductosIndex = ({ filteredH, filteredL, filteredT }) => {
+const ProductosIndex = ({ filteredH, filteredS, filteredT, filterdC }) => {
   const [indexI, setindexI] = useState(0);
   const [indexC, setindexC] = useState(1);
   const [indexD, setindexD] = useState(2);
@@ -75,26 +75,16 @@ const ProductosIndex = ({ filteredH, filteredL, filteredT }) => {
   };
   const isDesktop = useMediaQuery("(min-width:600px)");
   return (
-    <Box sx={{ height: isDesktop ? "100vh" : "900px" }}>
-      <Box display="flex" sx={classes.productosIndex}>
-        <Typography
-          sx={{ fontWeight: "bold", fontFamily: " coolvetica, sans-serif" }}
-        >
-          Envio gratis a todo el pais por compras superiores a $200.000
-        </Typography>
-      </Box>
-
+    <Box
+      sx={{ height: isDesktop ? "100vh" : "900px", backgroundColor: "grey" }}
+    >
       <Container>
         <Box
           display="flex"
           sx={{ justifyContent: "center", paddingTop: "20px" }}
         >
-          <Typography
-            sx={{ fontWeight: "bold", fontFamily: " coolvetica, sans-serif" }}
-            component="h4"
-            variant="h4"
-          >
-            Productos
+          <Typography sx={classes.productIndex} component="h4" variant="h4">
+            Choose Your style
           </Typography>
         </Box>
         <Box display="flex">
@@ -116,14 +106,11 @@ const ProductosIndex = ({ filteredH, filteredL, filteredT }) => {
                 }}
               >
                 <Typography
-                  sx={{
-                    fontWeight: "bold",
-                    fontFamily: " coolvetica, sans-serif",
-                  }}
+                  sx={classes.productIndex}
                   component="h6"
                   variant="h6"
                 >
-                  T-Shirt
+                  T-Shirts
                 </Typography>
               </Button>
             </Grid>
@@ -135,10 +122,7 @@ const ProductosIndex = ({ filteredH, filteredL, filteredT }) => {
                 sx={classes.catBut}
               >
                 <Typography
-                  sx={{
-                    fontWeight: "bold",
-                    fontFamily: " coolvetica, sans-serif",
-                  }}
+                  sx={classes.productIndex}
                   component="h6"
                   variant="h6"
                 >
@@ -148,20 +132,33 @@ const ProductosIndex = ({ filteredH, filteredL, filteredT }) => {
             </Grid>
             <Grid item>
               <Button
+                sx={{ ...classes.catBut }}
                 onClick={() => {
-                  setCategory(filteredL);
+                  setCategory(filteredC);
+                }}
+              >
+                <Typography
+                  sx={classes.productIndex}
+                  component="h6"
+                  variant="h6"
+                >
+                  Cargo
+                </Typography>
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                onClick={() => {
+                  setCategory(filteredS);
                 }}
                 sx={classes.catBut}
               >
                 <Typography
-                  sx={{
-                    fontWeight: "bold",
-                    fontFamily: " coolvetica, sans-serif",
-                  }}
+                  sx={classes.productIndex}
                   component="h6"
                   variant="h6"
                 >
-                  Longs
+                  Shorts
                 </Typography>
               </Button>
             </Grid>
@@ -246,13 +243,13 @@ const ProductosIndex = ({ filteredH, filteredL, filteredT }) => {
               <Button
                 size="large"
                 sx={{
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  color: "black",
+                  color: "white",
+                  backgroundColor: "black",
                   border: " 2px solid black",
                   width: "200px",
                   fontWeight: "bold",
                   fontFamily: " coolvetica, sans-serif",
+                  "&:hover": { color: "black" },
                 }}
               >
                 {category[indexC].name}
