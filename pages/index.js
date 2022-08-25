@@ -3,9 +3,8 @@ import Layout from "../components/Layout";
 import client from "../utils/client";
 import { useState, useEffect } from "react";
 
-import Carousel from "../components/Carousel";
 import ProductosIndex from "../components/ProductosIndex";
-import ColecionesIndex from "../components/ColecionesIndex";
+
 import Categories from "../components/Categories";
 
 export default function Home() {
@@ -14,15 +13,15 @@ export default function Home() {
     error: "",
     loading: true,
   });
-  const [images, setimages] = useState({ images: [] });
+  // const [, setimages] = useState({ images: [] });
   const { loading, error, products } = state;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const products = await client.fetch(`*[_type == 'product']`);
-        const images = await client.fetch(`*[_type == 'images']`);
-        setimages(images);
+        // const images = await client.fetch(`*[_type == 'images']`);
+        // setimages(images);
         setState({ products, loading: false });
       } catch (error) {
         setState({ loading: false, error: error.message });

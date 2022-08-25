@@ -134,7 +134,7 @@ const ProductosIndex = ({ filteredH, filteredS, filteredT, filterdC }) => {
               <Button
                 sx={{ ...classes.catBut }}
                 onClick={() => {
-                  setCategory(filteredC);
+                  setCategory(filterdC);
                 }}
               >
                 <Typography
