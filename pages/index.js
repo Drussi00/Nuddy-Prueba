@@ -2,7 +2,7 @@ import { CircularProgress, Alert, Grid } from "@mui/material";
 import Layout from "../components/Layout";
 import client from "../utils/client";
 import { useState, useEffect } from "react";
-
+import Favoritos from "../components/Favoritos";
 import ProductosIndex from "../components/ProductosIndex";
 
 import Categories from "../components/Categories";
@@ -23,6 +23,7 @@ export default function Home() {
         // const images = await client.fetch(`*[_type == 'images']`);
         // setimages(images);
         setState({ products, loading: false });
+        console.log(products[0].favorito);
       } catch (error) {
         setState({ loading: false, error: error.message });
       }
@@ -37,6 +38,7 @@ export default function Home() {
   );
   const filteredC = products.filter((product) => product.category === "Cargo");
   const filteredS = products.filter((product) => product.category === "Shorts");
+  const favorito = products.filter((product) => product.favorito === "true");
   return (
     <Layout>
       {loading ? (
@@ -47,6 +49,7 @@ export default function Home() {
         <Grid container spacing={0} sx={{ justifyContent: "center" }}>
           <Grid item md={12} sm={12} sx={{ position: "relative" }}>
             <Categories />
+            <Favoritos products={products} />
             <ProductosIndex
               products={products}
               filteredH={filteredH}

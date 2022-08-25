@@ -39,7 +39,7 @@ export default {
     {
       name: "favorito",
       title: "Favorito",
-      type: "bolean",
+      type: "boolean",
     },
     {
       name: "category",
