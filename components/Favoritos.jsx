@@ -1,20 +1,36 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 
-export default function Favoritos({ products }) {
+import FavoritosCard from "./FavoritosCard";
+export default function Favoritos({ favorito }) {
   useEffect(() => {
-    console.log(products);
+    console.log(favorito);
   });
   return (
-    <Box sx={{ height: "450px" }}>
+    <Box sx={{ height: "370px" }}>
       <Typography
         sx={{ fontSize: "2rem", fontWeight: "bold", textAlign: "center" }}
       >
         Our Favorites
       </Typography>
-      <Box display="flex" justifyContent={"center"}>
-        hola
-      </Box>
+      <Grid
+        paddingTop={5}
+        position="relative"
+        left="80px"
+        container
+        spacing={1}
+        alignItems="center"
+        justifyconten="center"
+        margin="auto"
+      >
+        {favorito.map((fav) => {
+          return (
+            <Grid item md={2.6} sm={12} key={fav.key}>
+              <FavoritosCard product={fav} />
+            </Grid>
+          );
+        })}
+      </Grid>
     </Box>
   );
 }

@@ -193,6 +193,7 @@ const classes = {
   typo: {
     fontWeight: "500",
     fontFamily: " coolvetica, sans-serif",
+    color: "white",
   },
   productIndex: {
     fontWeight: "bold",

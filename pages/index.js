@@ -15,7 +15,7 @@ export default function Home() {
   });
   // const [, setimages] = useState({ images: [] });
   const { loading, error, products } = state;
-
+  const favorito = products.filter((product) => product.favorito === "si");
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -38,7 +38,7 @@ export default function Home() {
   );
   const filteredC = products.filter((product) => product.category === "Cargo");
   const filteredS = products.filter((product) => product.category === "Shorts");
-  const favorito = products.filter((product) => product.favorito === "true");
+
   return (
     <Layout>
       {loading ? (
@@ -49,7 +49,19 @@ export default function Home() {
         <Grid container spacing={0} sx={{ justifyContent: "center" }}>
           <Grid item md={12} sm={12} sx={{ position: "relative" }}>
             <Categories />
-            <Favoritos products={products} />
+          </Grid>
+          <Grid
+            paddingTop={10}
+            item
+            md={12}
+            sm={12}
+            sx={{ position: "relative" }}
+          >
+            {" "}
+            <Favoritos favorito={favorito} />
+          </Grid>
+          <Grid item paddingTop={20}>
+            {" "}
             <ProductosIndex
               products={products}
               filteredH={filteredH}

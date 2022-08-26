@@ -6,7 +6,6 @@ import {
   CardMedia,
   CardContent,
   Typography,
-  Box,
 } from "@mui/material";
 import { urlForThumbnail } from "../utils/image";
 
@@ -14,23 +13,23 @@ import classes from "../utils/classes";
 
 const productItem = ({ product }) => {
   return (
-    <Box raised={true} sx={classes.card}>
+    <div sx={classes.card}>
       <NextLink href={`/product/${product.slug.current}`} passHref>
         <CardActionArea>
           <CardMedia
             component="img"
             image={urlForThumbnail(product.image && product.image[0])}
             title={product.name}
-            sx={{ backgroundColor: "#F3F3F3", borderRadius: "20px" }}
+            sx={{ backgroundColor: "#F3F3F3" }}
           ></CardMedia>
         </CardActionArea>
       </NextLink>
-      <CardContent>
+      <CardContent sx={{ backgroundColor: "black" }}>
         <Typography
           component="h5"
           variant="h5"
           align="center"
-          sx={{ fontFamily: " coolvetica, sans-serif" }}
+          sx={{ fontFamily: " coolvetica, sans-serif", color: "white" }}
         >
           {product.name}
         </Typography>{" "}
@@ -39,7 +38,7 @@ const productItem = ({ product }) => {
         </Typography>
       </CardContent>
       <CardActions></CardActions>
-    </Box>
+    </div>
   );
 };
 
