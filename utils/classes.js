@@ -11,6 +11,8 @@ const classes = {
     marginTop: 0,
   },
   footer: {
+    paddingRight: "50px",
+    marginLeft: "50px",
     marginTop: 5,
     marginBottom: 5,
     textAlign: "center",

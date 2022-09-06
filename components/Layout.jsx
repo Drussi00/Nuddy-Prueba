@@ -430,7 +430,7 @@ export default function Layout({ title, description, children }) {
           </Toolbar>
         </AppBar>
         <Container
-          disableGutters="true"
+          disableGutters={"true"}
           component="main"
           maxWidth="false"
           sx={classes.main}
@@ -438,32 +438,27 @@ export default function Layout({ title, description, children }) {
           {children}
         </Container>
         <Divider sx={{ color: "black", opacity: "1" }} />
-        <Box display="flex" component="footer" sx={classes.footer}>
-          <Grid sx={{ zIndex: "-5" }} container spacing={isDesktop ? 130 : 6}>
-            <Grid
-              item
-              sx={{
-                paddingLeft: "10px",
-                marginLeft: isDesktop ? "40px" : "15px",
-              }}
-            >
-              <Box>
-                <Typography align="justify">All rights reserved. </Typography>
-              </Box>
-              <Box>
-                <Typography align="justify"> Nuddy minds.</Typography>
-              </Box>
-            </Grid>
-            <Grid item>
-              <Box>
-                <Box display="flex" sx={{ justifyContent: "space-around" }}>
-                  <WhatsAppIcon fontSize="large" sx={{ marginLeft: "20px" }} />
-                  <InstagramIcon fontSize="large" sx={{ marginLeft: "20px" }} />
-                  <EmailIcon fontSize="large" sx={{ marginLeft: "20px" }} />
-                </Box>
-              </Box>
-            </Grid>
-          </Grid>
+        <Box
+          display="flex"
+          justifyContent={"space-between"}
+          component="footer"
+          sx={classes.footer}
+        >
+          <Box>
+            <Box>
+              <Typography align="justify">All rights reserved. </Typography>
+            </Box>
+            <Box>
+              <Typography align="justify"> Nuddy minds.</Typography>
+            </Box>
+          </Box>
+          <Box>
+            <Box display="flex" sx={{ justifyContent: "space-around" }}>
+              <WhatsAppIcon fontSize="large" sx={{ marginLeft: "20px" }} />
+              <InstagramIcon fontSize="large" sx={{ marginLeft: "20px" }} />
+              <EmailIcon fontSize="large" sx={{ marginLeft: "20px" }} />
+            </Box>
+          </Box>
         </Box>
       </ThemeProvider>
     </>

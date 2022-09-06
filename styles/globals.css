@@ -1,6 +1,9 @@
 .title.MuiListItem-root.MuiListItem-gutters.MuiListItem-padding {
   justify-content: center;
 }
+.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.MuiSelect-icon.MuiSelect-iconOutlined {
+  color: #000000;
+}
 
 .MuiOutlinedInput-root.MuiInputBase-root.MuiInputBase-colorPrimary.borrarFieldet
   fieldset {

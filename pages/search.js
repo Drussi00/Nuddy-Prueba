@@ -25,7 +25,7 @@ import classes from "../utils/classes";
 import client from "../utils/client";
 import { urlForThumbnail } from "../utils/image";
 import { Store } from "../utils/Store";
-
+import FavoritosCard from "../components/FavoritosCard";
 export default function SearchScreen() {
   const isDesktop = useMediaQuery("(min-width:600px)");
   const [pageSize, setpageSize] = useState(0);
@@ -214,7 +214,6 @@ export default function SearchScreen() {
                 aria-label="outlined button group"
                 sx={{
                   border: "1.5px solid black",
-                  borderRadius: "8px ",
                 }}
               >
                 <Select
@@ -294,8 +293,8 @@ export default function SearchScreen() {
                 >
                   {productsView.length !== 0 ? (
                     productsView.map((product) => (
-                      <Grid item md={4} sm={12} key={product.name}>
-                        <ProductItem
+                      <Grid item md={3} sm={12} key={product.name}>
+                        <FavoritosCard
                           product={product}
                           addToCartHandler={addToCartHandler}
                         />

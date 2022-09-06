@@ -82,7 +82,7 @@ export default function Home() {
           <Grid paddingTop={10} paddingBottom={10}>
             <Influencer />
           </Grid>
-          <Grid paddingTop={10} paddingBottom={10}>
+          <Grid paddingTop={10} paddingBottom={2}>
             <Newsletter />
           </Grid>
         </div>

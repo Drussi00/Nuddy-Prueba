@@ -1,14 +1,22 @@
-import { Box, Button, List, ListItem, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  List,
+  ListItem,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import React from "react";
 import Checkbox from "@mui/material/Checkbox";
 
 const Newsletter = () => {
+  const isDesktop = useMediaQuery("(min-width:600px)");
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   return (
     <Box
       display="flex"
       justifyContent={"center"}
-      sx={{ backgroundColor: "#f1f1f1" }}
+      sx={{ backgroundColor: "#f1f1f1", paddingBottom: "20px" }}
     >
       <List>
         <ListItem sx={{ justifyContent: "center" }}>
@@ -23,7 +31,10 @@ const Newsletter = () => {
           </Typography>
         </ListItem>
         <ListItem sx={{ justifyContent: "center" }}>
-          <div className="input-group">
+          <div
+            className="input-group"
+            style={{ width: isDesktop ? "40%" : "100%" }}
+          >
             <input
               type="text"
               className="form-control"
@@ -40,13 +51,15 @@ const Newsletter = () => {
             </span>
           </div>
         </ListItem>
-        <ListItem sx={{ justifyContent: "center", width: "50%" }}>
+        <ListItem
+          sx={{ justifyContent: "center", width: "50%", margin: "auto" }}
+        >
           <Checkbox
             {...label}
             defaultChecked
             sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }}
           />
-          <div style={{ height: "30px", width: "50%" }}>
+          <div style={{ height: "40px" }}>
             <Typography sx={{ fontSize: "0.8rem " }}>
               Si me gustaria recibir la newsletter de Nuddy Minds. al
               registrarme en el boletin, acepto la informacion de proteccion de
