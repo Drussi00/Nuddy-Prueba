@@ -1,12 +1,11 @@
 import React from "react";
-import { Typography, Grid, Container, Box, useMediaQuery } from "@mui/material";
+import { Typography, Grid, Container, Box } from "@mui/material";
 export default function ColecionesIndex() {
-  const isDesktop = useMediaQuery("(min-width:600px)");
   return (
     <Box
       sx={{
         width: "100%",
-        height: isDesktop ? "100vh" : "1900px",
+
         backgroundColor: "#A7D1E7",
         borderStyle: "solid",
         borderColor: "black",

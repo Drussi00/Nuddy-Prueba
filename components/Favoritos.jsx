@@ -7,16 +7,15 @@ export default function Favoritos({ favorito }) {
     console.log(favorito);
   });
   return (
-    <Box sx={{ height: "370px" }}>
+    <Box>
       <Typography
         sx={{ fontSize: "2rem", fontWeight: "bold", textAlign: "center" }}
       >
         Our Favorites
       </Typography>
       <Grid
+        width="65%"
         paddingTop={5}
-        position="relative"
-        left="80px"
         container
         spacing={1}
         alignItems="center"
@@ -25,7 +24,7 @@ export default function Favoritos({ favorito }) {
       >
         {favorito.map((fav) => {
           return (
-            <Grid item md={2.6} sm={12} key={fav.key}>
+            <Grid item md={3} sm={12} key={fav.key}>
               <FavoritosCard product={fav} />
             </Grid>
           );

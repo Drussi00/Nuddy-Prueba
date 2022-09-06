@@ -6,6 +6,8 @@ import Favoritos from "../components/Favoritos";
 import ProductosIndex from "../components/ProductosIndex";
 
 import Categories from "../components/Categories";
+import Influencer from "../components/Influencer";
+import Newsletter from "../components/Newsletter";
 
 export default function Home() {
   const [state, setState] = useState({
@@ -46,31 +48,44 @@ export default function Home() {
       ) : error ? (
         <Alert variant="danger">{error}</Alert>
       ) : (
-        <Grid container spacing={0} sx={{ justifyContent: "center" }}>
-          <Grid item md={12} sm={12} sx={{ position: "relative" }}>
-            <Categories />
+        <div>
+          <Grid container spacing={0} sx={{ justifyContent: "center" }}>
+            <Grid item md={12} sm={12} sx={{ position: "relative" }}>
+              <Categories />
+            </Grid>
+            <Grid
+              paddingTop={10}
+              item
+              md={12}
+              sm={12}
+              sx={{ position: "relative" }}
+            >
+              {" "}
+              <Favoritos favorito={favorito} />
+            </Grid>
+            <Grid
+              item
+              paddingTop={5}
+              md={12}
+              sm={12}
+              sx={{ backgroundColor: "grey" }}
+            >
+              {" "}
+              <ProductosIndex
+                filteredH={filteredH}
+                filteredT={filteredT}
+                filteredC={filteredC}
+                filteredS={filteredS}
+              />{" "}
+            </Grid>
           </Grid>
-          <Grid
-            paddingTop={10}
-            item
-            md={12}
-            sm={12}
-            sx={{ position: "relative" }}
-          >
-            {" "}
-            <Favoritos favorito={favorito} />
+          <Grid paddingTop={10} paddingBottom={10}>
+            <Influencer />
           </Grid>
-          <Grid item paddingTop={20}>
-            {" "}
-            <ProductosIndex
-              products={products}
-              filteredH={filteredH}
-              filteredT={filteredT}
-              filteredC={filteredC}
-              filteredS={filteredS}
-            />
+          <Grid paddingTop={10} paddingBottom={10}>
+            <Newsletter />
           </Grid>
-        </Grid>
+        </div>
       )}
     </Layout>
   );

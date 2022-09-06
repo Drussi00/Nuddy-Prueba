@@ -1,10 +1,16 @@
 import { Box, Container, Grid, Typography, useMediaQuery } from "@mui/material";
-
-import React from "react";
+import nuddy from "/utils/Images/nuddy.png";
+import React, { useEffect } from "react";
 import classes from "../utils/classes";
 
 export default function Categories() {
   const isDesktop = useMediaQuery("(min-width:600px)");
+  useEffect(() => {
+    console.log(nuddy.src);
+
+    return () => {};
+  }, []);
+
   return (
     <div>
       <Box display="flex" sx={classes.productosIndex}>
@@ -35,6 +41,9 @@ export default function Categories() {
               position: "absolute",
               top: isDesktop ? "30px" : "70px",
               fontSize: isDesktop ? "8rem" : "5rem",
+              fontFamily: "Cooper Black",
+              fontWeight: "bold",
+              fontStyle: "normal",
             }}
           >
             Essentials
@@ -44,7 +53,9 @@ export default function Categories() {
               position: "relative",
               top: isDesktop ? "50px" : "30px",
               fontSize: "2rem",
-              fontWeight: "bold",
+              fontWeight: "900",
+              fontFamily: "Cooper Black",
+              fontStyle: "normal",
             }}
           >
             Nuddy Minds
@@ -64,11 +75,10 @@ export default function Categories() {
               }}
             >
               <img
-                src="https://i.etsystatic.com/30139968/c/1981/1581/0/102/il/8d9b27/3121799274/il_340x270.3121799274_8kd9.jpg"
+                src={nuddy.src}
                 style={{
                   display: "flex",
 
-                  backgroundColor: "black",
                   width: isDesktop ? "250px" : "100%",
                   height: "518px",
                 }}

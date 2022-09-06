@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Container,
   Grid,
   Typography,
   Link,
@@ -76,188 +75,164 @@ const ProductosIndex = ({ filteredH, filteredS, filteredT, filterdC }) => {
   const isDesktop = useMediaQuery("(min-width:600px)");
   return (
     <Box
-      sx={{ height: isDesktop ? "100vh" : "900px", backgroundColor: "grey" }}
+      sx={{ backgroundColor: "#f1f1f1", zIndex: "-4", paddingBottom: "70px" }}
     >
-      <Container>
-        <Box
-          display="flex"
-          sx={{ justifyContent: "center", paddingTop: "20px" }}
-        >
-          <Typography sx={classes.productIndex} component="h4" variant="h4">
-            Choose Your style
-          </Typography>
-        </Box>
-        <Box display="flex">
-          <Grid
-            container
-            spacing={isDesktop ? 8 : 4}
-            sx={{
-              zIndex: "100",
-              justifyContent: "center",
-              paddingTop: "20px",
-              alignItems: "center",
-            }}
-          >
-            <Grid item>
-              <Button
-                sx={{ ...classes.catBut }}
-                onClick={() => {
-                  setCategory(filteredT);
-                }}
-              >
-                <Typography
-                  sx={classes.productIndex}
-                  component="h6"
-                  variant="h6"
-                >
-                  T-Shirts
-                </Typography>
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                onClick={() => {
-                  setCategory(filteredH);
-                }}
-                sx={classes.catBut}
-              >
-                <Typography
-                  sx={classes.productIndex}
-                  component="h6"
-                  variant="h6"
-                >
-                  Hoodies
-                </Typography>
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                sx={{ ...classes.catBut }}
-                onClick={() => {
-                  setCategory(filterdC);
-                }}
-              >
-                <Typography
-                  sx={classes.productIndex}
-                  component="h6"
-                  variant="h6"
-                >
-                  Cargo
-                </Typography>
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                onClick={() => {
-                  setCategory(filteredS);
-                }}
-                sx={classes.catBut}
-              >
-                <Typography
-                  sx={classes.productIndex}
-                  component="h6"
-                  variant="h6"
-                >
-                  Shorts
-                </Typography>
-              </Button>
-            </Grid>
-          </Grid>
-        </Box>
-
-        <Box display="flex">
-          <Grid
-            container
-            spacing={8}
-            sx={{
-              justifyContent: "center",
-              paddingTop: "20px",
-              alignItems: "center",
-            }}
-          >
-            <Grid item md={1} sm={0} className="butleft">
-              <div>
-                <Button onClick={leftHanlder}>
-                  <span
-                    className="left"
-                    style={{ "&:after": { borderTop: "0.5em solid blue" } }}
-                  ></span>
-                </Button>
-              </div>
-            </Grid>
-            <Grid item sx={isDesktop ? classes.visibleI : classes.hidden}>
-              <img
-                width="200"
-                height="200"
-                src={urlFor(
-                  category[indexI].image && category[indexI].image[0]
-                )}
-              ></img>
-            </Grid>
-            <Grid item className="imageC" sx={{ ...classes.imageP }}>
-              <img
-                className="imageP"
-                width={isDesktop ? "400px" : "300px"}
-                height={isDesktop ? "400px" : "300px"}
-                src={urlFor(
-                  category[indexC].image && category[indexC].image[0]
-                )}
-              ></img>
-            </Grid>{" "}
-            <Grid item sx={isDesktop ? classes.visibleI : classes.hidden}>
-              <img
-                width="200"
-                height="200"
-                src={urlFor(
-                  category[indexD].image && category[indexD].image[0]
-                )}
-              ></img>
-            </Grid>
-            <Grid
-              sx={{ position: "relative", right: "50px" }}
-              item
-              md={1}
-              className="butright"
-            >
-              <div>
-                <Button onClick={rightHanlder}>
-                  <span className="right"></span>
-                </Button>
-              </div>
-            </Grid>
-          </Grid>
-        </Box>
-
-        <Box
-          className="butname"
-          display="flex"
+      <Box display="flex" sx={{ justifyContent: "center", paddingTop: "20px" }}>
+        <Typography sx={classes.productIndex} component="h4" variant="h4">
+          Choose Your style
+        </Typography>
+      </Box>
+      <Box display="flex">
+        <Grid
+          container
+          spacing={isDesktop ? 8 : 4}
           sx={{
+            zIndex: "100",
             justifyContent: "center",
-            paddingTop: "0px",
+            paddingTop: "20px",
             alignItems: "center",
-            paddingBottom: "",
           }}
         >
-          <NextLink href={`/product/${category[indexC].slug.current}`} passHref>
-            <Link sx={{ textDecoration: "none" }}>
-              <Button
-                size="large"
-                sx={{
-                  color: "white",
-                  backgroundColor: "black",
-                  border: " 2px solid black",
-                  width: "200px",
-                  fontWeight: "bold",
-                  fontFamily: " coolvetica, sans-serif",
-                  "&:hover": { color: "black" },
-                }}
-              >
-                {category[indexC].name}
+          <Grid item>
+            <Button
+              sx={{ ...classes.catBut }}
+              onClick={() => {
+                setCategory(filteredT);
+              }}
+            >
+              <Typography sx={classes.productIndex} component="h6" variant="h6">
+                T-Shirts
+              </Typography>
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              onClick={() => {
+                setCategory(filteredH);
+              }}
+              sx={classes.catBut}
+            >
+              <Typography sx={classes.productIndex} component="h6" variant="h6">
+                Hoodies
+              </Typography>
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              sx={{ ...classes.catBut }}
+              onClick={() => {
+                setCategory(filterdC);
+              }}
+            >
+              <Typography sx={classes.productIndex} component="h6" variant="h6">
+                Cargo
+              </Typography>
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              onClick={() => {
+                setCategory(filteredS);
+              }}
+              sx={classes.catBut}
+            >
+              <Typography sx={classes.productIndex} component="h6" variant="h6">
+                Shorts
+              </Typography>
+            </Button>
+          </Grid>
+        </Grid>
+      </Box>
+
+      <Box display="flex">
+        <Grid
+          container
+          spacing={8}
+          sx={{
+            justifyContent: "center",
+            paddingTop: "20px",
+            alignItems: "center",
+          }}
+        >
+          <Grid item md={1} sm={0} className="butleft">
+            <div>
+              <Button onClick={leftHanlder}>
+                <span
+                  className="left"
+                  style={{
+                    zIndex: "1",
+                    "&:after": { borderTop: "0.5em solid blue" },
+                  }}
+                ></span>
               </Button>
-            </Link>
-          </NextLink>
-        </Box>
-      </Container>
+            </div>
+          </Grid>
+          <Grid item sx={isDesktop ? classes.visibleI : classes.hidden}>
+            <img
+              width="200"
+              height="200"
+              src={urlFor(category[indexI].image && category[indexI].image[0])}
+            ></img>
+          </Grid>
+          <Grid item className="imageC" sx={{ ...classes.imageP }}>
+            <img
+              className="imageP"
+              width={isDesktop ? "400px" : "300px"}
+              height={isDesktop ? "400px" : "300px"}
+              src={urlFor(category[indexC].image && category[indexC].image[0])}
+            ></img>
+          </Grid>{" "}
+          <Grid item sx={isDesktop ? classes.visibleI : classes.hidden}>
+            <img
+              width="200"
+              height="200"
+              src={urlFor(category[indexD].image && category[indexD].image[0])}
+            ></img>
+          </Grid>
+          <Grid
+            sx={{ position: "relative", right: "50px" }}
+            item
+            md={1}
+            className="butright"
+          >
+            <div>
+              <Button onClick={rightHanlder}>
+                <span className="right"></span>
+              </Button>
+            </div>
+          </Grid>
+        </Grid>
+      </Box>
+
+      <Box
+        className="butname"
+        display="flex"
+        sx={{
+          justifyContent: "center",
+          paddingTop: "0px",
+          alignItems: "center",
+          paddingBottom: "",
+        }}
+      >
+        <NextLink href={`/product/${category[indexC].slug.current}`} passHref>
+          <Link sx={{ textDecoration: "none" }}>
+            <Button
+              size="large"
+              sx={{
+                color: "white",
+                backgroundColor: "black",
+                border: " 2px solid black",
+                width: "200px",
+                fontWeight: "bold",
+                fontFamily: " coolvetica, sans-serif",
+                "&:hover": { color: "black" },
+              }}
+            >
+              {category[indexC].name}
+            </Button>
+          </Link>
+        </NextLink>
+      </Box>
     </Box>
   );
 };

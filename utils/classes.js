@@ -124,7 +124,7 @@ const classes = {
   },
   productosIndex: {
     width: "100%vw",
-    background: "#A7D1E7",
+    background: "#f1f1f1",
     textAlign: "center",
     alignItems: "center",
     justifyContent: "center",
@@ -133,7 +133,7 @@ const classes = {
   },
   imageP: {
     filter: " drop-shadow(-2px 26px 18px rgba(0, 0, 0, 0.6));",
-    zIndex: "-5",
+    zIndex: "0",
   },
   card: {
     cursor: "pointer",
@@ -154,7 +154,6 @@ const classes = {
     },
   },
   visibleI: {
-    zIndex: "-5",
     display: "initial",
     filter: " drop-shadow(-2px 26px 18px rgba(0, 0, 0, 0.6));",
   },
