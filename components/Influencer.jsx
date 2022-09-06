@@ -30,16 +30,15 @@ const Influencer = () => {
   const isDesktop = useMediaQuery("(min-width:600px)");
 
   const onSubmit = async () => {
+    console.log(username, email, instagram);
+    const { data } = await axios.post("/api/users/influencer", {
+      username,
+      email,
+      instagram,
+    });
+    console.log(data);
     try {
-      const { data } = await axios.post("/api/users/influencer", {
-        username,
-        email,
-        password,
-      });
-      router.push(redirect || "/");
-    } catch (err) {
-      enqueueSnackbar(getError(err), { variant: "error" });
-    }
+    } catch (error) {}
   };
   return (
     <div>

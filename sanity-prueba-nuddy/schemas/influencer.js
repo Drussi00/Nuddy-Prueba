@@ -1,6 +1,6 @@
 export default {
-  name: "user",
-  title: "User",
+  name: "influencer",
+  title: "Influencer",
   type: "document",
   fields: [
     {
