@@ -113,7 +113,6 @@ export default function Layout({ title, description, children }) {
       try {
         const { data } = await axios.get(`/api/products/categories`);
         setCategories(data);
-        console.log(categories);
       } catch (err) {
         enqueueSnackbar(getError(err), { variant: "error" });
       }
@@ -123,7 +122,6 @@ export default function Layout({ title, description, children }) {
       try {
         const { data } = await axios.get(`/api/products/coleciones`);
         setcoleciones(data);
-        console.log(categories);
       } catch (err) {
         enqueueSnackbar(getError(err), { variant: "error" });
       }

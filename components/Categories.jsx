@@ -5,11 +5,6 @@ import classes from "../utils/classes";
 
 export default function Categories() {
   const isDesktop = useMediaQuery("(min-width:600px)");
-  useEffect(() => {
-    console.log(nuddy.src);
-
-    return () => {};
-  }, []);
 
   return (
     <div>
@@ -39,7 +34,7 @@ export default function Categories() {
               opacity: ".1",
               zIndex: "-5",
               position: "absolute",
-              top: isDesktop ? "30px" : "70px",
+              top: isDesktop ? "13px" : "50px",
               fontSize: isDesktop ? "8rem" : "5rem",
               fontFamily: "Cooper Black",
               fontWeight: "bold",
@@ -51,8 +46,8 @@ export default function Categories() {
           <Typography
             sx={{
               position: "relative",
-              top: isDesktop ? "50px" : "30px",
-              fontSize: "2rem",
+              top: isDesktop ? "50px" : "35px",
+              fontSize: isDesktop ? "2rem" : "1.5rem",
               fontWeight: "900",
               fontFamily: "Cooper Black",
               fontStyle: "normal",

@@ -1,11 +1,8 @@
 import { Box, Grid, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import React from "react";
 
 import FavoritosCard from "./FavoritosCard";
 export default function Favoritos({ favorito }) {
-  useEffect(() => {
-    console.log(favorito);
-  });
   return (
     <Box>
       <Typography

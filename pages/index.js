@@ -25,7 +25,6 @@ export default function Home() {
         // const images = await client.fetch(`*[_type == 'images']`);
         // setimages(images);
         setState({ products, loading: false });
-        console.log(products[0].favorito);
       } catch (error) {
         setState({ loading: false, error: error.message });
       }

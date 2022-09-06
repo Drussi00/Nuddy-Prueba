@@ -11,10 +11,36 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
 const Influencer = () => {
+  const [formState, setFormState] = useState({
+    username: "",
+    email: " ",
+    instagram: "",
+  });
+  const { username, email, instagram } = formState;
+  const onInputChange = ({ target }) => {
+    const { name, value } = target;
+
+    setFormState({ ...formState, [name]: value });
+    console.log({ name, value });
+  };
   const isDesktop = useMediaQuery("(min-width:600px)");
+
+  const onSubmit = async () => {
+    try {
+      const { data } = await axios.post("/api/users/influencer", {
+        username,
+        email,
+        password,
+      });
+      router.push(redirect || "/");
+    } catch (err) {
+      enqueueSnackbar(getError(err), { variant: "error" });
+    }
+  };
   return (
     <div>
       <Box
@@ -108,6 +134,10 @@ const Influencer = () => {
 
                 <ListItem>
                   <input
+                    onChange={onInputChange}
+                    value={username}
+                    className="form-control"
+                    name="username"
                     type="text"
                     placeholder="Nombres y Apellidos"
                     style={{ width: "100%" }}
@@ -115,13 +145,21 @@ const Influencer = () => {
                 </ListItem>
                 <ListItem>
                   <input
-                    type="text"
+                    onChange={onInputChange}
+                    className="form-control"
+                    value={email}
+                    name="email"
+                    type="email"
                     placeholder="Correo electronico"
                     style={{ width: "100%" }}
                   ></input>
                 </ListItem>
                 <ListItem>
                   <input
+                    onChange={onInputChange}
+                    className="form-control"
+                    value={instagram}
+                    name="instagram"
                     type="text"
                     placeholder="Perfil instagram"
                     style={{ width: "100%" }}
@@ -133,6 +171,7 @@ const Influencer = () => {
                     variant="contained"
                     type="submit"
                     fullWidth
+                    onClick={onSubmit}
                     sx={{
                       color: "white",
                       backgroundColor: "black",
