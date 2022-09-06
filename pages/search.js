@@ -20,7 +20,6 @@ import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import React, { useContext, useEffect, useState } from "react";
 import Layout from "../components/Layout";
-import ProductItem from "../components/ProductItem";
 import classes from "../utils/classes";
 import client from "../utils/client";
 import { urlForThumbnail } from "../utils/image";
