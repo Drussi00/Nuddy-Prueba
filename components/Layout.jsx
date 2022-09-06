@@ -429,6 +429,7 @@ export default function Layout({ title, description, children }) {
             </Box>
           </Toolbar>
         </AppBar>
+        <Divider />
         <Container
           disableGutters={"true"}
           component="main"

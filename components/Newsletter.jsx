@@ -52,7 +52,11 @@ const Newsletter = () => {
           </div>
         </ListItem>
         <ListItem
-          sx={{ justifyContent: "center", width: "50%", margin: "auto" }}
+          sx={{
+            justifyContent: "center",
+            width: isDesktop ? "50%" : "100%",
+            margin: "auto",
+          }}
         >
           <Checkbox
             {...label}
@@ -60,7 +64,7 @@ const Newsletter = () => {
             sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }}
           />
           <div style={{ height: "40px" }}>
-            <Typography sx={{ fontSize: "0.8rem " }}>
+            <Typography sx={{ fontSize: isDesktop ? "0.8rem " : "0.6rem " }}>
               Si me gustaria recibir la newsletter de Nuddy Minds. al
               registrarme en el boletin, acepto la informacion de proteccion de
               datos de Nuddy Minds y doy mi consentimiento para la recopilacion,

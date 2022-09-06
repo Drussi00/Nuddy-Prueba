@@ -131,7 +131,6 @@ const classes = {
     alignItems: "center",
     justifyContent: "center",
     marginBottom: "20px",
-    marginTop: "15px",
   },
   imageP: {
     filter: " drop-shadow(-2px 26px 18px rgba(0, 0, 0, 0.6));",

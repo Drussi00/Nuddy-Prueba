@@ -6,51 +6,55 @@ import {
   List,
   ListItem,
   Button,
+  useMediaQuery,
 } from "@mui/material";
-
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import React from "react";
 
 const Influencer = () => {
+  const isDesktop = useMediaQuery("(min-width:600px)");
   return (
     <div>
       <Box
         display="flex"
-        justifyContent="center"
+        justifyContent="space-between"
         alignItems="center"
         sx={{
-          height: "40px",
+          textAlign: "left",
+          flexDirection: isDesktop ? "row" : "column",
+          paddingRight: isDesktop ? "70px" : "0",
+          paddingLeft: isDesktop ? "70px" : "0",
+          paddingTop: isDesktop ? "10px" : "15px",
+          paddingBottom: isDesktop ? "10px" : "15px",
           backgroundColor: "black",
           color: "white",
         }}
       >
-        <Grid container spacing={10}>
-          <Grid item margin={"auto"}>
-            <Typography>
-              <LockOutlinedIcon />
-              {"  "} Compra certificada y 100% segura{"  "}
-            </Typography>
-          </Grid>
+        <Box>
+          <Typography>
+            <LockOutlinedIcon />
+            Compra certificada y 100% segura{"  "}
+          </Typography>
+        </Box>
 
-          <Grid item margin={"auto"}>
-            <Typography>
-              <LocalShippingIcon />
-              {"  "}
-              Envios a todo el pais, 3-5 dias habiles{"  "}
-            </Typography>
-          </Grid>
+        <Box>
+          <Typography>
+            <LocalShippingIcon />
+            {"  "}
+            Envios a todo el pais, 3-5 dias habiles{"  "}
+          </Typography>
+        </Box>
 
-          <Grid item margin={"auto"}>
-            <Typography>
-              <CreditCardIcon />
-              {"  "}
-              Multiples modos de pago
-            </Typography>
-          </Grid>
-        </Grid>
+        <Box>
+          <Typography>
+            <CreditCardIcon />
+            Multiples modos de pago
+          </Typography>
+        </Box>
       </Box>
+
       <Container sx={{ backgroundColor: "white" }}>
         <Grid container paddingTop={10}>
           <Grid
