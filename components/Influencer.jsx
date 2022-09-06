@@ -13,8 +13,11 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import React, { useState } from "react";
 import axios from "axios";
-
+import { useRouter } from "next/router";
+import { useSnackbar } from "notistack";
 const Influencer = () => {
+  const router = useRouter();
+  const { enqueueSnackbar } = useSnackbar();
   const [formState, setFormState] = useState({
     username: "",
     email: " ",
@@ -36,7 +39,8 @@ const Influencer = () => {
       email,
       instagram,
     });
-    console.log(data);
+    enqueueSnackbar("Usuario registado ", { variant: "success" });
+    setFormState({ username: "", email: " ", instagram: "" });
     try {
     } catch (error) {}
   };
