@@ -1,6 +1,6 @@
 import { Box, Container, Grid, Typography, useMediaQuery } from "@mui/material";
 import nuddy from "/utils/Images/nuddy.png";
-import React, { useEffect } from "react";
+import React from "react";
 import classes from "../utils/classes";
 
 export default function Categories() {
