@@ -7,6 +7,8 @@ export default function Favoritos({ favorito }) {
     <Box>
       <Typography
         sx={{ fontSize: "2rem", fontWeight: "bold", textAlign: "center" }}
+        variant="h1"
+        component="h1"
       >
         Our Favorites
       </Typography>

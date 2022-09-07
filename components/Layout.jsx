@@ -264,6 +264,7 @@ export default function Layout({ title, description, children }) {
                           >
                             {coleciones.map((colecion) => (
                               <NextLink
+                                sx={{ "&:hover": { color: "black" } }}
                                 key={colecion}
                                 href={`/search?colecion=${colecion}&category=Shop+All`}
                                 passHref
@@ -366,7 +367,9 @@ export default function Layout({ title, description, children }) {
             >
               <NextLink href="/" passHref>
                 <Link>
-                  <Typography sx={classes.brand}>Nuddy Minds </Typography>
+                  <Typography variant="h1" component="h1" sx={classes.brand}>
+                    Nuddy Minds{" "}
+                  </Typography>
                 </Link>
               </NextLink>
             </Box>

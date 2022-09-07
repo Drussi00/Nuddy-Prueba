@@ -199,6 +199,7 @@ const classes = {
     fontWeight: "bold",
     fontFamily: " coolvetica, sans-serif",
     textTransform: "none",
+    fontSize: "1.5rem",
   },
 };
 

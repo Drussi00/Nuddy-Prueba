@@ -19,7 +19,7 @@ const Influencer = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [formState, setFormState] = useState({
     username: "",
-    email: " ",
+    email: "",
     instagram: "",
   });
   const { username, email, instagram } = formState;
@@ -42,6 +42,7 @@ const Influencer = () => {
       enqueueSnackbar("Usuario registado ", { variant: "success" });
       setFormState({ username: "", email: " ", instagram: "" });
     } catch (error) {
+      console.log(error);
       enqueueSnackbar(error, { variant: "error" });
     }
   };

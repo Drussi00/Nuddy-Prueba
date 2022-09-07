@@ -6,12 +6,24 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import Checkbox from "@mui/material/Checkbox";
+import axios from "axios";
 
 const Newsletter = () => {
   const isDesktop = useMediaQuery("(min-width:600px)");
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
+  const [email, setEmail] = useState("");
+
+  const subscribe = async () => {
+    try {
+      const response = await axios.post("/api/newsletter", { email });
+
+      console.log(response);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <Box
       display="flex"
@@ -20,14 +32,18 @@ const Newsletter = () => {
     >
       <List>
         <ListItem sx={{ justifyContent: "center" }}>
-          <Typography component="h1" variant="h1" sx={{ fontWeight: "bold" }}>
-            {" "}
+          <Typography
+            component="h1"
+            variant="h1"
+            sx={{ fontWeight: "bold", fontSize: "2rem" }}
+          >
             Newsletter
           </Typography>
         </ListItem>
         <ListItem sx={{ justifyContent: "center" }}>
           <Typography component="" variant="text">
-            Mantente actualizado sobre lanzamientos limitados, noticias, eventos{" "}
+            Mantente actualizado sobre lanzamientos limitados, noticias,
+            eventos!
           </Typography>
         </ListItem>
         <ListItem sx={{ justifyContent: "center" }}>
@@ -39,12 +55,15 @@ const Newsletter = () => {
               type="text"
               className="form-control"
               placeholder="Agrega tu correo electronico "
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             ></input>
             <span className="input-group-btn">
               <Button
                 className="btn "
                 sx={{ backgroundColor: "black", color: "white" }}
                 type="button"
+                onClick={subscribe}
               >
                 Suscribete
               </Button>
@@ -64,7 +83,12 @@ const Newsletter = () => {
             sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }}
           />
           <div style={{ height: "40px" }}>
-            <Typography sx={{ fontSize: isDesktop ? "0.8rem " : "0.6rem " }}>
+            <Typography
+              sx={{
+                fontSize: isDesktop ? "0.8rem " : "0.6rem ",
+                textalign: "right",
+              }}
+            >
               Si me gustaria recibir la newsletter de Nuddy Minds. al
               registrarme en el boletin, acepto la informacion de proteccion de
               datos de Nuddy Minds y doy mi consentimiento para la recopilacion,

@@ -35,22 +35,22 @@ export default function Categories() {
               zIndex: "-5",
               position: "absolute",
               top: isDesktop ? "13px" : "50px",
-              fontSize: isDesktop ? "8rem" : "5rem",
-              fontFamily: "Cooper Black",
-              fontWeight: "bold",
+              fontSize: isDesktop ? "6rem" : "4rem",
+
+              fontWeight: "400",
               fontStyle: "normal",
             }}
           >
             Essentials
           </Typography>
           <Typography
+            variant="h1"
+            component="h1"
             sx={{
               position: "relative",
-              top: isDesktop ? "50px" : "35px",
-              fontSize: isDesktop ? "2rem" : "1.5rem",
-              fontWeight: "900",
-              fontFamily: "Cooper Black",
-              fontStyle: "normal",
+              top: isDesktop ? "15px" : "14px",
+              fontSize: isDesktop ? "1.8rem" : "1.2rem",
+              fontWeight: "600",
             }}
           >
             Nuddy Minds

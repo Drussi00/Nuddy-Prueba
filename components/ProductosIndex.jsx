@@ -78,7 +78,12 @@ const ProductosIndex = ({ filteredH, filteredS, filteredT, filterdC }) => {
       sx={{ backgroundColor: "#f1f1f1", zIndex: "-4", paddingBottom: "70px" }}
     >
       <Box display="flex" sx={{ justifyContent: "center", paddingTop: "20px" }}>
-        <Typography sx={classes.productIndex} component="h4" variant="h4">
+        <Typography
+          sx={classes.productIndex}
+          component="h1"
+          variant="h1"
+          className="title"
+        >
           Choose Your style
         </Typography>
       </Box>
