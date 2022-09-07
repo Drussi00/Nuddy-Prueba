@@ -40,10 +40,9 @@ const Influencer = () => {
       });
       console.log(data);
       enqueueSnackbar("Usuario registado ", { variant: "success" });
-      setFormState({ username: "", email: " ", instagram: "" });
+      setFormState({ username: "", email: "", instagram: "" });
     } catch (error) {
-      console.log(error);
-      enqueueSnackbar(error, { variant: "error" });
+      enqueueSnackbar("Correo ya registado", { variant: "error" });
     }
   };
   return (

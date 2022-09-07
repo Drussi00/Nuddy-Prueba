@@ -18,7 +18,6 @@ const Newsletter = () => {
   const subscribe = async () => {
     try {
       const response = await axios.post("/api/newsletter", { email });
-
       console.log(response);
     } catch (e) {
       console.log(e);
