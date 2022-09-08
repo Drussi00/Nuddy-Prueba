@@ -100,7 +100,11 @@ const Influencer = () => {
                     variant="h1"
                     component="h1"
                     align="center"
-                    sx={{ alignItems: "center", fontWeight: "bold" }}
+                    sx={{
+                      alignItems: "center",
+                      fontWeight: "bold",
+                      fontSize: "3rem",
+                    }}
                   >
                     Nuddy Influencer{" "}
                   </Typography>
@@ -205,15 +209,15 @@ const Influencer = () => {
           </Grid>
           <Grid item md={6}>
             <Grid container spacing={2} margin={"auto"}>
-              <Grid item>
+              <Grid item marginTop={4}>
                 <img
-                  style={{ width: "260px", height: "390px" }}
+                  style={{ width: "260px", height: "427px" }}
                   src="http://d3ugyf2ht6aenh.cloudfront.net/stores/953/334/products/its-not-that-serious-21-d660f7f2c3a1d6f0ba16320788939446-640-0.png"
                 ></img>
               </Grid>
-              <Grid item>
+              <Grid item marginTop={4}>
                 <img
-                  style={{ width: "260px", height: "390px" }}
+                  style={{ width: "260px", height: "427px" }}
                   src="http://d3ugyf2ht6aenh.cloudfront.net/stores/953/334/products/its-not-that-serious-21-d660f7f2c3a1d6f0ba16320788939446-640-0.png"
                 ></img>
               </Grid>
