@@ -178,10 +178,28 @@ export default function ProductScreen(props) {
             >
               <Typography>
                 <NextLink href={"/"} passHref>
-                  <Link sx={{ color: "#f1f1f1" }}>Inicio</Link>
+                  <Link
+                    sx={{
+                      color: "#CFCFCF",
+                      fontFamily: " Helvetica, ",
+                      fontWeight: "400",
+                      fontStyle: "italic",
+                    }}
+                  >
+                    Inicio{" "}
+                  </Link>
                 </NextLink>
-              </Typography>{" "}
-              / <Typography>{product.name}</Typography>
+              </Typography>
+              <Typography
+                sx={{
+                  fontFamily: " Helvetica, ",
+                  fontWeight: "700",
+                  fontStyle: "italic",
+                }}
+              >
+                {" "}
+                / {product.name}
+              </Typography>
             </Box>
             <Grid container spacing={6}>
               <Grid item md={6} xs={12} sx={{ marginTop: "70px" }}>
@@ -231,7 +249,6 @@ export default function ProductScreen(props) {
                   </ListItem>
                   <ListItem>
                     <Typography sx={classes.bold}>
-                      {" "}
                       ${new Intl.NumberFormat().format(parseInt(product.price))}
                     </Typography>
                   </ListItem>
@@ -243,26 +260,40 @@ export default function ProductScreen(props) {
                     <Typography
                       sx={{
                         fontWeight: "bold",
-                        fontFamily: " coolvetica, sans-serif",
+                        fontFamily: " Helvetica,",
                       }}
                     >
                       Tallas: {size}
                     </Typography>
-                    <NextLink href={"/"} passHref>
-                      <Link
-                        sx={{
-                          color: "#f1f1f1",
-                          marginLeft: "50px",
-                          textDecoration: "underline",
-                          textDecorationThickness: "1.5px",
-                          textDecorationColor: "#000000",
-                          borderBottomStyle: "solid",
-                        }}
-                      >
-                        {" "}
-                        Guia tallas
-                      </Link>
-                    </NextLink>
+                    <Button
+                      sx={{
+                        textTransform: "none",
+                        backgroundColor: "transparent",
+                        textDecoration: "underline ",
+                        borderWidth: "2",
+                        textDecorationThickness: "1.5px",
+                        fontFamily: " Helvetica, ",
+                        fontWeight: "400",
+                        fontStyle: "italic",
+                      }}
+                    >
+                      <NextLink href={"/"} passHref>
+                        <Link
+                          sx={{
+                            color: "#CFCFCF",
+                            marginLeft: "50px",
+
+                            "&:hover": {
+                              color: "#CFCFCF",
+                              transform: "scale(1.1, 1.1)",
+                            },
+                          }}
+                        >
+                          {" "}
+                          Guia tallas
+                        </Link>
+                      </NextLink>
+                    </Button>
                   </ListItem>
                   <listItem>
                     <Grid container spacing={2}>
@@ -383,25 +414,41 @@ export default function ProductScreen(props) {
                   <Grid container spacing={0}>
                     <Grid item md={12} sx={{ justifyContent: "center" }}>
                       <Grid container spacing={1} sx={{ marginTop: "20px" }}>
-                        <Grid item md={6} sx={{ justifyContent: "center" }}>
-                          <Typography fontSize=".8rem">
-                            <FiberManualRecordIcon /> {product.description}
+                        <Grid item md={6}>
+                          <Typography
+                            fontSize=".8rem"
+                            sx={{ fontWeight: "bold" }}
+                          >
+                            <FiberManualRecordIcon fontSize="small" />{" "}
+                            {product.materiales}
                           </Typography>
                         </Grid>
                         <Grid item md={6}>
-                          <Typography fontSize=".8rem" sx>
-                            <FiberManualRecordIcon /> {product.materiales}
-                          </Typography>
-                        </Grid>
-                        <Grid item md={6}>
-                          <Typography fontSize=".8rem">
-                            <FiberManualRecordIcon />{" "}
+                          <Typography
+                            fontSize=".8rem"
+                            sx={{ fontWeight: "bold" }}
+                          >
+                            <FiberManualRecordIcon fontSize="small" /> Peso:{" "}
                             {product.cantidadmateriales}
                           </Typography>
                         </Grid>
+                        <Grid item md={6} sx={{ justifyContent: "center" }}>
+                          <Typography
+                            fontSize=".8rem"
+                            sx={{ fontWeight: "bold" }}
+                          >
+                            <FiberManualRecordIcon fontSize="small" />{" "}
+                            {product.description}
+                          </Typography>
+                        </Grid>
+
                         <Grid item md={6}>
-                          <Typography fontSize=".8rem">
-                            <FiberManualRecordIcon /> {product.envio}
+                          <Typography
+                            fontSize=".8rem"
+                            sx={{ fontWeight: "bold" }}
+                          >
+                            <FiberManualRecordIcon fontSize="small" />{" "}
+                            {product.envio}
                           </Typography>
                         </Grid>
                       </Grid>
@@ -412,52 +459,88 @@ export default function ProductScreen(props) {
                     display="flex"
                     sx={{ marginTop: "60px", justifyContent: "space-between" }}
                   >
-                    <NextLink href={"/"} passHref>
-                      <Link
-                        sx={{
-                          color: "#f1f1f1",
+                    <Button
+                      sx={{
+                        textTransform: "none",
+                        backgroundColor: "transparent",
+                        textDecoration: "underline ",
+                        borderWidth: "2",
+                        textDecorationThickness: "1.5px",
+                        fontFamily: " Helvetica, ",
+                        fontWeight: "400",
+                        fontStyle: "italic",
+                      }}
+                    >
+                      <NextLink href={"/"} passHref>
+                        <Link
+                          sx={{
+                            color: "#CFCFCF",
+                            "&:hover": {
+                              color: "#CFCFCF",
+                              transform: "scale(1.1, 1.1)",
+                            },
+                          }}
+                        >
+                          {" "}
+                          Cuidado
+                        </Link>
+                      </NextLink>
+                    </Button>
+                    <Button
+                      sx={{
+                        textTransform: "none",
+                        backgroundColor: "transparent",
+                        textDecoration: "underline ",
+                        borderWidth: "2",
+                        textDecorationThickness: "1.5px",
+                        fontFamily: " Helvetica, ",
+                        fontWeight: "400",
+                        fontStyle: "italic",
+                      }}
+                    >
+                      <NextLink href={"/"} passHref>
+                        <Link
+                          sx={{
+                            color: "#CFCFCF",
 
-                          textDecoration: "underline",
-                          textDecorationThickness: "1.5px",
-                          textDecorationColor: "#000000",
-                          borderBottomStyle: "solid",
-                          paddingLeft: "0",
-                        }}
-                      >
-                        {" "}
-                        Cuidado
-                      </Link>
-                    </NextLink>
-                    <NextLink href={"/"} passHref>
-                      <Link
-                        sx={{
-                          color: "#f1f1f1",
+                            "&:hover": {
+                              color: "#CFCFCF",
+                              transform: "scale(1.1, 1.1)",
+                            },
+                          }}
+                        >
+                          {" "}
+                          Envios
+                        </Link>
+                      </NextLink>
+                    </Button>
+                    <Button
+                      sx={{
+                        textTransform: "none",
+                        backgroundColor: "transparent",
+                        textDecoration: "underline ",
+                        borderWidth: "2",
+                        textDecorationThickness: "1.5px",
+                        fontFamily: " Helvetica, ",
+                        fontWeight: "400",
+                        fontStyle: "italic",
+                      }}
+                    >
+                      <NextLink href={"/"} passHref>
+                        <Link
+                          sx={{
+                            color: "#CFCFCF",
 
-                          textDecoration: "underline",
-                          textDecorationThickness: "1.5px",
-                          textDecorationColor: "#000000",
-                          borderBottomStyle: "solid",
-                        }}
-                      >
-                        {" "}
-                        Envios
-                      </Link>
-                    </NextLink>{" "}
-                    <NextLink href={"/"} passHref>
-                      <Link
-                        sx={{
-                          color: "#f1f1f1",
-
-                          textDecoration: "underline",
-                          textDecorationThickness: "1.5px",
-                          textDecorationColor: "#000000",
-                          borderBottomStyle: "solid",
-                        }}
-                      >
-                        {" "}
-                        Devoluciones
-                      </Link>
-                    </NextLink>
+                            "&:hover": {
+                              color: "#CFCFCF",
+                              transform: "scale(1.1, 1.1)",
+                            },
+                          }}
+                        >
+                          Devoluciones
+                        </Link>
+                      </NextLink>
+                    </Button>
                   </Box>
                 </List>
               </Grid>

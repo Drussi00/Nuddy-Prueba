@@ -83,7 +83,12 @@ const classes = {
     fontFamily: " coolvetica, sans-serif",
     textAlign: "center",
   },
-  bold: { fontWeight: "bold", fontSize: "2.2rem" },
+  bold: {
+    fontWeight: "bold",
+    fontSize: "2.2rem",
+    fontFamily: " Helvetica, ",
+    fontWeight: "700",
+  },
   line: { border: "1px solid black", height: "2px", opacity: "1" },
   but: {
     fontWeight: "bold",
