@@ -27,7 +27,6 @@ const Influencer = () => {
     const { name, value } = target;
 
     setFormState({ ...formState, [name]: value });
-    console.log({ name, value });
   };
   const isDesktop = useMediaQuery("(min-width:600px)");
 
