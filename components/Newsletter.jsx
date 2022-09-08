@@ -9,8 +9,9 @@ import {
 import React, { useEffect, useState } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import axios from "axios";
-
+import { useSnackbar } from "notistack";
 const Newsletter = () => {
+  const { enqueueSnackbar } = useSnackbar();
   const isDesktop = useMediaQuery("(min-width:600px)");
   const [email, setEmail] = useState("");
   const [checked, setchecked] = useState(true);
@@ -26,8 +27,11 @@ const Newsletter = () => {
     try {
       const response = await axios.post("/api/newsletter", { email });
       console.log(response);
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      console.log(err.response);
+      enqueueSnackbar("No se ha podido subir tu aplicacion revisa tu correo ", {
+        variant: "error",
+      });
     }
   };
   return (
@@ -58,6 +62,16 @@ const Newsletter = () => {
             style={{ width: isDesktop ? "40%" : "100%" }}
           >
             <input
+              onClick={() =>
+                checked
+                  ? enqueueSnackbar(
+                      "Debes aceptar los terminos y condiciones primero",
+                      {
+                        variant: "error",
+                      }
+                    )
+                  : null
+              }
               id="newsletter"
               type="text"
               className="form-control"
@@ -78,7 +92,9 @@ const Newsletter = () => {
                   },
                 }}
                 type="button"
-                onClick={subscribe}
+                onClick={(e) => {
+                  subscribe(e), setEmail("");
+                }}
               >
                 Suscribete
               </Button>

@@ -41,7 +41,7 @@ const Influencer = () => {
       enqueueSnackbar("Usuario registado ", { variant: "success" });
       setFormState({ username: "", email: "", instagram: "" });
     } catch (error) {
-      enqueueSnackbar("Correo ya registado", { variant: "error" });
+      enqueueSnackbar("Correo ya registrado", { variant: "error" });
     }
   };
   return (
@@ -143,7 +143,11 @@ const Influencer = () => {
                     name="username"
                     type="text"
                     placeholder="Nombres y Apellidos"
-                    style={{ width: "100%" }}
+                    style={{
+                      width: "100%",
+                      borderRadius: "0",
+                      border: "1.5px solid black",
+                    }}
                   ></input>
                 </ListItem>
                 <ListItem>
@@ -154,7 +158,11 @@ const Influencer = () => {
                     name="email"
                     type="email"
                     placeholder="Correo electronico"
-                    style={{ width: "100%" }}
+                    style={{
+                      width: "100%",
+                      borderRadius: "0",
+                      border: "1.5px solid black",
+                    }}
                   ></input>
                 </ListItem>
                 <ListItem>
@@ -165,7 +173,11 @@ const Influencer = () => {
                     name="instagram"
                     type="text"
                     placeholder="Perfil instagram"
-                    style={{ width: "100%" }}
+                    style={{
+                      width: "100%",
+                      borderRadius: "0",
+                      border: "1.5px solid black",
+                    }}
                   ></input>
                 </ListItem>
 
@@ -178,6 +190,7 @@ const Influencer = () => {
                     sx={{
                       color: "white",
                       backgroundColor: "black",
+                      borderRadius: "0",
                       "&:hover": {
                         transform: "scale(1, 1.1)",
                         backgroundColor: "black",
