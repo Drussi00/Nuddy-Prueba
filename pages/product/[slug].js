@@ -11,9 +11,10 @@ import {
   ButtonGroup,
   Container,
   useMediaQuery,
+  Link,
 } from "@mui/material";
 import Image from "next/image";
-
+import NextLink from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { useSnackbar } from "notistack";
 import Layout from "../../components/Layout";
@@ -23,7 +24,7 @@ import { urlFor, urlForThumbnail } from "../../utils/image";
 import { Store } from "../../utils/Store";
 import axios from "axios";
 import { useRouter } from "next/router";
-
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 export default function ProductScreen(props) {
   const router = useRouter();
   const { slug } = props;
@@ -147,9 +148,11 @@ export default function ProductScreen(props) {
   };
   const [index, setIndex] = useState(0);
   const isDesktop = useMediaQuery("(min-width:600px)");
+  const [selectedXs, setselecteXs] = useState(false);
   const [selectedS, setselectedS] = useState(false);
   const [selectedM, setselectedM] = useState(false);
   const [selectedL, setselectedL] = useState(false);
+
   return (
     <Layout title={product?.title}>
       <Box display="flex" sx={classes.productosIndex}>
@@ -166,9 +169,25 @@ export default function ProductScreen(props) {
           <Alert variant="error">{error}</Alert>
         ) : (
           <Box>
+            <Box
+              display="flex"
+              sx={{
+                alignItems: "center",
+                marginLeft: "25px",
+              }}
+            >
+              <Typography>
+                <NextLink href={"/"} passHref>
+                  <Link sx={{ color: "#f1f1f1" }}>Inicio</Link>
+                </NextLink>
+              </Typography>{" "}
+              / <Typography>{product.name}</Typography>
+            </Box>
             <Grid container spacing={6}>
-              <Grid item md={6} xs={12}>
+              <Grid item md={6} xs={12} sx={{ marginTop: "70px" }}>
                 <Typography
+                  variant="h1"
+                  component="h1"
                   sx={isDesktop ? classes.hidden : classes.titleMobile}
                 >
                   {product.name}
@@ -179,11 +198,11 @@ export default function ProductScreen(props) {
                     src={urlFor(product.image && product.image[index])}
                     key={product.image._key}
                     alt={product.name}
-                    width={400}
-                    height={400}
+                    width={500}
+                    height={500}
                   />
                 </Box>
-                <Box sx={{ zIndex: "1" }}>
+                <Box>
                   <div className="small-images-container">
                     {product.image?.map((item, i) => (
                       <Image
@@ -203,10 +222,12 @@ export default function ProductScreen(props) {
                   </div>
                 </Box>
               </Grid>
-              <Grid item md={6} xs={12}>
+              <Grid item md={6} xs={12} sx={{ marginTop: "40px" }}>
                 <List>
                   <ListItem>
-                    <Typography sx={classes.title}>{product.name}</Typography>
+                    <Typography variant="h1" component="h1" sx={classes.title}>
+                      {product.name}
+                    </Typography>
                   </ListItem>
                   <ListItem>
                     <Typography sx={classes.bold}>
@@ -215,15 +236,33 @@ export default function ProductScreen(props) {
                     </Typography>
                   </ListItem>
                   <Divider sx={classes.line} />
-                  <ListItem>
+                  <ListItem
+                    paddingBottom={"50px"}
+                    sx={{ paddingBottom: "16px" }}
+                  >
                     <Typography
                       sx={{
                         fontWeight: "bold",
                         fontFamily: " coolvetica, sans-serif",
                       }}
                     >
-                      Tallas:
+                      Tallas: {size}
                     </Typography>
+                    <NextLink href={"/"} passHref>
+                      <Link
+                        sx={{
+                          color: "#f1f1f1",
+                          marginLeft: "50px",
+                          textDecoration: "underline",
+                          textDecorationThickness: "1.5px",
+                          textDecorationColor: "#000000",
+                          borderBottomStyle: "solid",
+                        }}
+                      >
+                        {" "}
+                        Guia tallas
+                      </Link>
+                    </NextLink>
                   </ListItem>
                   <listItem>
                     <Grid container spacing={2}>
@@ -232,8 +271,26 @@ export default function ProductScreen(props) {
                           size="small"
                           variant=""
                           onClick={() => {
+                            setsize("XS");
+                            setquantity(1);
+                            setselecteXs(true);
+                            setselectedS(false);
+                            setselectedM(false);
+                            setselectedL(false);
+                          }}
+                          sx={selectedXs ? classes.but : classes.selected}
+                        >
+                          XS
+                        </Button>
+                      </Grid>
+                      <Grid item>
+                        <Button
+                          size="small"
+                          variant=""
+                          onClick={() => {
                             setsize("S");
                             setquantity(1);
+                            setselecteXs(false);
                             setselectedS(true);
                             setselectedM(false);
                             setselectedL(false);
@@ -250,6 +307,7 @@ export default function ProductScreen(props) {
                           onClick={() => {
                             setsize("M");
                             setquantity(1);
+                            setselecteXs(false);
                             setselectedS(false);
                             setselectedM(true);
                             setselectedL(false);
@@ -265,6 +323,7 @@ export default function ProductScreen(props) {
                           variant=""
                           onClick={() => {
                             setsize("L");
+                            setselecteXs(false);
                             setselectedS(false);
                             setselectedM(false);
                             setselectedL(true);
@@ -320,25 +379,86 @@ export default function ProductScreen(props) {
                       Comprar ahora
                     </Button>
                   </ListItem>
-                  <ListItem>
-                    <Grid container spacing={0}>
-                      <Grid item md={6}>
-                        <Typography fontSize="0.6rem">
-                          {product.description}
-                        </Typography>
-                        <Typography fontSize="0.6rem">
-                          {product.materiales}
-                        </Typography>
-                        <Typography fontSize="0.6rem">
-                          {product.cantidadmateriales}
-                        </Typography>
-                        <Typography fontSize="0.6rem">
-                          {product.envio}
-                        </Typography>
+
+                  <Grid container spacing={0}>
+                    <Grid item md={12} sx={{ justifyContent: "center" }}>
+                      <Grid container spacing={1} sx={{ marginTop: "20px" }}>
+                        <Grid item md={6} sx={{ justifyContent: "center" }}>
+                          <Typography fontSize=".8rem">
+                            <FiberManualRecordIcon /> {product.description}
+                          </Typography>
+                        </Grid>
+                        <Grid item md={6}>
+                          <Typography fontSize=".8rem" sx>
+                            <FiberManualRecordIcon /> {product.materiales}
+                          </Typography>
+                        </Grid>
+                        <Grid item md={6}>
+                          <Typography fontSize=".8rem">
+                            <FiberManualRecordIcon />{" "}
+                            {product.cantidadmateriales}
+                          </Typography>
+                        </Grid>
+                        <Grid item md={6}>
+                          <Typography fontSize=".8rem">
+                            <FiberManualRecordIcon /> {product.envio}
+                          </Typography>
+                        </Grid>
                       </Grid>
-                      <ListItem></ListItem>
                     </Grid>
-                  </ListItem>
+                  </Grid>
+
+                  <Box
+                    display="flex"
+                    sx={{ marginTop: "60px", justifyContent: "space-between" }}
+                  >
+                    <NextLink href={"/"} passHref>
+                      <Link
+                        sx={{
+                          color: "#f1f1f1",
+
+                          textDecoration: "underline",
+                          textDecorationThickness: "1.5px",
+                          textDecorationColor: "#000000",
+                          borderBottomStyle: "solid",
+                          paddingLeft: "0",
+                        }}
+                      >
+                        {" "}
+                        Cuidado
+                      </Link>
+                    </NextLink>
+                    <NextLink href={"/"} passHref>
+                      <Link
+                        sx={{
+                          color: "#f1f1f1",
+
+                          textDecoration: "underline",
+                          textDecorationThickness: "1.5px",
+                          textDecorationColor: "#000000",
+                          borderBottomStyle: "solid",
+                        }}
+                      >
+                        {" "}
+                        Envios
+                      </Link>
+                    </NextLink>{" "}
+                    <NextLink href={"/"} passHref>
+                      <Link
+                        sx={{
+                          color: "#f1f1f1",
+
+                          textDecoration: "underline",
+                          textDecorationThickness: "1.5px",
+                          textDecorationColor: "#000000",
+                          borderBottomStyle: "solid",
+                        }}
+                      >
+                        {" "}
+                        Devoluciones
+                      </Link>
+                    </NextLink>
+                  </Box>
                 </List>
               </Grid>
             </Grid>

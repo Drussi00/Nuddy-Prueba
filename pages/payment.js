@@ -91,10 +91,10 @@ export default function PaymentScreen() {
                   type="submit"
                   variant="contained"
                   sx={{
-                    backgroundColor: "#A7D1E7",
+                    backgroundColor: "black",
                     "&:hover": {
-                      backgroundColor: "#A7D1E7",
-                      transform: "scale(1, 1.1)",
+                      backgroundColor: "black",
+                      transform: "scale(1,1 1.1)",
                     },
                   }}
                 >

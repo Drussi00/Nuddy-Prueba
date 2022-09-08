@@ -270,6 +270,10 @@ export default function Layout({ title, description, children }) {
                                 passHref
                               >
                                 <ListItem
+                                  sx={{
+                                    fontWeight: "normal",
+                                    "&:hover": { color: "black" },
+                                  }}
                                   button
                                   component="a"
                                   onClick={sidebarCloseHandler}
@@ -282,6 +286,10 @@ export default function Layout({ title, description, children }) {
                             ))}
                             <NextLink href={`/nosotros}`} passHref>
                               <ListItem
+                                sx={{
+                                  fontWeight: "normal",
+                                  "&:hover": { color: "black" },
+                                }}
                                 button
                                 component="a"
                                 onClick={sidebarCloseHandler}
@@ -293,6 +301,10 @@ export default function Layout({ title, description, children }) {
                         </Dropdown>
                         <NextLink href={`/nosotros}`} passHref>
                           <ListItem
+                            sx={{
+                              fontWeight: "normal",
+                              "&:hover": { color: "black" },
+                            }}
                             button
                             component="a"
                             onClick={sidebarCloseHandler}
@@ -317,6 +329,10 @@ export default function Layout({ title, description, children }) {
                             passHref
                           >
                             <ListItem
+                              sx={{
+                                fontWeight: "normal",
+                                "&:hover": { color: "black" },
+                              }}
                               button
                               component="a"
                               onClick={sidebarCloseHandler}
@@ -327,6 +343,10 @@ export default function Layout({ title, description, children }) {
                         ))}
                         <NextLink href={`/nosotros}`} passHref>
                           <ListItem
+                            sx={{
+                              fontWeight: "normal",
+                              "&:hover": { color: "black" },
+                            }}
                             button
                             component="a"
                             onClick={sidebarCloseHandler}

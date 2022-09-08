@@ -74,8 +74,8 @@ const classes = {
   },
   title: {
     fontWeight: "bold",
-    fontSize: "3rem",
-    fontFamily: " coolvetica, sans-serif",
+    fontSize: "2.5rem",
+    paddingBottom: "0",
   },
   titleMobile: {
     fontWeight: "bold",
@@ -92,9 +92,9 @@ const classes = {
     fontSize: "12px",
     border: "1.5px solid black ",
     borderWidth: ".1",
-    backgroundColor: "#A7D1E7",
+    borderRadius: "0",
+    backgroundColor: "black",
     "&:hover": {
-      backgroundColor: "#A7D1E7",
       transform: "scale(1.1, 1.1)",
     },
   },
@@ -159,15 +159,14 @@ const classes = {
     filter: " drop-shadow(-2px 26px 18px rgba(0, 0, 0, 0.6));",
   },
   buyNow: {
-    backgroundColor: "#A7D1E7",
-    color: "black",
+    backgroundColor: "black",
+    color: "white",
     border: "1.5px solid black",
-
+    borderRadius: "0",
     fontWeight: "bold",
     fontFamily: " coolvetica, sans-serif",
 
     "&:hover": {
-      backgroundColor: "#A7D1E7",
       transform: "scale(1.1, 1.1)",
     },
   },
@@ -175,9 +174,8 @@ const classes = {
     border: "1.5px solid black",
     fontWeight: "bold",
     fontFamily: " coolvetica, sans-serif",
-
     fontSize: "12px",
-    border: "1.5px solid black ",
+
     borderWidth: ".1",
 
     "&:hover": {

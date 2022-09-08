@@ -171,7 +171,8 @@ function CartScreen() {
                               <Link
                                 sx={{
                                   "&:hover": {
-                                    color: "#A7D1E7",
+                                    color: "black",
+                                    textDecoration: "underline",
                                   },
                                 }}
                               >
@@ -184,7 +185,7 @@ function CartScreen() {
                               <Link
                                 sx={{
                                   "&:hover": {
-                                    color: "#A7D1E7",
+                                    color: "black",
                                   },
                                 }}
                               >
@@ -197,7 +198,7 @@ function CartScreen() {
                               <Link
                                 sx={{
                                   "&:hover": {
-                                    color: "#A7D1E7",
+                                    color: "black",
                                   },
                                 }}
                               >
@@ -212,10 +213,10 @@ function CartScreen() {
                             <Button
                               variant="contained"
                               sx={{
-                                backgroundColor: "#A7D1E7",
+                                backgroundColor: "black",
                                 "&:hover": {
-                                  backgroundColor: "#A7D1E7",
-                                  transform: "scale(1, 1.1)",
+                                  backgroundColor: "black",
+                                  transform: "scale(1.1, 1.1)",
                                 },
                               }}
                               onClick={() => removeItemHanlder(item)}
@@ -261,9 +262,9 @@ function CartScreen() {
                         }}
                         fullWidth
                         sx={{
-                          backgroundColor: "#A7D1E7",
+                          backgroundColor: "black",
                           "&:hover": {
-                            backgroundColor: "#A7D1E7",
+                            backgroundColor: "black",
                             transform: "scale(1, 1.1)",
                           },
                         }}

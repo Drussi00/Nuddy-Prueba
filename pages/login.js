@@ -131,10 +131,10 @@ export default function LoginScreen() {
                   type="submit"
                   fullWidth
                   sx={{
-                    backgroundColor: "#A7D1E7",
+                    backgroundColor: "black",
                     "&:hover": {
                       transform: "scale(1, 1.1)",
-                      backgroundColor: "#A7D1E7",
+                      backgroundColor: "black",
                     },
                   }}
                 >
@@ -150,8 +150,8 @@ export default function LoginScreen() {
                   <Link
                     sx={{
                       paddingLeft: "10px",
-                      color: "#A7D1E7",
-                      "&:hover": { color: "#A7D1E7" },
+                      color: "black",
+                      "&:hover": { color: "black" },
                     }}
                   >
                     {" "}

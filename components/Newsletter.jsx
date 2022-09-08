@@ -38,7 +38,7 @@ const Newsletter = () => {
     <Box
       display="flex"
       justifyContent={"center"}
-      sx={{ backgroundColor: "#f1f1f1", paddingBottom: "20px" }}
+      sx={{ backgroundColor: "#f1f1f1", paddingBottom: "30px" }}
     >
       <List>
         <ListItem sx={{ justifyContent: "center" }}>

@@ -5,6 +5,11 @@
 body .MuiTypography-root.MuiTypography-h1 {
   font-family: cooper !important;
 }
+
+.MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12.MuiGrid-grid-md-6 {
+  padding-top: 0;
+}
+
 body .MuiTypography-root.MuiTypography-h1 .title {
   font-family: cooper !important;
   font-size: 2rem;
@@ -56,16 +61,16 @@ body .MuiTypography-root.MuiTypography-h1 .title {
   gap: 10px;
   margin-top: 20px;
   padding-bottom: 30px;
+  padding-left: 24px;
 }
 .small-image {
-  border-radius: 8px;
-  background-color: #ebebeb;
+  background-color: #f1f1f1;
   width: 70px;
   height: 70px;
   cursor: pointer;
 }
 .big-image {
-  border-radius: 8px;
+  background-color: #f1f1f1;
   filter: drop-shadow(-2px 26px 18px rgba(0, 0, 0, 0.6));
   cursor: pointer;
   padding-top: 20px;

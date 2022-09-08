@@ -198,9 +198,9 @@ export default function RegisterScreen() {
                   fullWidth
                   sx={{
                     paddingLeft: "10px",
-                    backgroundColor: "#A7D1E7",
+                    backgroundColor: "black",
                     "&:hover": {
-                      backgroundColor: "#A7D1E7",
+                      backgroundColor: "black",
                       transform: "scale(1, 1.1)",
                     },
                   }}
@@ -214,8 +214,8 @@ export default function RegisterScreen() {
                   <Link
                     sx={{
                       paddingLeft: "10px",
-                      color: "#A7D1E7",
-                      "&:hover": { color: "#A7D1E7" },
+                      color: "black",
+                      "&:hover": { color: "black" },
                     }}
                   >
                     Inicia sesion

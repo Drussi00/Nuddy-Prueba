@@ -318,7 +318,7 @@ export default function SearchScreen() {
                             textDecoration: "none",
                             paddingLeft: isDesktop ? "420px" : "10px",
                             color: "black",
-                            "&:hover": { color: "#A7D1E7" },
+                            "&:hover": { color: "black" },
                           }}
                         >
                           No hay resultados de tu busqueda, sigue buscando
