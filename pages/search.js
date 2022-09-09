@@ -30,6 +30,7 @@ export default function SearchScreen() {
   const [pageSize, setpageSize] = useState(0);
 
   useEffect(() => {
+    console.log("se activo");
     setpageSize(isDesktop ? 9 : 3);
   }, [isDesktop]);
 

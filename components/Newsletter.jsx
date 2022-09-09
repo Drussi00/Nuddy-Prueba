@@ -18,7 +18,7 @@ const Newsletter = () => {
 
   useEffect(() => {
     const emailInput = document.getElementById("newsletter");
-
+    console.log("se activo");
     emailInput.disabled = checked;
     return () => {};
   }, [checked]);

@@ -50,7 +50,7 @@ export default function ProductScreen(props) {
       }
     };
     fetchData();
-  }, [slug, state]);
+  }, [slug]);
   const [size, setsize] = useState("");
   const [quantity, setquantity] = useState(0);
 
