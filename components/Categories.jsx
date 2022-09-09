@@ -12,7 +12,7 @@ export default function Categories() {
         <Typography
           sx={{
             fontWeight: "bold",
-            fontFamily: " coolvetica, sans-serif",
+            fontFamily: " helvetica, sans-serif",
             fontSize: "0.8rem",
           }}
         >

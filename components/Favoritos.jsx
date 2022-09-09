@@ -23,7 +23,7 @@ export default function Favoritos({ favorito }) {
       >
         {favorito.map((fav) => {
           return (
-            <Grid item md={3} xm={6} sm={6} key={fav.key}>
+            <Grid item md={3} key={fav.key}>
               <FavoritosCard product={fav} />
             </Grid>
           );
