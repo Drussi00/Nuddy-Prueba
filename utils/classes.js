@@ -89,7 +89,12 @@ const classes = {
     fontFamily: " Helvetica, ",
     fontWeight: "700",
   },
-  line: { border: "1px solid black", height: "2px", opacity: "1" },
+  line: {
+    border: "1px solid white",
+    borderTop: "1px solid black",
+    height: "2px",
+    opacity: "1",
+  },
   but: {
     fontWeight: "bold",
     fontFamily: " coolvetica, sans-serif",
@@ -98,7 +103,7 @@ const classes = {
     border: "1.5px solid black ",
     borderWidth: ".1",
     borderRadius: "0",
-    backgroundColor: "black",
+
     "&:hover": {
       transform: "scale(1.1, 1.1)",
     },
@@ -125,11 +130,12 @@ const classes = {
   buttonGroup: {
     fontWeight: "bold",
     fontFamily: " coolvetica, sans-serif",
-
+    borderRadius: "0 ",
     borderWidth: "1px",
     borderColor: "black",
   },
   productosIndex: {
+    height: "30px",
     width: "100%vw",
     background: "#f1f1f1",
     textAlign: "center",
@@ -169,18 +175,18 @@ const classes = {
     border: "1.5px solid black",
     borderRadius: "0",
     fontWeight: "bold",
-    fontFamily: " coolvetica, sans-serif",
+    fontFamily: " helvetica, sans-serif",
 
     "&:hover": {
       transform: "scale(1.1, 1.1)",
     },
   },
   selected: {
-    border: "1.5px solid black",
+    border: "1.5px solid #CFCFCF",
     fontWeight: "bold",
-    fontFamily: " coolvetica, sans-serif",
+    fontFamily: " helvetica, sans-serif",
     fontSize: "12px",
-
+    borderRadius: "0 ",
     borderWidth: ".1",
 
     "&:hover": {
@@ -199,10 +205,16 @@ const classes = {
     color: "white",
   },
   productIndex: {
-    fontWeight: "bold",
-    fontFamily: " coolvetica, sans-serif",
+    fontWeight: "700",
+    fontFamily: " helvetica, sans-serif",
     textTransform: "none",
-    fontSize: "1.5rem",
+    fontSize: "1.3rem",
+  },
+  productIndexTitle: {
+    fontWeight: "700",
+    fontFamily: " helvetica, sans-serif",
+    textTransform: "none",
+    fontSize: "2rem",
   },
 };
 

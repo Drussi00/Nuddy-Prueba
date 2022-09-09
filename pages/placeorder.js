@@ -130,7 +130,7 @@ function PlaceOrderScreen() {
             <Card sx={classes.section}>
               <List>
                 <ListItem>
-                  <Typography component="h2" variant="h2">
+                  <Typography component="h1" variant="h1">
                     Direccion
                   </Typography>
                 </ListItem>
@@ -153,7 +153,7 @@ function PlaceOrderScreen() {
             <Card sx={classes.section}>
               <List>
                 <ListItem>
-                  <Typography component="h2" variant="h2">
+                  <Typography component="h1" variant="h1">
                     Metodo de pago
                   </Typography>
                 </ListItem>
@@ -172,7 +172,7 @@ function PlaceOrderScreen() {
             <Card sx={classes.section}>
               <List>
                 <ListItem>
-                  <Typography component="h2" variant="h2">
+                  <Typography component="h1" variant="h1">
                     Productos
                   </Typography>
                 </ListItem>
@@ -217,7 +217,12 @@ function PlaceOrderScreen() {
                               <Typography>{item.quantity}</Typography>
                             </TableCell>
                             <TableCell align="right">
-                              <Typography>${item.price}</Typography>
+                              <Typography>
+                                $
+                                {new Intl.NumberFormat().format(
+                                  parseInt(item.price)
+                                )}
+                              </Typography>
                             </TableCell>
                           </TableRow>
                         ))}
@@ -232,7 +237,7 @@ function PlaceOrderScreen() {
             <Card sx={classes.section}>
               <List>
                 <ListItem>
-                  <Typography variant="h2">Resumen de la Orden</Typography>
+                  <Typography variant="h1">Resumen de la Orden</Typography>
                 </ListItem>
                 <ListItem>
                   <Grid container>
@@ -240,7 +245,10 @@ function PlaceOrderScreen() {
                       <Typography>Productos:</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <Typography align="right">${itemsPrice}</Typography>
+                      <Typography align="right">
+                        {" "}
+                        ${new Intl.NumberFormat().format(parseInt(itemsPrice))}
+                      </Typography>
                     </Grid>
                   </Grid>
                 </ListItem>
@@ -250,7 +258,12 @@ function PlaceOrderScreen() {
                       <Typography>Costo de envio:</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <Typography align="right">${shippingPrice}</Typography>
+                      <Typography align="right">
+                        $
+                        {new Intl.NumberFormat().format(
+                          parseInt(shippingPrice)
+                        )}
+                      </Typography>
                     </Grid>
                   </Grid>
                 </ListItem>
@@ -263,7 +276,10 @@ function PlaceOrderScreen() {
                     </Grid>
                     <Grid item xs={6}>
                       <Typography align="right">
-                        <strong>${totalPrice}</strong>
+                        <strong>
+                          $
+                          {new Intl.NumberFormat().format(parseInt(totalPrice))}
+                        </strong>
                       </Typography>
                     </Grid>
                   </Grid>
@@ -274,6 +290,7 @@ function PlaceOrderScreen() {
                     variant="contained"
                     sx={{
                       backgroundColor: "black",
+                      borderRadius: "0",
                       "&:hover": {
                         backgroundColor: "black",
                         transform: "scale(1, 1.1)",

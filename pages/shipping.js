@@ -217,6 +217,7 @@ export default function ShippingScreen() {
               <Button
                 sx={{
                   backgroundColor: "#black",
+                  borderRadius: "0 ",
                   "&:hover": {
                     backgroundColor: "#black",
                     transform: "scale(1, 1.1)",
@@ -226,7 +227,7 @@ export default function ShippingScreen() {
                 type="submit"
                 fullWidth
               >
-                Continue
+                Continuar
               </Button>
             </ListItem>
           </List>

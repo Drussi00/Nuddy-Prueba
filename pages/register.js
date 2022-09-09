@@ -67,7 +67,11 @@ export default function RegisterScreen() {
         <Box sx={{ paddingBottom: isDesktop ? "90px" : "50px" }}>
           <Form onSubmit={handleSubmit(submitHandler)}>
             <Typography
-              sx={{ fontWeight: "bold", fontFamily: " coolvetica, sans-serif" }}
+              sx={{
+                fontWeight: "bold",
+                fontFamily: " coolvetica, sans-serif",
+                fontSize: "2rem",
+              }}
               component="h1"
               variant="h1"
             >
@@ -199,6 +203,7 @@ export default function RegisterScreen() {
                   sx={{
                     paddingLeft: "10px",
                     backgroundColor: "black",
+                    borderRadius: "0 ",
                     "&:hover": {
                       backgroundColor: "black",
                       transform: "scale(1, 1.1)",

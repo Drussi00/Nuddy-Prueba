@@ -213,6 +213,7 @@ export default function SearchScreen() {
                 aria-label="outlined button group"
                 sx={{
                   border: "1.5px solid black",
+                  borderRadius: "0",
                 }}
               >
                 <Select

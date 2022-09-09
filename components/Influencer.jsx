@@ -85,7 +85,7 @@ const Influencer = () => {
       </Box>
 
       <Container sx={{ backgroundColor: "white" }}>
-        <Grid container paddingTop={10}>
+        <Grid container paddingTop={10} paddingBottom={10}>
           <Grid
             item
             md={6}

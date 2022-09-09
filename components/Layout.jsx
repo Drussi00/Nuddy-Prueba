@@ -463,7 +463,14 @@ export default function Layout({ title, description, children }) {
           display="flex"
           justifyContent={"space-between"}
           component="footer"
-          sx={classes.footer}
+          sx={{
+            paddingRight: isDesktop ? "50px" : "30px",
+            marginLeft: isDesktop ? "50px" : "30px",
+
+            marginTop: 5,
+            marginBottom: 5,
+            textAlign: "center",
+          }}
         >
           <Box>
             <Box>

@@ -60,7 +60,11 @@ export default function LoginScreen() {
           {" "}
           <Form onSubmit={handleSubmit(submitHandler)}>
             <Typography
-              sx={{ fontWeight: "bold", fontFamily: " coolvetica, sans-serif" }}
+              sx={{
+                fontWeight: "bold",
+                fontFamily: " coolvetica, sans-serif",
+                fontSize: "2rem",
+              }}
               component="h1"
               variant="h1"
             >
@@ -132,6 +136,8 @@ export default function LoginScreen() {
                   fullWidth
                   sx={{
                     backgroundColor: "black",
+                    borderRadius: "0 ",
+
                     "&:hover": {
                       transform: "scale(1, 1.1)",
                       backgroundColor: "black",
@@ -154,7 +160,6 @@ export default function LoginScreen() {
                       "&:hover": { color: "black" },
                     }}
                   >
-                    {" "}
                     Registrate
                   </Link>
                 </NextLink>

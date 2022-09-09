@@ -36,7 +36,7 @@ function OrderScreen({ params }) {
             <Card sx={classes.section}>
               <List>
                 <ListItem>
-                  <Typography component="h2" variant="h2">
+                  <Typography component="h1" variant="h1">
                     Direccion de envio
                   </Typography>
                 </ListItem>
@@ -48,7 +48,7 @@ function OrderScreen({ params }) {
             <Card sx={classes.section}>
               <List>
                 <ListItem>
-                  <Typography component="h2" variant="h2">
+                  <Typography component="h1" variant="h1">
                     Metodo de pago
                   </Typography>
                 </ListItem>
@@ -59,7 +59,7 @@ function OrderScreen({ params }) {
             <Card sx={classes.section}>
               <List>
                 <ListItem>
-                  <Typography component="h2" variant="h2">
+                  <Typography component="h1" variant="h1">
                     Productos
                   </Typography>
                 </ListItem>
@@ -86,7 +86,7 @@ function OrderScreen({ params }) {
             <Card sx={classes.section}>
               <List>
                 <ListItem>
-                  <Typography variant="h2">Resumen de Orden</Typography>
+                  <Typography variant="h1">Resumen de Orden</Typography>
                 </ListItem>
                 <ListItem>
                   <Grid container>

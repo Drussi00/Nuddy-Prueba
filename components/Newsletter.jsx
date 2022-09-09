@@ -51,7 +51,11 @@ const Newsletter = () => {
           </Typography>
         </ListItem>
         <ListItem sx={{ justifyContent: "center" }}>
-          <Typography component="" variant="text">
+          <Typography
+            component=""
+            variant="text"
+            sx={{ fontWeight: "bold", fontSize: "0.7rem" }}
+          >
             Mantente actualizado sobre lanzamientos limitados, noticias,
             eventos!
           </Typography>
@@ -62,6 +66,7 @@ const Newsletter = () => {
             style={{ width: isDesktop ? "40%" : "100%" }}
           >
             <input
+              style={{ borderRadius: "0", width: "300px" }}
               onClick={() =>
                 checked
                   ? enqueueSnackbar(
@@ -85,6 +90,7 @@ const Newsletter = () => {
                 sx={{
                   backgroundColor: "black",
                   color: "white",
+                  borderRadius: "0",
                   "&:hover": {
                     backgroundColor: "black",
                     color: "white",
@@ -112,20 +118,27 @@ const Newsletter = () => {
             onClick={() => {
               setchecked(!checked);
             }}
-            sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }}
+            sx={{
+              "& .MuiSvgIcon-root": { fontSize: 28 },
+              marginLeft: isDesktop ? "56px" : 0,
+            }}
           />
-          <div style={{ height: "40px" }}>
-            <Typography
-              sx={{
-                fontSize: isDesktop ? "0.8rem " : "0.6rem ",
-                textalign: "right",
-              }}
-            >
-              Si me gustaria recibir la newsletter de Nuddy Minds. al
-              registrarme en el boletin, acepto la informacion de proteccion de
-              datos de Nuddy Minds y doy mi consentimiento para la recopilacion,
-              el almacenamiento y el procesamiento de mis datos alli descritos{" "}
-            </Typography>
+          <div style={{ height: "40px", width: isDesktop ? "1400px" : null }}>
+            <div style={{ height: "40px", width: isDesktop ? "90%" : null }}>
+              <Typography
+                sx={{
+                  fontSize: isDesktop ? "0.7rem " : "0.4rem,",
+                  fontWeight: "bold",
+                }}
+                align="right"
+              >
+                Si me gustaria recibir la newsletter de Nuddy Minds. al
+                registrarme en el boletin, acepto la informacion de proteccion
+                de datos de Nuddy Minds y doy mi consentimiento para la
+                recopilacion, el almacenamiento y el procesamiento de mis datos
+                alli descritos{" "}
+              </Typography>
+            </div>
           </div>
         </ListItem>
       </List>

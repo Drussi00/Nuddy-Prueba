@@ -207,13 +207,19 @@ function CartScreen() {
                             </NextLink>
                           </TableCell>
                           <TableCell align="right">
-                            <Typography>${item.price}</Typography>
+                            <Typography>
+                              $
+                              {new Intl.NumberFormat().format(
+                                parseInt(item.price)
+                              )}
+                            </Typography>
                           </TableCell>
                           <TableCell align="right">
                             <Button
                               variant="contained"
                               sx={{
                                 backgroundColor: "black",
+                                borderRadius: "0 ",
                                 "&:hover": {
                                   backgroundColor: "black",
                                   transform: "scale(1.1, 1.1)",
@@ -247,11 +253,15 @@ function CartScreen() {
                         variant="h2"
                       >
                         Subtotal (
-                        {cartItems.reduce((a, c) => a + c.quantity, 0)}
-                        items) : $
-                        {cartItems.reduce(
-                          (a, c) => a + c.quantity * c.price,
-                          0
+                        {cartItems.reduce((a, c) => a + c.quantity, 0)} items):
+                        $
+                        {new Intl.NumberFormat().format(
+                          parseInt(
+                            cartItems.reduce(
+                              (a, c) => a + c.quantity * c.price,
+                              0
+                            )
+                          )
                         )}
                       </Typography>
                     </ListItem>
@@ -263,6 +273,7 @@ function CartScreen() {
                         fullWidth
                         sx={{
                           backgroundColor: "black",
+                          borderRadius: "0 ",
                           "&:hover": {
                             backgroundColor: "black",
                             transform: "scale(1, 1.1)",

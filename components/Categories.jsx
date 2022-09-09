@@ -10,7 +10,11 @@ export default function Categories() {
     <div>
       <Box display="flex" sx={classes.productosIndex}>
         <Typography
-          sx={{ fontWeight: "bold", fontFamily: " coolvetica, sans-serif" }}
+          sx={{
+            fontWeight: "bold",
+            fontFamily: " coolvetica, sans-serif",
+            fontSize: "0.8rem",
+          }}
         >
           Envio gratis a todo el pais por compras superiores a $200.000
         </Typography>

@@ -79,7 +79,7 @@ const ProductosIndex = ({ filteredH, filteredS, filteredT, filterdC }) => {
     >
       <Box display="flex" sx={{ justifyContent: "center", paddingTop: "20px" }}>
         <Typography
-          sx={classes.productIndex}
+          sx={classes.productIndexTitle}
           component="h1"
           variant="h1"
           className="title"
@@ -228,12 +228,15 @@ const ProductosIndex = ({ filteredH, filteredS, filteredT, filterdC }) => {
                 backgroundColor: "black",
                 border: " 2px solid black",
                 width: "200px",
+                borderRadius: "0",
                 fontWeight: "bold",
                 fontFamily: " coolvetica, sans-serif",
                 "&:hover": { color: "black" },
               }}
             >
-              {category[indexC].name}
+              <Typography className="bottomH1">
+                {category[indexC].name}
+              </Typography>
             </Button>
           </Link>
         </NextLink>

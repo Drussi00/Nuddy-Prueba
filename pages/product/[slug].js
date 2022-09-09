@@ -157,7 +157,11 @@ export default function ProductScreen(props) {
     <Layout title={product?.title}>
       <Box display="flex" sx={classes.productosIndex}>
         <Typography
-          sx={{ fontWeight: "bold", fontFamily: " coolvetica, sans-serif" }}
+          sx={{
+            fontWeight: "bold",
+            fontFamily: " coolvetica, sans-serif",
+            fontSize: "0.8rem",
+          }}
         >
           Envio gratis a todo el pais por compras superiores a $200.000
         </Typography>
@@ -184,6 +188,7 @@ export default function ProductScreen(props) {
                       fontFamily: " Helvetica, ",
                       fontWeight: "400",
                       fontStyle: "italic",
+                      marginRight: "5px",
                     }}
                   >
                     Inicio{" "}
@@ -197,7 +202,6 @@ export default function ProductScreen(props) {
                   fontStyle: "italic",
                 }}
               >
-                {" "}
                 / {product.name}
               </Typography>
             </Box>
@@ -223,19 +227,28 @@ export default function ProductScreen(props) {
                 <Box>
                   <div className="small-images-container">
                     {product.image?.map((item, i) => (
-                      <Image
-                        key={item.key}
-                        width={70}
-                        height={70}
-                        alt={item.name}
-                        src={urlFor(item)}
+                      <div
+                        key={item.name}
                         className={
                           i === index
                             ? "small-image selected-image"
                             : "small-image"
                         }
-                        onMouseEnter={() => setIndex(i)}
-                      />
+                      >
+                        <Image
+                          key={item.key}
+                          width={70}
+                          height={70}
+                          alt={item.name}
+                          src={urlFor(item)}
+                          className={
+                            i === index
+                              ? "small-image selected-image"
+                              : "small-image"
+                          }
+                          onMouseEnter={() => setIndex(i)}
+                        />
+                      </div>
                     ))}
                   </div>
                 </Box>
@@ -371,7 +384,7 @@ export default function ProductScreen(props) {
                     <Typography
                       sx={{
                         fontWeight: "bold",
-                        fontFamily: " coolvetica, sans-serif",
+                        fontFamily: " helvetica, sans-serif",
                       }}
                     >
                       Cantidad:

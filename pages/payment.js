@@ -40,7 +40,7 @@ export default function PaymentScreen() {
   const submitHandler = (e) => {
     e.preventDefault();
     if (!paymentMethod) {
-      enqueueSnackbar("Elegir metodo de pago es Obligatorio ", {
+      enqueueSnackbar(" Es obligatorio elegir un metodo de pago ", {
         variant: "error",
       });
     } else {
@@ -92,13 +92,13 @@ export default function PaymentScreen() {
                   variant="contained"
                   sx={{
                     backgroundColor: "black",
+                    borderRadius: "0 ",
                     "&:hover": {
-                      backgroundColor: "black",
                       transform: "scale(1,1 1.1)",
                     },
                   }}
                 >
-                  Continue
+                  Continuar
                 </Button>
               </ListItem>
               <ListItem>
@@ -109,7 +109,7 @@ export default function PaymentScreen() {
                   color="secondary"
                   onClick={() => router.push("/shipping")}
                 >
-                  Back
+                  Devolverse
                 </Button>
               </ListItem>
             </List>
