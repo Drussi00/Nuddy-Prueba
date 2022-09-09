@@ -129,7 +129,6 @@ body .MuiTypography-root.MuiTypography-h1 .title {
 .imagec {
   min-width: 670px;
   height: 670px;
-  object-fit: contain;
 }
 @media screen and (max-width: 600px) {
   body .MuiTypography-root.MuiTypography-h1 .title {
@@ -140,30 +139,13 @@ body .MuiTypography-root.MuiTypography-h1 .title {
     min-width: 100%;
     height: 400px;
   }
-  .MuiGrid-root
-    MuiGrid-item.MuiGrid-grid-sm-1.MuiGrid-grid-md-1.css-f734e1-MuiGrid-root {
-    display: none;
-  }
-  .butleft {
-    z-index: 100%;
+  .MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.MuiButton-textSizeMedium.MuiButtonBase-root.butLeft {
     position: relative;
-    top: 140px;
-    right: 140px;
-  }
-  .butright {
-    z-index: 100%;
 
-    position: relative;
-    bottom: 360px;
-    left: 120px;
+    left: 50px;
   }
-
-  .butname {
+  .MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.MuiButton-textSizeMedium.MuiButtonBase-root.butright {
     position: relative;
-    bottom: 250px;
-  }
-  .imageP {
-    position: relative;
-    bottom: 110px;
+    right: 50px;
   }
 }

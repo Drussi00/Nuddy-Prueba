@@ -65,11 +65,11 @@ export default function Home() {
             <Grid
               item
               paddingTop={5}
+              paddingBottom={3}
               md={12}
               sm={12}
               sx={{ backgroundColor: "grey" }}
             >
-              {" "}
               <ProductosIndex
                 filteredH={filteredH}
                 filteredT={filteredT}

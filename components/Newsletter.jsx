@@ -127,8 +127,7 @@ const Newsletter = () => {
             <div style={{ height: "40px", width: isDesktop ? "90%" : null }}>
               <Typography
                 sx={{
-                  fontSize: isDesktop ? "0.7rem " : "0.4rem,",
-                  fontWeight: "bold",
+                  fontSize: isDesktop ? "0.7rem " : "0.2rem,",
                 }}
                 align="right"
               >

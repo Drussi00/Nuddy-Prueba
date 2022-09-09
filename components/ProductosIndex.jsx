@@ -1,17 +1,10 @@
-import {
-  Box,
-  Button,
-  Grid,
-  Typography,
-  Link,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, Button, Typography, Link, useMediaQuery } from "@mui/material";
 import React from "react";
 import { useState } from "react";
 import classes from "../utils/classes";
 import { urlFor } from "../utils/image";
 import NextLink from "next/link";
-const ProductosIndex = ({ filteredH, filteredS, filteredT, filterdC }) => {
+const ProductosIndex = ({ filteredH, filteredS, filteredT }) => {
   const [indexI, setindexI] = useState(0);
   const [indexC, setindexC] = useState(1);
   const [indexD, setindexD] = useState(2);
@@ -75,7 +68,7 @@ const ProductosIndex = ({ filteredH, filteredS, filteredT, filterdC }) => {
   const isDesktop = useMediaQuery("(min-width:600px)");
   return (
     <Box
-      sx={{ backgroundColor: "#f1f1f1", zIndex: "-4", paddingBottom: "70px" }}
+      sx={{ backgroundColor: "#f1f1f1", zIndex: "-4", paddingBottom: "80px" }}
     >
       <Box display="flex" sx={{ justifyContent: "center", paddingTop: "20px" }}>
         <Typography
@@ -87,126 +80,91 @@ const ProductosIndex = ({ filteredH, filteredS, filteredT, filterdC }) => {
           Choose Your style
         </Typography>
       </Box>
-      <Box display="flex">
-        <Grid
-          container
-          spacing={isDesktop ? 8 : 4}
-          sx={{
-            zIndex: "100",
-            justifyContent: "center",
-            paddingTop: "20px",
-            alignItems: "center",
+
+      <Box
+        display="flex"
+        sx={{
+          zIndex: "100",
+          justifyContent: "center",
+          paddingTop: "20px",
+          alignItems: "center",
+          gap: isDesktop ? "120px" : "20px",
+        }}
+      >
+        <Button
+          sx={{ ...classes.catBut }}
+          onClick={() => {
+            setCategory(filteredT);
           }}
         >
-          <Grid item>
-            <Button
-              sx={{ ...classes.catBut }}
-              onClick={() => {
-                setCategory(filteredT);
-              }}
-            >
-              <Typography sx={classes.productIndex} component="h6" variant="h6">
-                T-Shirts
-              </Typography>
-            </Button>
-          </Grid>
-          <Grid item>
-            <Button
-              onClick={() => {
-                setCategory(filteredH);
-              }}
-              sx={classes.catBut}
-            >
-              <Typography sx={classes.productIndex} component="h6" variant="h6">
-                Hoodies
-              </Typography>
-            </Button>
-          </Grid>
-          <Grid item>
-            <Button
-              sx={{ ...classes.catBut }}
-              onClick={() => {
-                setCategory(filterdC);
-              }}
-            >
-              <Typography sx={classes.productIndex} component="h6" variant="h6">
-                Cargo
-              </Typography>
-            </Button>
-          </Grid>
-          <Grid item>
-            <Button
-              onClick={() => {
-                setCategory(filteredS);
-              }}
-              sx={classes.catBut}
-            >
-              <Typography sx={classes.productIndex} component="h6" variant="h6">
-                Shorts
-              </Typography>
-            </Button>
-          </Grid>
-        </Grid>
+          <Typography sx={classes.productIndex} component="h6" variant="h6">
+            T-Shirts
+          </Typography>
+        </Button>
+
+        <Button
+          onClick={() => {
+            setCategory(filteredH);
+          }}
+          sx={classes.catBut}
+        >
+          <Typography sx={classes.productIndex} component="h6" variant="h6">
+            Hoodies
+          </Typography>
+        </Button>
+
+        <Button
+          onClick={() => {
+            setCategory(filteredS);
+          }}
+          sx={classes.catBut}
+        >
+          <Typography sx={classes.productIndex} component="h6" variant="h6">
+            Shorts
+          </Typography>
+        </Button>
       </Box>
 
-      <Box display="flex">
-        <Grid
-          container
-          spacing={8}
-          sx={{
-            justifyContent: "center",
-            paddingTop: "20px",
-            alignItems: "center",
-          }}
-        >
-          <Grid item md={1} sm={0} className="butleft">
-            <div>
-              <Button onClick={leftHanlder}>
-                <span
-                  className="left"
-                  style={{
-                    zIndex: "1",
-                    "&:after": { borderTop: "0.5em solid blue" },
-                  }}
-                ></span>
-              </Button>
-            </div>
-          </Grid>
-          <Grid item sx={isDesktop ? classes.visibleI : classes.hidden}>
-            <img
-              width="200"
-              height="200"
-              src={urlFor(category[indexI].image && category[indexI].image[0])}
-            ></img>
-          </Grid>
-          <Grid item className="imageC" sx={{ ...classes.imageP }}>
-            <img
-              className="imageP"
-              width={isDesktop ? "400px" : "300px"}
-              height={isDesktop ? "400px" : "300px"}
-              src={urlFor(category[indexC].image && category[indexC].image[0])}
-            ></img>
-          </Grid>{" "}
-          <Grid item sx={isDesktop ? classes.visibleI : classes.hidden}>
-            <img
-              width="200"
-              height="200"
-              src={urlFor(category[indexD].image && category[indexD].image[0])}
-            ></img>
-          </Grid>
-          <Grid
-            sx={{ position: "relative", right: "50px" }}
-            item
-            md={1}
-            className="butright"
-          >
-            <div>
-              <Button onClick={rightHanlder}>
-                <span className="right"></span>
-              </Button>
-            </div>
-          </Grid>
-        </Grid>
+      <Box display="flex" justifyContent="center" alignItems="center">
+        <div>
+          <Button onClick={leftHanlder} className="butLeft">
+            <span
+              className="left"
+              style={{
+                zIndex: "1",
+                "&:after": { borderTop: "0.5em solid blue" },
+              }}
+            ></span>
+          </Button>
+        </div>
+        <Box sx={isDesktop ? classes.visibleI : classes.hidden}>
+          <img
+            width="200"
+            height="200"
+            src={urlFor(category[indexI].image && category[indexI].image[0])}
+          ></img>
+        </Box>
+        <Box item className="imageC" sx={{}}>
+          <img
+            width={isDesktop ? "400px" : "300px"}
+            height={isDesktop ? "400px" : "300px"}
+            src={urlFor(category[indexC].image && category[indexC].image[0])}
+          ></img>
+        </Box>{" "}
+        <Box sx={isDesktop ? classes.visibleI : classes.hidden}>
+          <img
+            width="200"
+            height="200"
+            src={urlFor(category[indexD].image && category[indexD].image[0])}
+          ></img>
+        </Box>
+        <Box>
+          <div>
+            <Button onClick={rightHanlder} className="butright">
+              <span className="right"></span>
+            </Button>
+          </div>
+        </Box>
       </Box>
 
       <Box
