@@ -131,6 +131,12 @@ body .MuiTypography-root.MuiTypography-h1 .title {
   height: 670px;
 }
 @media screen and (max-width: 600px) {
+  .small-images-container {
+    padding-left: 0;
+  }
+  .MuiTypography-root.MuiTypography-body1.MuiTypography-alignRight {
+    font-size: 0.6rem;
+  }
   body .MuiTypography-root.MuiTypography-h1 .title {
     font-family: cooper !important;
     font-size: 1.5rem;

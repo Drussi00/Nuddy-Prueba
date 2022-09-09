@@ -1,4 +1,4 @@
-import { CircularProgress, Alert, Grid } from "@mui/material";
+import { CircularProgress, Alert, Grid, Box } from "@mui/material";
 import Layout from "../components/Layout";
 import client from "../utils/client";
 import { useState, useEffect } from "react";
@@ -48,26 +48,16 @@ export default function Home() {
         <Alert variant="danger">{error}</Alert>
       ) : (
         <div>
-          <Grid container spacing={0} sx={{ justifyContent: "center" }}>
-            <Grid item md={12} sm={12} sx={{ position: "relative" }}>
+          <Box sx={{ justifyContent: "center" }}>
+            <Box sx={{ position: "relative" }}>
               <Categories />
-            </Grid>
-            <Grid
-              paddingTop={10}
-              item
-              md={12}
-              sm={12}
-              sx={{ position: "relative" }}
-            >
-              {" "}
+            </Box>
+            <Box paddingTop={10} sx={{ position: "relative" }}>
               <Favoritos favorito={favorito} />
-            </Grid>
-            <Grid
-              item
+            </Box>
+            <Box
               paddingTop={5}
               paddingBottom={3}
-              md={12}
-              sm={12}
               sx={{ backgroundColor: "grey" }}
             >
               <ProductosIndex
@@ -76,14 +66,14 @@ export default function Home() {
                 filteredC={filteredC}
                 filteredS={filteredS}
               />{" "}
-            </Grid>
-          </Grid>
-          <Grid paddingTop={5} paddingBottom={5}>
+            </Box>
+          </Box>
+          <Box paddingTop={5} paddingBottom={5}>
             <Influencer />
-          </Grid>
-          <Grid paddingBottom={5}>
+          </Box>
+          <Box paddingBottom={5}>
             <Newsletter />
-          </Grid>
+          </Box>
         </div>
       )}
     </Layout>

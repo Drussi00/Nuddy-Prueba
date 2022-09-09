@@ -427,7 +427,7 @@ export default function ProductScreen(props) {
                   <Grid container spacing={0}>
                     <Grid item md={12} sx={{ justifyContent: "center" }}>
                       <Grid container spacing={1} sx={{ marginTop: "20px" }}>
-                        <Grid item md={6}>
+                        <Grid item md={6} xs={12}>
                           <Typography
                             fontSize=".8rem"
                             sx={{ fontWeight: "bold" }}
@@ -436,7 +436,7 @@ export default function ProductScreen(props) {
                             {product.materiales}
                           </Typography>
                         </Grid>
-                        <Grid item md={6}>
+                        <Grid item md={6} xs={12}>
                           <Typography
                             fontSize=".8rem"
                             sx={{ fontWeight: "bold" }}
@@ -445,7 +445,12 @@ export default function ProductScreen(props) {
                             {product.cantidadmateriales}
                           </Typography>
                         </Grid>
-                        <Grid item md={6} sx={{ justifyContent: "center" }}>
+                        <Grid
+                          item
+                          md={6}
+                          xs={12}
+                          sx={{ justifyContent: "center" }}
+                        >
                           <Typography
                             fontSize=".8rem"
                             sx={{ fontWeight: "bold" }}
@@ -455,7 +460,7 @@ export default function ProductScreen(props) {
                           </Typography>
                         </Grid>
 
-                        <Grid item md={6}>
+                        <Grid item md={6} xs={12}>
                           <Typography
                             fontSize=".8rem"
                             sx={{ fontWeight: "bold" }}

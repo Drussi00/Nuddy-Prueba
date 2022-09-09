@@ -66,7 +66,7 @@ const Newsletter = () => {
             style={{ width: isDesktop ? "40%" : "100%" }}
           >
             <input
-              style={{ borderRadius: "0", width: "300px" }}
+              style={{ borderRadius: "0" }}
               onClick={() =>
                 checked
                   ? enqueueSnackbar(
@@ -127,7 +127,7 @@ const Newsletter = () => {
             <div style={{ height: "40px", width: isDesktop ? "90%" : null }}>
               <Typography
                 sx={{
-                  fontSize: isDesktop ? "0.7rem " : "0.2rem,",
+                  fontSize: isDesktop ? "0.7rem " : "0.9px",
                 }}
                 align="right"
               >
