@@ -13,7 +13,7 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import React, { useState } from "react";
 import axios from "axios";
-
+import classes from "../utils/classes";
 import { useSnackbar } from "notistack";
 const Influencer = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -207,7 +207,7 @@ const Influencer = () => {
               </List>
             </div>
           </Grid>
-          <Grid item md={6}>
+          <Grid item md={6} sx={isDesktop ? classes.visibleI : classes.hidden}>
             <Grid container spacing={2} margin={"auto"}>
               <Grid item marginTop={4}>
                 <img
