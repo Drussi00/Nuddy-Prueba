@@ -1,8 +1,12 @@
-import { Box, Grid, Typography } from "@mui/material";
-import React from "react";
+import { Box, Grid, Typography, useMediaQuery } from "@mui/material";
+import React, { useEffect, useState } from "react";
 
 import FavoritosCard from "./FavoritosCard";
 export default function Favoritos({ favorito }) {
+  const mobileArr = favorito.slice(0, 2);
+  const isDesktop = useMediaQuery("(min-width:600px)");
+
+  useEffect(() => {}, [isDesktop]);
   return (
     <Box>
       <Typography
@@ -21,13 +25,21 @@ export default function Favoritos({ favorito }) {
         justifyconten="center"
         margin="auto"
       >
-        {favorito.map((fav) => {
-          return (
-            <Grid item md={3} key={fav.key}>
-              <FavoritosCard product={fav} />
-            </Grid>
-          );
-        })}
+        {isDesktop
+          ? favorito.map((fav) => {
+              return (
+                <Grid item md={3} xs={12} key={fav.key}>
+                  <FavoritosCard product={fav} />
+                </Grid>
+              );
+            })
+          : mobileArr.map((fav) => {
+              return (
+                <Grid item md={3} xs={12} key={fav.key}>
+                  <FavoritosCard product={fav} />
+                </Grid>
+              );
+            })}
       </Grid>
     </Box>
   );

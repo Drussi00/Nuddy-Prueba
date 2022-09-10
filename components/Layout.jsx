@@ -181,15 +181,18 @@ export default function Layout({ title, description, children }) {
               </Box>
             </Box>
             <Drawer
-              sx={{ width: "250px" }}
+              sx={{ maxWidth: "250px" }}
               anchor="left"
               open={sidbarVisible}
               onClose={sidebarCloseHandler}
             >
-              <Box>
+              <Box
+                display="flex"
+                sx={{ maxWidth: "250px", flexWrap: "wrap", height: "100%" }}
+              >
                 <Box>
                   <List>
-                    <ListItem sx={{ paddingTop: "0" }}>
+                    <ListItem>
                       <Box
                         sx={{ width: "220px" }}
                         display="flex"
@@ -369,15 +372,17 @@ export default function Layout({ title, description, children }) {
                 </Box>
                 <Box
                   display="flex"
+                  alignItems={"end"}
                   sx={{
                     justifyContent: "space-around",
-                    paddingTop: isDesktop ? "450px" : "410px",
+                    width: "100%",
+                    paddingBottom: "10px",
                   }}
                 >
                   <WhatsAppIcon fontSize="large" />
                   <InstagramIcon fontSize="large" />
                   <EmailIcon fontSize="large" />
-                </Box>{" "}
+                </Box>
               </Box>
             </Drawer>
 
