@@ -65,13 +65,14 @@ export default function Home() {
                 filteredT={filteredT}
                 filteredC={filteredC}
                 filteredS={filteredS}
-              />{" "}
+              />
             </Box>
           </Box>
           <Box paddingTop={5} paddingBottom={5}>
             <Influencer />
           </Box>
           <Box paddingBottom={5}>
+            {" "}
             <Newsletter />
           </Box>
         </div>

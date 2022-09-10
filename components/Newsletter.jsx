@@ -40,7 +40,7 @@ const Newsletter = () => {
       justifyContent={"center"}
       sx={{ backgroundColor: "#f1f1f1", paddingBottom: "30px" }}
     >
-      <List>
+      <List sx={{ width: "100%" }}>
         <ListItem sx={{ justifyContent: "center" }}>
           <Typography
             component="h1"
