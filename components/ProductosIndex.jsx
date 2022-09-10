@@ -126,17 +126,15 @@ const ProductosIndex = ({ filteredH, filteredS, filteredT }) => {
       </Box>
 
       <Box display="flex" justifyContent="center" alignItems="center">
-        <div>
-          <Button onClick={leftHanlder} className="butLeft">
-            <span
-              className="left"
-              style={{
-                zIndex: "1",
-                "&:after": { borderTop: "0.5em solid blue" },
-              }}
-            ></span>
-          </Button>
-        </div>
+        <Button onClick={leftHanlder} className="butLeft">
+          <span
+            className="left"
+            style={{
+              zIndex: "1",
+              "&:after": { borderTop: "0.5em solid blue" },
+            }}
+          ></span>
+        </Button>
         <Box sx={isDesktop ? classes.visibleI : classes.hidden}>
           <img
             width="200"
@@ -158,13 +156,9 @@ const ProductosIndex = ({ filteredH, filteredS, filteredT }) => {
             src={urlFor(category[indexD].image && category[indexD].image[0])}
           ></img>
         </Box>
-        <Box>
-          <div>
-            <Button onClick={rightHanlder} className="butright">
-              <span className="right"></span>
-            </Button>
-          </div>
-        </Box>
+        <Button onClick={rightHanlder} className="butright">
+          <span className="right"></span>
+        </Button>
       </Box>
 
       <Box
