@@ -1,5 +1,5 @@
 import { Box, Grid, Typography, useMediaQuery } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import FavoritosCard from "./FavoritosCard";
 export default function Favoritos({ favorito }) {

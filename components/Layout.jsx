@@ -416,41 +416,43 @@ export default function Layout({ title, description, children }) {
                   </Typography>
                 </Link>
               </NextLink>
-              {userInfo ? (
-                <>
-                  <Button
-                    aria-controls="simple-menu"
-                    aria-haspopup="true"
-                    sx={classes.navbarButton}
-                    onClick={(e) => loginClickHandler(e)}
-                  >
-                    {userInfo.name}
-                  </Button>
-                  <Menu
-                    id="simple-menu"
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={loginMenuCloseHandler}
-                  >
-                    <MenuItem
-                      onClick={(e) => loginMenuCloseHandler(e, "/profile")}
+              {isDesktop ? (
+                userInfo ? (
+                  <>
+                    <Button
+                      aria-controls="simple-menu"
+                      aria-haspopup="true"
+                      sx={classes.navbarButton}
+                      onClick={(e) => loginClickHandler(e)}
                     >
-                      Perfil
-                    </MenuItem>
+                      {userInfo.name}
+                    </Button>
+                    <Menu
+                      id="simple-menu"
+                      anchorEl={anchorEl}
+                      keepMounted
+                      open={Boolean(anchorEl)}
+                      onClose={loginMenuCloseHandler}
+                    >
+                      <MenuItem
+                        onClick={(e) => loginMenuCloseHandler(e, "/profile")}
+                      >
+                        Perfil
+                      </MenuItem>
 
-                    <MenuItem onClick={logoutClickHandler}>
-                      Cerrar sesion
-                    </MenuItem>
-                  </Menu>
-                </>
-              ) : (
-                <NextLink href="/login" passHref>
-                  <Link>
-                    <PersonIcon />
-                  </Link>
-                </NextLink>
-              )}
+                      <MenuItem onClick={logoutClickHandler}>
+                        Cerrar sesion
+                      </MenuItem>
+                    </Menu>
+                  </>
+                ) : (
+                  <NextLink href="/login" passHref>
+                    <Link>
+                      <PersonIcon />
+                    </Link>
+                  </NextLink>
+                )
+              ) : null}
             </Box>
           </Toolbar>
         </AppBar>

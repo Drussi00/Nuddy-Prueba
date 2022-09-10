@@ -32,7 +32,9 @@ const classes = {
     fontSize: "1.5rem",
   },
   navbarButton: {
+    fontFamily: "helvetica",
     color: "#000000",
+    fontWeight: "bold",
   },
   fullWidth: {
     width: "100%",

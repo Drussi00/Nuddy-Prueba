@@ -52,7 +52,7 @@ export default function Categories() {
             component="h1"
             sx={{
               position: "relative",
-              top: isDesktop ? "15px" : "14px",
+              top: isDesktop ? "15px" : "32px",
               fontSize: isDesktop ? "1.8rem" : "1.2rem",
               fontWeight: "600",
             }}
@@ -61,18 +61,8 @@ export default function Categories() {
           </Typography>
         </Box>
         <Box>
-          <Grid
-            container
-            spacing={10}
-            sx={{ position: isDesktop ? "relative" : null, left: "180px" }}
-          >
-            <Grid
-              item
-              sx={{
-                width: isDesktop ? "22%" : "100%",
-                justifyContent: "center",
-              }}
-            >
+          <Grid container spacing={2} sx={{ justifyContent: "center" }}>
+            <Grid item className="nuddyBear">
               <img
                 src={nuddy.src}
                 style={{
@@ -83,22 +73,13 @@ export default function Categories() {
                 }}
               />
             </Grid>
-            <Grid item sx={{ width: "75%" }}>
-              <Grid container spacing={2}>
+            <Grid item md={7}>
+              <Grid container spacing={2} sx={{ justifyContent: "center" }}>
                 <Grid item sx={12}>
                   <img
                     src="https://i.etsystatic.com/30139968/c/1981/1581/0/102/il/8d9b27/3121799274/il_340x270.3121799274_8kd9.jpg"
                     style={{
-                      width: isDesktop ? "250px" : "340px",
-                      height: "250px",
-                    }}
-                  />
-                </Grid>
-                <Grid item md={8}>
-                  <img
-                    src="https://i.etsystatic.com/30139968/c/1981/1581/0/102/il/8d9b27/3121799274/il_340x270.3121799274_8kd9.jpg"
-                    style={{
-                      width: isDesktop ? "250px" : "340px",
+                      width: isDesktop ? "320px" : "334px",
                       height: "250px",
                     }}
                   />
@@ -107,16 +88,25 @@ export default function Categories() {
                   <img
                     src="https://i.etsystatic.com/30139968/c/1981/1581/0/102/il/8d9b27/3121799274/il_340x270.3121799274_8kd9.jpg"
                     style={{
-                      width: isDesktop ? "250px" : "340px",
+                      width: isDesktop ? "320px" : "340px",
                       height: "250px",
                     }}
                   />
                 </Grid>
-                <Grid item md={6}>
+                <Grid item>
                   <img
                     src="https://i.etsystatic.com/30139968/c/1981/1581/0/102/il/8d9b27/3121799274/il_340x270.3121799274_8kd9.jpg"
                     style={{
-                      width: isDesktop ? "250px" : "340px",
+                      width: isDesktop ? "320px" : "340px",
+                      height: "250px",
+                    }}
+                  />
+                </Grid>
+                <Grid item>
+                  <img
+                    src="https://i.etsystatic.com/30139968/c/1981/1581/0/102/il/8d9b27/3121799274/il_340x270.3121799274_8kd9.jpg"
+                    style={{
+                      width: isDesktop ? "320px" : "340px",
                       height: "250px",
                     }}
                   />

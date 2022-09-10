@@ -131,6 +131,9 @@ body .MuiTypography-root.MuiTypography-h1 .title {
   height: 670px;
 }
 @media screen and (max-width: 600px) {
+  .nuddyBear {
+    width: 350px;
+  }
   .small-images-container {
     padding-left: 0;
   }
