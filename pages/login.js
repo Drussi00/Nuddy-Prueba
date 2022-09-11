@@ -157,7 +157,10 @@ export default function LoginScreen() {
                     sx={{
                       paddingLeft: "10px",
                       color: "black",
-                      "&:hover": { color: "black" },
+                      "&:hover": {
+                        color: "black",
+                        textDecoration: "underline",
+                      },
                     }}
                   >
                     Registrate

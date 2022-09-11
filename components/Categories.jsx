@@ -68,7 +68,7 @@ export default function Categories() {
                 style={{
                   display: "flex",
 
-                  width: isDesktop ? "250px" : "100%",
+                  width: isDesktop ? "330px" : "100%",
                   height: "518px",
                 }}
               />
