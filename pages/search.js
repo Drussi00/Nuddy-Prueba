@@ -51,11 +51,13 @@ export default function SearchScreen() {
     productsView: [],
     productsLengt: 0,
   });
+  const [title, settitle] = useState("shop all");
 
   const { loading, products, error, productsView, productsLengt } = state;
   const [categories, setCategories] = useState([]);
   const [pageU, setpage] = useState(1);
   useEffect(() => {
+    settitle(category);
     const fetchCategories = async () => {
       try {
         const { data } = await axios.get(`/api/products/categories`);
@@ -136,6 +138,7 @@ export default function SearchScreen() {
   };
   const categoryHandler = (e) => {
     filterSearch({ category: e.target.value });
+    settitle(e.target.value);
   };
   // const colecionHandler = (e) => {
   //   filterSearch({ colecion: e.target.value });
@@ -188,13 +191,16 @@ export default function SearchScreen() {
       productsLengt,
     });
   };
-  console.log(productsView);
 
   return (
     <Layout title="search">
       <Box display="flex" sx={classes.productosIndex}>
         <Typography
-          sx={{ fontWeight: "bold", fontFamily: " coolvetica, sans-serif" }}
+          sx={{
+            fontWeight: "bold",
+            fontFamily: " helvetica, sans-serif",
+            fontSize: "0.8rem",
+          }}
         >
           Envio gratis a todo el pais por compras superiores a $200.000
         </Typography>
@@ -218,9 +224,8 @@ export default function SearchScreen() {
                 }}
               >
                 <Select
-                  label={category}
                   fullWidth
-                  value={category}
+                  value="default"
                   onChange={categoryHandler}
                   sx={{
                     width: "120px",
@@ -228,10 +233,15 @@ export default function SearchScreen() {
                     borderRight: "1px solid black",
                     borderColor: "none",
                     borderRadius: "0 ",
+                    fontWeight: "bold",
+                    fontFamily: " helvetica, sans-serif",
                   }}
                   inputProps={{ "aria-label": "Without label" }}
                   className="borrarFieldet"
                 >
+                  <MenuItem sx={{ display: "none" }} value="default">
+                    Filtrar
+                  </MenuItem>
                   {categories.map((category) => (
                     <MenuItem
                       key={category}
@@ -248,24 +258,27 @@ export default function SearchScreen() {
                   sx={{
                     width: isDesktop ? "800px" : "150px",
                     border: "none",
+                    fontWeight: "bold",
+                    fontFamily: " helvetica, sans-serif",
                     "&:hover": {
                       border: "none",
                       backgroundColor: "transparent",
                     },
                   }}
                 >
-                  Shop all
+                  {title}
                 </Button>
 
                 <Select
-                  value={sort}
+                  value="default"
                   onChange={sortHandler}
                   sx={{
                     width: "100",
                     height: "45px",
                     border: "none",
                     borderLeft: "1px solid black",
-
+                    fontWeight: "bold",
+                    fontFamily: " helvetica, sans-serif",
                     borderRadius: "0 ",
                   }}
                   inputProps={{ "aria-label": "Without label" }}

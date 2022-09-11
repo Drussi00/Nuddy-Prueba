@@ -197,9 +197,48 @@ export default function Layout({ title, description, children }) {
                         sx={{ width: "220px" }}
                         display="flex"
                         alignItems="center"
-                        justifyContent="end"
+                        justifyContent="space-between"
                       >
                         <Box display="flex">
+                          {isDesktop ? null : userInfo ? (
+                            <>
+                              <Button
+                                aria-controls="simple-menu"
+                                aria-haspopup="true"
+                                sx={classes.navbarButton}
+                                onClick={(e) => loginClickHandler(e)}
+                              >
+                                {userInfo.name}
+                              </Button>
+                              <Menu
+                                id="simple-menu"
+                                anchorEl={anchorEl}
+                                keepMounted
+                                open={Boolean(anchorEl)}
+                                onClose={loginMenuCloseHandler}
+                              >
+                                <MenuItem
+                                  onClick={(e) =>
+                                    loginMenuCloseHandler(e, "/profile")
+                                  }
+                                >
+                                  Perfil
+                                </MenuItem>
+
+                                <MenuItem onClick={logoutClickHandler}>
+                                  Cerrar sesion
+                                </MenuItem>
+                              </Menu>
+                            </>
+                          ) : (
+                            <NextLink href="/login" passHref>
+                              <Link>
+                                <PersonIcon />
+                              </Link>
+                            </NextLink>
+                          )}
+                        </Box>
+                        <Box>
                           <IconButton
                             aria-label="close"
                             onClick={sidebarCloseHandler}
@@ -209,6 +248,7 @@ export default function Layout({ title, description, children }) {
                         </Box>
                       </Box>
                     </ListItem>
+
                     <Divider light />
                     <Dropdown
                       style={{
