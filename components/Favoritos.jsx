@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 
 import FavoritosCard from "./FavoritosCard";
 export default function Favoritos({ favorito }) {
-  const mobileArr = favorito.slice(0, 2);
+  const mobileArr = favorito.slice(0, 1);
   const isDesktop = useMediaQuery("(min-width:600px)");
 
   useEffect(() => {}, [isDesktop]);
