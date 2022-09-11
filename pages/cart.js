@@ -26,7 +26,7 @@ import { Store } from "../utils/Store";
 // import { useSnackbar } from "notistack";
 
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+
 function CartScreen() {
   const router = useRouter();
   const {

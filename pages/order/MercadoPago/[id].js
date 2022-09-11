@@ -16,7 +16,7 @@ import {
 
 import dynamic from "next/dynamic";
 
-import React,  from "react";
+import React from "react";
 import Layout from "../../../components/Layout";
 import classes from "../../../utils/classes";
 import Product from "../../../components/MercadoPago";

@@ -127,7 +127,7 @@ export default function Layout({ title, description, children }) {
       }
     };
     fetchColeciones();
-  }, []);
+  }, [enqueueSnackbar]);
 
   const isDesktop = useMediaQuery("(min-width:600px)");
 
