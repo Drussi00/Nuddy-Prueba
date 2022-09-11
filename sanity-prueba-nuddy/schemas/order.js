@@ -37,6 +37,7 @@ export default {
       title: "totalPrice",
       type: "number",
     },
+
     {
       name: "paymentMethod",
       title: "paymentMethod",

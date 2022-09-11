@@ -44,6 +44,7 @@ export default function ProductScreen(props) {
             *[_type == "product" && slug.current == $slug][0]`,
           { slug }
         );
+
         setState({ ...state, product, loading: false });
       } catch (err) {
         setState({ ...state, error: err.message, loading: false });
@@ -53,6 +54,10 @@ export default function ProductScreen(props) {
   }, [slug]);
   const [size, setsize] = useState("");
   const [quantity, setquantity] = useState(0);
+
+  useEffect(() => {
+    return () => {};
+  }, []);
 
   const addQuantity = async () => {
     if (size !== "") {

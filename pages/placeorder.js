@@ -42,6 +42,7 @@ function PlaceOrderScreen() {
   const itemsPrice = round2(
     cartItems.reduce((a, c) => a + c.price * c.quantity, 0)
   );
+
   const shippingPrice = itemsPrice > 200 ? 0 : 15;
   const taxPrice = round2(itemsPrice * 0.15);
   const totalPrice = round2(itemsPrice + shippingPrice + taxPrice);
@@ -86,7 +87,7 @@ function PlaceOrderScreen() {
         router.push(`/order/PayPal/${data}`);
       } else {
         const { data } = await axios.post(
-          "/api/orders/MercadoPago",
+          "/api/orders/PayPal",
           {
             orderItems: cartItems.map((x) => ({
               ...x,
@@ -110,12 +111,16 @@ function PlaceOrderScreen() {
         dispatch({ type: "CART_CLEAR" });
         jsCookie.remove("cartItems");
         setLoading(false);
-        router.push(`/order/MercadoPago/${data.global}`);
+        router.push(`/order/MercadoPago/${data}`);
       }
     } catch (err) {
       setLoading(false);
       enqueueSnackbar(getError(err), { variant: "error" });
     }
+    takeOutsize();
+  };
+  const takeOutsize = async () => {
+    console.log("se logro");
   };
   return (
     <Layout title="Place Order">

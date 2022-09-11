@@ -4,19 +4,18 @@ import { isAuth } from "../../../../utils/auth";
 const handler = nc();
 handler.use(isAuth);
 handler.post(async (req, res) => {
-
   console.log(mercadopago);
   console.log("entra");
 
   let preference = {
-    items: req.body.orderItems.map((producto)=>{
+    items: req.body.orderItems.map((producto) => {
       return {
         title: producto.name,
         unit_price: producto.price,
         quantity: producto.quantity,
         description: producto.size,
-      }
-    })
+      };
+    }),
   };
 
   console.log(preference);

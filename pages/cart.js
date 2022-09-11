@@ -26,6 +26,7 @@ import { Store } from "../utils/Store";
 // import { useSnackbar } from "notistack";
 
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 function CartScreen() {
   const router = useRouter();
   const {
@@ -34,6 +35,12 @@ function CartScreen() {
     },
     dispatch,
   } = useContext(Store);
+  useEffect(() => {
+    console.log(cartItems);
+
+    return () => {};
+  }, []);
+
   // const { enqueueSnackbar } = useSnackbar();
   // const updateCartHanlder = async (item, quantity, size) => {
   //   const { data } = await axios.get(`/api/products/${item._id}`);

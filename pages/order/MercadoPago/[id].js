@@ -16,14 +16,55 @@ import {
 
 import dynamic from "next/dynamic";
 
-import React from "react";
+import React, { useEffect, useReducer } from "react";
 import Layout from "../../../components/Layout";
 import classes from "../../../utils/classes";
 import Product from "../../../components/MercadoPago";
-
+function reducer(state, action) {
+  switch (action.type) {
+    case "FETCH_REQUEST":
+      return { ...state, loading: true, error: "" };
+    case "FETCH_SUCCESS":
+      return { ...state, loading: false, order: action.payload, error: "" };
+    case "FETCH_FAIL":
+      return { ...state, loading: false, error: action.payload };
+    case "PAY_REQUEST":
+      return { ...state, loadingPay: true };
+    case "PAY_SUCCESS":
+      return { ...state, loadingPay: false, successPay: true };
+    case "PAY_FAIL":
+      return { ...state, loadingPay: false, errorPay: action.payload };
+    case "PAY_RESET":
+      return { ...state, loadingPay: false, successPay: false, errorPay: "" };
+  }
+}
 function OrderScreen({ params }) {
   const { id: orderId } = params;
+  const [{ loading, error, order, successPay }, dispatch] = useReducer(
+    reducer,
+    {
+      loading: true,
+      order: {},
+      error: "",
+    }
+  );
 
+  const {
+    shippingAddress,
+    paymentMethod,
+    orderItems,
+    itemsPrice,
+    taxPrice,
+    shippingPrice,
+    totalPrice,
+    isPaid,
+    paidAt,
+    isDelivered,
+    deliveredAt,
+  } = order;
+  useEffect(() => {
+    shippingAddress;
+  });
   return (
     <Layout title={`Order ${orderId}`}>
       <Container>
@@ -41,7 +82,7 @@ function OrderScreen({ params }) {
                   </Typography>
                 </ListItem>
                 <ListItem></ListItem>
-                <ListItem>Status: </ListItem>
+                <ListItem>Status:</ListItem>
               </List>
             </Card>
 
