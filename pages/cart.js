@@ -35,11 +35,6 @@ function CartScreen() {
     },
     dispatch,
   } = useContext(Store);
-  useEffect(() => {
-    console.log(cartItems);
-
-    return () => {};
-  }, []);
 
   // const { enqueueSnackbar } = useSnackbar();
   // const updateCartHanlder = async (item, quantity, size) => {

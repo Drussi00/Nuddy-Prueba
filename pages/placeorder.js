@@ -46,7 +46,9 @@ function PlaceOrderScreen() {
   const shippingPrice = itemsPrice > 200 ? 0 : 15;
   const taxPrice = round2(itemsPrice * 0.15);
   const totalPrice = round2(itemsPrice + shippingPrice + taxPrice);
+
   useEffect(() => {
+    console.log(cartItems);
     if (!paymentMethod) {
       router.push("/payment");
     }
@@ -107,7 +109,7 @@ function PlaceOrderScreen() {
             },
           }
         );
-        console.log(data);
+
         dispatch({ type: "CART_CLEAR" });
         jsCookie.remove("cartItems");
         setLoading(false);
@@ -117,11 +119,8 @@ function PlaceOrderScreen() {
       setLoading(false);
       enqueueSnackbar(getError(err), { variant: "error" });
     }
-    takeOutsize();
   };
-  const takeOutsize = async () => {
-    console.log("se logro");
-  };
+
   return (
     <Layout title="Place Order">
       <Container>
