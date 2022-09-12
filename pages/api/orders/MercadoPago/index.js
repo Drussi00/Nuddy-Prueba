@@ -4,9 +4,6 @@ import { isAuth } from "../../../../utils/auth";
 const handler = nc();
 handler.use(isAuth);
 handler.post(async (req, res) => {
-  console.log(mercadopago);
-  console.log("entra");
-
   let preference = {
     items: req.body.orderItems.map((producto) => {
       return {
@@ -18,7 +15,6 @@ handler.post(async (req, res) => {
     }),
   };
 
-  console.log(preference);
   try {
     const response = await mercadopago.preferences.create(preference);
 
@@ -26,7 +22,6 @@ handler.post(async (req, res) => {
       global: response.body.id,
     });
   } catch (error) {
-    console.log(error);
     res.status(400).json({ error: "error en la peticion" });
   }
 });

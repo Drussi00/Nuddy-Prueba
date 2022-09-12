@@ -46,41 +46,35 @@ function PlaceOrderScreen() {
   const shippingPrice = itemsPrice > 200 ? 0 : 15;
   const taxPrice = round2(itemsPrice * 0.15);
   const totalPrice = round2(itemsPrice + shippingPrice + taxPrice);
+
   const size = async () => {
     let tallaXS;
     let tallaS;
     let tallaM;
-
     let tallaL;
-    cartItems.map((item, i) => {
+    let unitario;
+    cartItems.map((item) => {
+      unitario = item;
       if (item.size === "XS") {
-        tallaXS = item.countInStockS - item.quantity;
+        tallaXS = item.countInStockXS - item.quantity;
       } else {
         if (item.size === "S") {
-          console.log("S");
-          console.log(item.quantity);
-          console.log(item.countInStockS);
           tallaS = item.countInStockS - item.quantity;
         } else {
           if (item.size === "M") {
-            tallaM = item.countInStockS - item.quantity;
+            tallaM = item.countInStockM - item.quantity;
           } else {
             if (item.size === "L") {
-              tallaL = item.countInStockS - item.quantity;
+              tallaL = item.countInStockLp - item.quantity;
             }
           }
         }
       }
     });
     try {
-      const { data } = await axios.put(
+      await axios.put(
         "/api/products/tallas",
-        {
-          tallaXS,
-          tallaS,
-          tallaM,
-          tallaL,
-        },
+        { unitario, tallaXS, tallaS, tallaM, tallaL },
         { headers: { authorization: `Bearer ${userInfo.token}` } }
       );
     } catch (err) {

@@ -51,7 +51,11 @@ export default {
       title: "Colecion",
       type: "string",
     },
-
+    {
+      name: "xs",
+      title: "XS",
+      type: "number",
+    },
     {
       name: "s",
       title: "S",

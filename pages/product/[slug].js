@@ -61,7 +61,10 @@ export default function ProductScreen(props) {
 
   const addQuantity = async () => {
     if (size !== "") {
-      if (size === "S" && quantity < product.s) {
+      if (size === "XS" && quantity < product.xs) {
+        setquantity(quantity + 1);
+        console.log(quantity);
+      } else if (size === "S" && quantity < product.s) {
         setquantity(quantity + 1);
         console.log(quantity);
       } else if (size === "M" && quantity < product.m) {
@@ -78,7 +81,10 @@ export default function ProductScreen(props) {
   };
   const decQuantity = async () => {
     if (size !== "") {
-      if (size === "S" && quantity > 0) {
+      if (size === "XS" && quantity < product.xs) {
+        setquantity(quantity + 1);
+        console.log(quantity);
+      } else if (size === "S" && quantity > 0) {
         setquantity(quantity - 1);
         console.log(quantity);
       } else if (size === "M" && quantity > 0) {
@@ -107,6 +113,7 @@ export default function ProductScreen(props) {
       payload: {
         _key: product._id,
         name: product.name,
+        countInStockXS: product.xs,
         countInStockS: product.s,
         countInStockM: product.m,
         countInStockL: product.l,
@@ -136,6 +143,7 @@ export default function ProductScreen(props) {
       payload: {
         _key: product._id,
         name: product.name,
+        countInStockXS: product.xs,
         countInStockS: product.s,
         countInStockM: product.m,
         countInStockL: product.l,
