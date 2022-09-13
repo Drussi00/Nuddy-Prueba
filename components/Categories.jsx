@@ -75,7 +75,7 @@ export default function Categories() {
             </Grid>
             <Grid item md={7}>
               <Grid container spacing={2} sx={{ justifyContent: "center" }}>
-                <Grid item sx={12}>
+                <Grid item>
                   <img
                     src="https://i.etsystatic.com/30139968/c/1981/1581/0/102/il/8d9b27/3121799274/il_340x270.3121799274_8kd9.jpg"
                     style={{

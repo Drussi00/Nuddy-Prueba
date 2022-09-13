@@ -498,7 +498,7 @@ export default function Layout({ title, description, children }) {
         </AppBar>
         <Divider />
         <Container
-          disableGutters={"true"}
+          disableGutters={true}
           component="main"
           maxWidth="false"
           sx={classes.main}

@@ -321,7 +321,7 @@ export default function ProductScreen(props) {
                       </NextLink>
                     </Button>
                   </ListItem>
-                  <listItem>
+                  <ListItem>
                     <Grid container spacing={2}>
                       <Grid item>
                         <Button
@@ -392,7 +392,7 @@ export default function ProductScreen(props) {
                         </Button>
                       </Grid>
                     </Grid>
-                  </listItem>
+                  </ListItem>
                   <ListItem>
                     <Typography
                       sx={{

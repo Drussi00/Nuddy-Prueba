@@ -143,7 +143,27 @@ function PlaceOrderScreen() {
             },
           }
         );
-
+        await axios.post(
+          "/api/orders/MercadoPago",
+          {
+            orderItems: cartItems.map((x) => ({
+              ...x,
+              countInStock: undefined,
+              slug: undefined,
+            })),
+            shippingAddress,
+            paymentMethod,
+            itemsPrice,
+            shippingPrice,
+            taxPrice,
+            totalPrice,
+          },
+          {
+            headers: {
+              authorization: `Bearer ${userInfo.token}`,
+            },
+          }
+        );
         dispatch({ type: "CART_CLEAR" });
         jsCookie.remove("cartItems");
         setLoading(false);
