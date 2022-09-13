@@ -4,7 +4,6 @@ import { isAuth } from "../../../../utils/auth";
 const handler = nc();
 handler.use(isAuth);
 handler.post(async (req, res) => {
-  console.log(req.body);
   let preference = {
     items: req.body.orderItems.map((producto) => {
       return {

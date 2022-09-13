@@ -148,170 +148,187 @@ export default function Layout({ title, description, children }) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AppBar position="static" sx={classes.appbar}>
-          <Toolbar sx={classes.toolbar}>
-            <Box display="flex" alignItems="center">
-              <IconButton
-                edge="start"
-                aria-label="open drawer"
-                onClick={sidebarOpenHandler}
-                sx={classes.menuButton}
-              >
-                <MenuIcon sx={classes.navbarButton} />
-              </IconButton>
-              <Box sx={isDesktop ? classes.visible : classes.hidden}>
-                <form onSubmit={submitHandler}>
-                  <Box sx={classes.searchForm}>
-                    {" "}
-                    <IconButton
-                      type="submit"
-                      sx={classes.searchButton}
-                      aria-label="search"
-                    >
-                      <SearchIcon sx={classes.navbarButton} />
-                    </IconButton>
-                    <InputBase
-                      name="query"
-                      sx={classes.searchInput}
-                      placeholder="Busca Productos"
-                      onChange={queryChangeHandler}
-                    />
-                  </Box>
-                </form>
+        <Box>
+          <AppBar position="static" sx={classes.appbar}>
+            <Toolbar sx={classes.toolbar}>
+              <Box display="flex" alignItems="center">
+                <IconButton
+                  edge="start"
+                  aria-label="open drawer"
+                  onClick={sidebarOpenHandler}
+                  sx={classes.menuButton}
+                >
+                  <MenuIcon sx={classes.navbarButton} />
+                </IconButton>
+                <Box sx={isDesktop ? classes.visible : classes.hidden}>
+                  <form onSubmit={submitHandler}>
+                    <Box sx={classes.searchForm}>
+                      {" "}
+                      <IconButton
+                        type="submit"
+                        sx={classes.searchButton}
+                        aria-label="search"
+                      >
+                        <SearchIcon sx={classes.navbarButton} />
+                      </IconButton>
+                      <InputBase
+                        name="query"
+                        sx={classes.searchInput}
+                        placeholder="Busca Productos"
+                        onChange={queryChangeHandler}
+                      />
+                    </Box>
+                  </form>
+                </Box>
               </Box>
-            </Box>
-            <Drawer
-              sx={{ maxWidth: "250px" }}
-              anchor="left"
-              open={sidbarVisible}
-              onClose={sidebarCloseHandler}
-            >
-              <Box
-                display="flex"
-                sx={{ maxWidth: "250px", flexWrap: "wrap", height: "100%" }}
+              <Drawer
+                sx={{ maxWidth: "250px" }}
+                anchor="left"
+                open={sidbarVisible}
+                onClose={sidebarCloseHandler}
               >
-                <Box>
-                  <List>
-                    <ListItem>
-                      <Box
-                        sx={{ width: "220px" }}
-                        display="flex"
-                        alignItems="center"
-                        justifyContent="space-between"
-                      >
-                        <Box display="flex">
-                          {isDesktop ? null : userInfo ? (
-                            <>
-                              <Button
-                                aria-controls="simple-menu"
-                                aria-haspopup="true"
-                                sx={classes.navbarButton}
-                                onClick={(e) => loginClickHandler(e)}
-                              >
-                                {userInfo.name}
-                              </Button>
-                              <Menu
-                                id="simple-menu"
-                                anchorEl={anchorEl}
-                                keepMounted
-                                open={Boolean(anchorEl)}
-                                onClose={loginMenuCloseHandler}
-                              >
-                                <MenuItem
-                                  onClick={(e) =>
-                                    loginMenuCloseHandler(e, "/profile")
-                                  }
-                                >
-                                  Perfil
-                                </MenuItem>
-
-                                <MenuItem onClick={logoutClickHandler}>
-                                  Cerrar sesion
-                                </MenuItem>
-                              </Menu>
-                            </>
-                          ) : (
-                            <NextLink href="/login" passHref>
-                              <Link>
-                                <PersonIcon />
-                              </Link>
-                            </NextLink>
-                          )}
-                        </Box>
-                        <Box>
-                          <IconButton
-                            aria-label="close"
-                            onClick={sidebarCloseHandler}
-                          >
-                            <CloseIcon sx={{ color: "black" }} />
-                          </IconButton>
-                        </Box>
-                      </Box>
-                    </ListItem>
-
-                    <Divider light />
-                    <Dropdown
-                      style={{
-                        zIndex: "100%",
-                        "&:hover": { border: "none" },
-                      }}
-                    >
-                      <Dropdown.Toggle
-                        sx={{ fontWeight: "bold" }}
-                        variant=""
-                        id="dropdown-basic"
-                      >
-                        Shop
-                      </Dropdown.Toggle>
-
-                      <Dropdown.Menu
-                        style={{ backgroundColor: "white", border: "none" }}
-                      >
-                        {categories.map((category) => (
-                          <NextLink
-                            key={category}
-                            href={`/search?category=${category}`}
-                            passHref
-                            sx={{}}
-                          >
-                            <ListItem
-                              button
-                              component="a"
-                              onClick={sidebarCloseHandler}
-                              sx={{
-                                fontWeight: "normal",
-                                "&:hover": { color: "black" },
-                              }}
-                            >
-                              <ListItemText primary={category}></ListItemText>
-                            </ListItem>
-                          </NextLink>
-                        ))}
-                        <Dropdown
-                          className="coleciones1"
-                          style={{
-                            border: "none",
-                            backgroundColor: "white",
-                            zIndex: "100%",
-                          }}
+                <Box
+                  display="flex"
+                  sx={{ maxWidth: "250px", flexWrap: "wrap", height: "100%" }}
+                >
+                  <Box>
+                    <List>
+                      <ListItem>
+                        <Box
+                          sx={{ width: "220px" }}
+                          display="flex"
+                          alignItems="center"
+                          justifyContent="space-between"
                         >
-                          <Dropdown.Toggle variant="" id="dropdown-basic">
-                            Coleciones
-                          </Dropdown.Toggle>
+                          <Box display="flex">
+                            {isDesktop ? null : userInfo ? (
+                              <>
+                                <Button
+                                  aria-controls="simple-menu"
+                                  aria-haspopup="true"
+                                  sx={classes.navbarButton}
+                                  onClick={(e) => loginClickHandler(e)}
+                                >
+                                  {userInfo.name}
+                                </Button>
+                                <Menu
+                                  id="simple-menu"
+                                  anchorEl={anchorEl}
+                                  keepMounted
+                                  open={Boolean(anchorEl)}
+                                  onClose={loginMenuCloseHandler}
+                                >
+                                  <MenuItem
+                                    onClick={(e) =>
+                                      loginMenuCloseHandler(e, "/profile")
+                                    }
+                                  >
+                                    Perfil
+                                  </MenuItem>
 
-                          <Dropdown.Menu
+                                  <MenuItem onClick={logoutClickHandler}>
+                                    Cerrar sesion
+                                  </MenuItem>
+                                </Menu>
+                              </>
+                            ) : (
+                              <NextLink href="/login" passHref>
+                                <Link>
+                                  <PersonIcon />
+                                </Link>
+                              </NextLink>
+                            )}
+                          </Box>
+                          <Box>
+                            <IconButton
+                              aria-label="close"
+                              onClick={sidebarCloseHandler}
+                            >
+                              <CloseIcon sx={{ color: "black" }} />
+                            </IconButton>
+                          </Box>
+                        </Box>
+                      </ListItem>
+
+                      <Divider light />
+                      <Dropdown
+                        style={{
+                          zIndex: "100%",
+                          "&:hover": { border: "none" },
+                        }}
+                      >
+                        <Dropdown.Toggle
+                          sx={{ fontWeight: "bold" }}
+                          variant=""
+                          id="dropdown-basic"
+                        >
+                          Shop
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu
+                          style={{ backgroundColor: "white", border: "none" }}
+                        >
+                          {categories.map((category) => (
+                            <NextLink
+                              key={category}
+                              href={`/search?category=${category}`}
+                              passHref
+                              sx={{}}
+                            >
+                              <ListItem
+                                button
+                                component="a"
+                                onClick={sidebarCloseHandler}
+                                sx={{
+                                  fontWeight: "normal",
+                                  "&:hover": { color: "black" },
+                                }}
+                              >
+                                <ListItemText primary={category}></ListItemText>
+                              </ListItem>
+                            </NextLink>
+                          ))}
+                          <Dropdown
+                            className="coleciones1"
                             style={{
-                              backgroundColor: "white",
                               border: "none",
+                              backgroundColor: "white",
+                              zIndex: "100%",
                             }}
                           >
-                            {coleciones.map((colecion) => (
-                              <NextLink
-                                sx={{ "&:hover": { color: "black" } }}
-                                key={colecion}
-                                href={`/search?colecion=${colecion}&category=Shop+All`}
-                                passHref
-                              >
+                            <Dropdown.Toggle variant="" id="dropdown-basic">
+                              Coleciones
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu
+                              style={{
+                                backgroundColor: "white",
+                                border: "none",
+                              }}
+                            >
+                              {coleciones.map((colecion) => (
+                                <NextLink
+                                  sx={{ "&:hover": { color: "black" } }}
+                                  key={colecion}
+                                  href={`/search?colecion=${colecion}&category=Shop+All`}
+                                  passHref
+                                >
+                                  <ListItem
+                                    sx={{
+                                      fontWeight: "normal",
+                                      "&:hover": { color: "black" },
+                                    }}
+                                    button
+                                    component="a"
+                                    onClick={sidebarCloseHandler}
+                                  >
+                                    <ListItemText
+                                      primary={colecion}
+                                    ></ListItemText>
+                                  </ListItem>
+                                </NextLink>
+                              ))}
+                              <NextLink href={`/nosotros}`} passHref>
                                 <ListItem
                                   sx={{
                                     fontWeight: "normal",
@@ -321,56 +338,12 @@ export default function Layout({ title, description, children }) {
                                   component="a"
                                   onClick={sidebarCloseHandler}
                                 >
-                                  <ListItemText
-                                    primary={colecion}
-                                  ></ListItemText>
+                                  <ListItemText>Nosotros</ListItemText>
                                 </ListItem>
                               </NextLink>
-                            ))}
-                            <NextLink href={`/nosotros}`} passHref>
-                              <ListItem
-                                sx={{
-                                  fontWeight: "normal",
-                                  "&:hover": { color: "black" },
-                                }}
-                                button
-                                component="a"
-                                onClick={sidebarCloseHandler}
-                              >
-                                <ListItemText>Nosotros</ListItemText>
-                              </ListItem>
-                            </NextLink>
-                          </Dropdown.Menu>
-                        </Dropdown>
-                        <NextLink href={`/nosotros}`} passHref>
-                          <ListItem
-                            sx={{
-                              fontWeight: "normal",
-                              "&:hover": { color: "black" },
-                            }}
-                            button
-                            component="a"
-                            onClick={sidebarCloseHandler}
-                          >
-                            <ListItemText>Nosotros</ListItemText>
-                          </ListItem>
-                        </NextLink>
-                      </Dropdown.Menu>
-                    </Dropdown>
-                    <Dropdown className="coleciones2">
-                      <Dropdown.Toggle variant="" id="dropdown-basic">
-                        Coleciones
-                      </Dropdown.Toggle>
-
-                      <Dropdown.Menu
-                        style={{ backgroundColor: "white", border: "none" }}
-                      >
-                        {coleciones.map((colecion) => (
-                          <NextLink
-                            key={colecion}
-                            href={`/search?colecion=${colecion}&category=Shop+All`}
-                            passHref
-                          >
+                            </Dropdown.Menu>
+                          </Dropdown>
+                          <NextLink href={`/nosotros}`} passHref>
                             <ListItem
                               sx={{
                                 fontWeight: "normal",
@@ -380,158 +353,187 @@ export default function Layout({ title, description, children }) {
                               component="a"
                               onClick={sidebarCloseHandler}
                             >
-                              <ListItemText primary={colecion}></ListItemText>
+                              <ListItemText>Nosotros</ListItemText>
                             </ListItem>
                           </NextLink>
-                        ))}
-                        <NextLink href={`/nosotros}`} passHref>
-                          <ListItem
-                            sx={{
-                              fontWeight: "normal",
-                              "&:hover": { color: "black" },
-                            }}
-                            button
-                            component="a"
-                            onClick={sidebarCloseHandler}
-                          >
-                            <ListItemText>Nosotros</ListItemText>
-                          </ListItem>
-                        </NextLink>
-                      </Dropdown.Menu>
-                    </Dropdown>
-                    <NextLink href={`/nosotros}`} passHref>
-                      <ListItem
-                        button
-                        component="a"
-                        onClick={sidebarCloseHandler}
-                      >
-                        <ListItemText>Nosotros</ListItemText>
-                      </ListItem>
-                    </NextLink>
-                  </List>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                      <Dropdown className="coleciones2">
+                        <Dropdown.Toggle variant="" id="dropdown-basic">
+                          Coleciones
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu
+                          style={{ backgroundColor: "white", border: "none" }}
+                        >
+                          {coleciones.map((colecion) => (
+                            <NextLink
+                              key={colecion}
+                              href={`/search?colecion=${colecion}&category=Shop+All`}
+                              passHref
+                            >
+                              <ListItem
+                                sx={{
+                                  fontWeight: "normal",
+                                  "&:hover": { color: "black" },
+                                }}
+                                button
+                                component="a"
+                                onClick={sidebarCloseHandler}
+                              >
+                                <ListItemText primary={colecion}></ListItemText>
+                              </ListItem>
+                            </NextLink>
+                          ))}
+                          <NextLink href={`/nosotros}`} passHref>
+                            <ListItem
+                              sx={{
+                                fontWeight: "normal",
+                                "&:hover": { color: "black" },
+                              }}
+                              button
+                              component="a"
+                              onClick={sidebarCloseHandler}
+                            >
+                              <ListItemText>Nosotros</ListItemText>
+                            </ListItem>
+                          </NextLink>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                      <NextLink href={`/nosotros}`} passHref>
+                        <ListItem
+                          button
+                          component="a"
+                          onClick={sidebarCloseHandler}
+                        >
+                          <ListItemText>Nosotros</ListItemText>
+                        </ListItem>
+                      </NextLink>
+                    </List>
+                  </Box>
+                  <Box
+                    display="flex"
+                    alignItems={"end"}
+                    sx={{
+                      justifyContent: "space-around",
+                      width: "100%",
+                      paddingBottom: "10px",
+                    }}
+                  >
+                    <WhatsAppIcon fontSize="large" />
+                    <InstagramIcon fontSize="large" />
+                    <EmailIcon fontSize="large" />
+                  </Box>
                 </Box>
-                <Box
-                  display="flex"
-                  alignItems={"end"}
-                  sx={{
-                    justifyContent: "space-around",
-                    width: "100%",
-                    paddingBottom: "10px",
-                  }}
-                >
-                  <WhatsAppIcon fontSize="large" />
-                  <InstagramIcon fontSize="large" />
-                  <EmailIcon fontSize="large" />
-                </Box>
+              </Drawer>
+
+              <Box
+                display="flex"
+                sx={{ paddingRight: isDesktop ? "200px" : "0px" }}
+              >
+                <NextLink href="/" passHref>
+                  <Link>
+                    <Typography variant="h1" component="h1" sx={classes.brand}>
+                      Nuddy Minds{" "}
+                    </Typography>
+                  </Link>
+                </NextLink>
               </Box>
-            </Drawer>
 
-            <Box
-              display="flex"
-              sx={{ paddingRight: isDesktop ? "200px" : "0px" }}
-            >
-              <NextLink href="/" passHref>
-                <Link>
-                  <Typography variant="h1" component="h1" sx={classes.brand}>
-                    Nuddy Minds{" "}
-                  </Typography>
-                </Link>
-              </NextLink>
-            </Box>
-
-            <Box display="flex">
-              <NextLink href="/cart" passHref>
-                <Link>
-                  <Typography component="span">
-                    {cart.cartItems.length > 0 ? (
-                      <Badge
-                        color="primary"
-                        badgeContent={cart.cartItems.length}
+              <Box display="flex">
+                <NextLink href="/cart" passHref>
+                  <Link>
+                    <Typography component="span">
+                      {cart.cartItems.length > 0 ? (
+                        <Badge
+                          color="primary"
+                          badgeContent={cart.cartItems.length}
+                        >
+                          <ShoppingCartIcon fontSize="small" />
+                        </Badge>
+                      ) : (
+                        <ShoppingCartIcon />
+                      )}
+                    </Typography>
+                  </Link>
+                </NextLink>
+                {isDesktop ? (
+                  userInfo ? (
+                    <>
+                      <Button
+                        aria-controls="simple-menu"
+                        aria-haspopup="true"
+                        sx={classes.navbarButton}
+                        onClick={(e) => loginClickHandler(e)}
                       >
-                        <ShoppingCartIcon fontSize="small" />
-                      </Badge>
-                    ) : (
-                      <ShoppingCartIcon />
-                    )}
-                  </Typography>
-                </Link>
-              </NextLink>
-              {isDesktop ? (
-                userInfo ? (
-                  <>
-                    <Button
-                      aria-controls="simple-menu"
-                      aria-haspopup="true"
-                      sx={classes.navbarButton}
-                      onClick={(e) => loginClickHandler(e)}
-                    >
-                      {userInfo.name}
-                    </Button>
-                    <Menu
-                      id="simple-menu"
-                      anchorEl={anchorEl}
-                      keepMounted
-                      open={Boolean(anchorEl)}
-                      onClose={loginMenuCloseHandler}
-                    >
-                      <MenuItem
-                        onClick={(e) => loginMenuCloseHandler(e, "/profile")}
+                        {userInfo.name}
+                      </Button>
+                      <Menu
+                        id="simple-menu"
+                        anchorEl={anchorEl}
+                        keepMounted
+                        open={Boolean(anchorEl)}
+                        onClose={loginMenuCloseHandler}
                       >
-                        Perfil
-                      </MenuItem>
+                        <MenuItem
+                          onClick={(e) => loginMenuCloseHandler(e, "/profile")}
+                        >
+                          Perfil
+                        </MenuItem>
 
-                      <MenuItem onClick={logoutClickHandler}>
-                        Cerrar sesion
-                      </MenuItem>
-                    </Menu>
-                  </>
-                ) : (
-                  <NextLink href="/login" passHref>
-                    <Link>
-                      <PersonIcon />
-                    </Link>
-                  </NextLink>
-                )
-              ) : null}
-            </Box>
-          </Toolbar>
-        </AppBar>
-        <Divider />
-        <Container
-          disableGutters={true}
-          component="main"
-          maxWidth="false"
-          sx={classes.main}
-        >
-          {children}
-        </Container>
-        <Divider sx={{ color: "black", opacity: "1" }} />
-        <Box
-          display="flex"
-          justifyContent={"space-between"}
-          component="footer"
-          sx={{
-            paddingRight: isDesktop ? "50px" : "30px",
-            marginLeft: isDesktop ? "50px" : "30px",
+                        <MenuItem onClick={logoutClickHandler}>
+                          Cerrar sesion
+                        </MenuItem>
+                      </Menu>
+                    </>
+                  ) : (
+                    <NextLink href="/login" passHref>
+                      <Link>
+                        <PersonIcon />
+                      </Link>
+                    </NextLink>
+                  )
+                ) : null}
+              </Box>
+            </Toolbar>
+          </AppBar>
+          <Divider />
+          <Container
+            disableGutters={true}
+            component="main"
+            maxWidth="false"
+            sx={classes.main}
+          >
+            {children}
+          </Container>
+          <Divider sx={{ color: "black", opacity: "1" }} />
+          <Box
+            display="flex"
+            justifyContent={"space-between"}
+            component="footer"
+            sx={{
+              paddingRight: isDesktop ? "50px" : "30px",
+              marginLeft: isDesktop ? "50px" : "30px",
 
-            marginTop: 5,
-            marginBottom: 5,
-            textAlign: "center",
-          }}
-        >
-          <Box>
+              marginTop: 5,
+              marginBottom: 5,
+              textAlign: "center",
+            }}
+          >
             <Box>
-              <Typography align="justify">All rights reserved. </Typography>
+              <Box>
+                <Typography align="justify">All rights reserved. </Typography>
+              </Box>
+              <Box>
+                <Typography align="justify"> Nuddy minds.</Typography>
+              </Box>
             </Box>
             <Box>
-              <Typography align="justify"> Nuddy minds.</Typography>
-            </Box>
-          </Box>
-          <Box>
-            <Box display="flex" sx={{ justifyContent: "space-around" }}>
-              <WhatsAppIcon fontSize="large" sx={{ marginLeft: "20px" }} />
-              <InstagramIcon fontSize="large" sx={{ marginLeft: "20px" }} />
-              <EmailIcon fontSize="large" sx={{ marginLeft: "20px" }} />
+              <Box display="flex" sx={{ justifyContent: "space-around" }}>
+                <WhatsAppIcon fontSize="large" sx={{ marginLeft: "20px" }} />
+                <InstagramIcon fontSize="large" sx={{ marginLeft: "20px" }} />
+                <EmailIcon fontSize="large" sx={{ marginLeft: "20px" }} />
+              </Box>
             </Box>
           </Box>
         </Box>

@@ -28,8 +28,8 @@ export default function Favoritos({ favorito }) {
         {isDesktop
           ? favorito.map((fav) => {
               return (
-                <Grid item md={3} xs={12} key={fav.key}>
-                  <FavoritosCard key={fav.key} product={fav} />
+                <Grid item md={3} xs={12} key={fav._key}>
+                  <FavoritosCard product={fav} />
                 </Grid>
               );
             })
