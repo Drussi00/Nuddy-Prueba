@@ -16,13 +16,19 @@ import {
 
 import dynamic from "next/dynamic";
 
-import React from "react";
+import React, { useContext } from "react";
 import Layout from "../../../components/Layout";
 import classes from "../../../utils/classes";
 import Product from "../../../components/MercadoPago";
+import { Store } from "../../../utils/Store";
+import { useEffect } from "react";
 
 function OrderScreen({ params }) {
+  const check = useContext(Store);
   const { id: orderId } = params;
+  useEffect(() => {
+    console.log(check.state.cart.cartItems);
+  });
 
   return (
     <Layout title={`Order ${orderId}`}>

@@ -58,7 +58,12 @@ export default function ProductScreen(props) {
   useEffect(() => {
     return () => {};
   }, []);
-
+  const noStock = () => {
+    setquantity(0);
+    enqueueSnackbar("No quedan disponibles unidades en esta talla", {
+      variant: "error",
+    });
+  };
   const addQuantity = async () => {
     if (size !== "") {
       if (size === "XS" && quantity < product.xs) {
@@ -82,7 +87,7 @@ export default function ProductScreen(props) {
   const decQuantity = async () => {
     if (size !== "") {
       if (size === "XS" && quantity < product.xs) {
-        setquantity(quantity + 1);
+        setquantity(quantity - 1);
         console.log(quantity);
       } else if (size === "S" && quantity > 0) {
         setquantity(quantity - 1);
@@ -328,8 +333,10 @@ export default function ProductScreen(props) {
                           size="small"
                           variant=""
                           onClick={() => {
+                            quantity <= product.xs ? setquantity(1) : noStock();
+
                             setsize("XS");
-                            setquantity(1);
+
                             setselecteXs(true);
                             setselectedS(false);
                             setselectedM(false);
@@ -345,8 +352,9 @@ export default function ProductScreen(props) {
                           size="small"
                           variant=""
                           onClick={() => {
+                            quantity <= product.s ? setquantity(1) : noStock();
                             setsize("S");
-                            setquantity(1);
+
                             setselecteXs(false);
                             setselectedS(true);
                             setselectedM(false);
@@ -363,7 +371,8 @@ export default function ProductScreen(props) {
                           variant=""
                           onClick={() => {
                             setsize("M");
-                            setquantity(1);
+                            quantity <= product.m ? setquantity(1) : noStock();
+
                             setselecteXs(false);
                             setselectedS(false);
                             setselectedM(true);
@@ -384,7 +393,7 @@ export default function ProductScreen(props) {
                             setselectedS(false);
                             setselectedM(false);
                             setselectedL(true);
-                            setquantity(1);
+                            quantity <= product.l ? setquantity(1) : noStock();
                           }}
                           sx={selectedL ? classes.but : classes.selected}
                         >

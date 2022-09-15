@@ -169,7 +169,6 @@ const classes = {
   },
   visibleI: {
     display: "initial",
-    filter: " drop-shadow(-2px 26px 18px rgba(0, 0, 0, 0.6));",
   },
   buyNow: {
     backgroundColor: "black",

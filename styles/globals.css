@@ -5,6 +5,10 @@
 body .MuiTypography-root.MuiTypography-h1 {
   font-family: cooper !important;
 }
+.mercadopago-button {
+  width: 100%;
+  background: black !important;
+}
 
 .MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12.MuiGrid-grid-md-6 {
   padding-top: 0;
