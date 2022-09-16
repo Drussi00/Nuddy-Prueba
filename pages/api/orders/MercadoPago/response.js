@@ -1,10 +1,4 @@
-import nc from "next-connect";
-
-const handler = nc();
-
-handler.post(async (req, res) => {
+export default function handler(req, res) {
   console.log(req.body);
   res.status(200).send("Ok");
-});
-
-export default handler;
+}
