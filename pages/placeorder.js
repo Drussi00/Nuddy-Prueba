@@ -119,30 +119,9 @@ function PlaceOrderScreen() {
         dispatch({ type: "CART_CLEAR" });
         jsCookie.remove("cartItems");
         setLoading(false);
-
+        console.log(data);
         router.push(`/order/PayPal/${data}`);
       } else {
-        await axios.post(
-          "/api/orders/PayPal",
-          {
-            orderItems: cartItems.map((x) => ({
-              ...x,
-              countInStock: undefined,
-              slug: undefined,
-            })),
-            shippingAddress,
-            paymentMethod,
-            itemsPrice,
-            shippingPrice,
-            taxPrice,
-            totalPrice,
-          },
-          {
-            headers: {
-              authorization: `Bearer ${userInfo.token}`,
-            },
-          }
-        );
         const { data } = await axios.post(
           "/api/orders/MercadoPago",
           {
@@ -164,11 +143,34 @@ function PlaceOrderScreen() {
             },
           }
         );
+        const orderM = await axios.post(
+          "/api/orders/PayPal",
+          {
+            orderItems: cartItems.map((x) => ({
+              ...x,
+              countInStock: undefined,
+              slug: undefined,
+            })),
+            shippingAddress,
+            paymentMethod,
+            itemsPrice,
+            shippingPrice,
+            taxPrice,
+            totalPrice,
+            data,
+          },
+          {
+            headers: {
+              authorization: `Bearer ${userInfo.token}`,
+            },
+          }
+        );
+
         dispatch({ type: "CART_CLEAR" });
         jsCookie.remove("cartItems");
         setLoading(false);
         console.log(data.global);
-        router.push(`/order/MercadoPago/${data.global}`);
+        router.push(`/order/MercadoPago/${orderM.data}`);
       }
     } catch (err) {
       setLoading(false);
@@ -241,7 +243,7 @@ function PlaceOrderScreen() {
                       <TableHead>
                         <TableRow>
                           <TableCell>Imagen</TableCell>
-                          <TableCell>Nombre</TableCell>
+                          <TableCell>Producto</TableCell>
                           <TableCell align="right">Talla</TableCell>
                           <TableCell align="right">Cantidad</TableCell>
                           <TableCell align="right">Precio</TableCell>

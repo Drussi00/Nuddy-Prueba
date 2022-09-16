@@ -201,8 +201,8 @@ const classes = {
     paddingBottom: "50px",
   },
   typo: {
-    fontWeight: "500",
-    fontFamily: " coolvetica, sans-serif",
+    fontWeight: "bold",
+    fontFamily: " helvetica, sans-serif",
     color: "white",
   },
   productIndex: {

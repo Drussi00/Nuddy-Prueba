@@ -29,7 +29,8 @@ const productItem = ({ product }) => {
           component="h5"
           variant="h5"
           align="center"
-          sx={{ fontFamily: " coolvetica, sans-serif", color: "white" }}
+          sx={{ color: "white" }}
+          className="bottomH1"
         >
           {product.name}
         </Typography>{" "}
