@@ -64,7 +64,6 @@ function OrderScreen({ params }) {
     paymentMethod,
     orderItems,
     itemsPrice,
-    taxPrice,
     shippingPrice,
     totalPrice,
     isPaid,

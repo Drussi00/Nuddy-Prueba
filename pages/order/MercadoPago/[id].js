@@ -17,13 +17,14 @@ import {
 
 import dynamic from "next/dynamic";
 import NextLink from "next/link";
-import React, { useContext, useReducer, useState } from "react";
+import React, { useContext, useReducer } from "react";
 import Layout from "../../../components/Layout";
 import classes from "../../../utils/classes";
 import Product from "../../../components/MercadoPago";
 import { Store } from "../../../utils/Store";
 import { useEffect } from "react";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -39,30 +40,27 @@ function reducer(state, action) {
 function OrderScreen({ params }) {
   const { id: orderId } = params;
 
-  const [{ loading, error, order, successPay }, dispatch] = useReducer(
-    reducer,
-    {
-      loading: true,
-      order: {},
-      error: "",
-    }
-  );
+  const [{ order }, dispatch] = useReducer(reducer, {
+    loading: true,
+    order: {},
+    error: "",
+  });
 
   const {
     shippingAddress,
     paymentMethod,
     orderItems,
     itemsPrice,
-    taxPrice,
+    // taxPrice,
     shippingPrice,
     totalPrice,
-    isPaid,
-    paidAt,
-    isDelivered,
-    deliveredAt,
+    // isPaid,
+    // paidAt,
+    // isDelivered,
+    // deliveredAt,
     data,
   } = order;
-
+  const router = useRouter();
   const { state } = useContext(Store);
   const { userInfo } = state;
 
@@ -80,7 +78,7 @@ function OrderScreen({ params }) {
 
         dispatch({ type: "FETCH_SUCCESS", payload: data });
       } catch (err) {
-        dispatch({ type: "FETCH_FAIL", payload: getError(err) });
+        dispatch({ type: "FETCH_FAIL", payload: err });
       }
     };
     fetchOrder();

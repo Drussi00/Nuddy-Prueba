@@ -80,8 +80,9 @@ export default function Layout({ title, description, children }) {
   });
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const loginMenuCloseHandler = (e, redirect) => {
+  const loginMenuCloseHandler = (e) => {
     setAnchorEl(null);
+    router.push(e);
   };
   const loginClickHandler = (e) => {
     setAnchorEl(e.currentTarget);
@@ -220,7 +221,7 @@ export default function Layout({ title, description, children }) {
                                 >
                                   <MenuItem
                                     onClick={() =>
-                                      loginMenuCloseHandler(e, "/profile")
+                                      loginMenuCloseHandler("/profile")
                                     }
                                   >
                                     Perfil
@@ -476,7 +477,7 @@ export default function Layout({ title, description, children }) {
                         onClose={loginMenuCloseHandler}
                       >
                         <MenuItem
-                          onClick={(e) => loginMenuCloseHandler(e, "/profile")}
+                          onClick={() => loginMenuCloseHandler("/profile")}
                         >
                           Perfil
                         </MenuItem>
