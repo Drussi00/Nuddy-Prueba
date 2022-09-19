@@ -1,6 +1,6 @@
 import NextCors from "nextjs-cors";
 import axios from "axios";
-i;
+
 export default async function handler(req, res) {
   await NextCors(req, res, {
     // Options
