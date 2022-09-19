@@ -65,7 +65,7 @@ function PlaceOrderScreen() {
             tallaM = item.countInStockM - item.quantity;
           } else {
             if (item.size === "L") {
-              tallaL = item.countInStockLp - item.quantity;
+              tallaL = item.countInStockL - item.quantity;
             }
           }
         }

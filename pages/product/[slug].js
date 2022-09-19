@@ -66,16 +66,16 @@ export default function ProductScreen(props) {
   };
   const addQuantity = async () => {
     if (size !== "") {
-      if (size === "XS" && quantity < product.xs) {
+      if (size === "XS" && quantity < product.xs && product.xs !== 0) {
         setquantity(quantity + 1);
         console.log(quantity);
-      } else if (size === "S" && quantity < product.s) {
+      } else if (size === "S" && quantity < product.s && product.s !== 0) {
         setquantity(quantity + 1);
         console.log(quantity);
-      } else if (size === "M" && quantity < product.m) {
+      } else if (size === "M" && quantity < product.m && product.m !== 0) {
         setquantity(quantity + 1);
         console.log(quantity);
-      } else if (size === "L" && quantity < product.l) {
+      } else if (size === "L" && quantity < product.l && product.l !== 0) {
         setquantity(quantity + 1);
       } else {
         enqueueSnackbar("Maxima cantidad alcanzada", { variant: "error" });
@@ -88,13 +88,10 @@ export default function ProductScreen(props) {
     if (size !== "") {
       if (size === "XS" && quantity < product.xs) {
         setquantity(quantity - 1);
-        console.log(quantity);
       } else if (size === "S" && quantity > 0) {
         setquantity(quantity - 1);
-        console.log(quantity);
       } else if (size === "M" && quantity > 0) {
         setquantity(quantity - 1);
-        console.log(quantity);
       } else if (size === "L" && quantity > 0) {
         setquantity(quantity - 1);
       } else {
@@ -333,7 +330,7 @@ export default function ProductScreen(props) {
                           size="small"
                           variant=""
                           onClick={() => {
-                            quantity <= product.xs ? setquantity(1) : noStock();
+                            quantity < product.xs ? setquantity(1) : noStock();
 
                             setsize("XS");
 
@@ -352,7 +349,7 @@ export default function ProductScreen(props) {
                           size="small"
                           variant=""
                           onClick={() => {
-                            quantity <= product.s ? setquantity(1) : noStock();
+                            quantity < product.s ? setquantity(1) : noStock();
                             setsize("S");
 
                             setselecteXs(false);
@@ -371,7 +368,7 @@ export default function ProductScreen(props) {
                           variant=""
                           onClick={() => {
                             setsize("M");
-                            quantity <= product.m ? setquantity(1) : noStock();
+                            quantity < product.m ? setquantity(1) : noStock();
 
                             setselecteXs(false);
                             setselectedS(false);
@@ -393,7 +390,7 @@ export default function ProductScreen(props) {
                             setselectedS(false);
                             setselectedM(false);
                             setselectedL(true);
-                            quantity <= product.l ? setquantity(1) : noStock();
+                            quantity < product.l ? setquantity(1) : noStock();
                           }}
                           sx={selectedL ? classes.but : classes.selected}
                         >
