@@ -16,6 +16,9 @@ body .MuiTypography-root.MuiTypography-h1 {
 .bottomH1 {
   font-family: cooper !important;
 }
+.nopadLeft {
+  padding-left: 0 !important;
+}
 
 body .MuiTypography-root.MuiTypography-h1 .title {
   font-family: cooper !important;

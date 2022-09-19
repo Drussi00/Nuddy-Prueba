@@ -96,6 +96,7 @@ const classes = {
     borderTop: "1px solid black",
     height: "2px",
     opacity: "1",
+    width: "97%",
   },
   but: {
     fontWeight: "bold",
@@ -177,6 +178,7 @@ const classes = {
     borderRadius: "0",
     fontWeight: "bold",
     fontFamily: " helvetica, sans-serif",
+    textTransform: "none",
 
     "&:hover": {
       transform: "scale(1.1, 1.1)",

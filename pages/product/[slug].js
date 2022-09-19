@@ -270,12 +270,12 @@ export default function ProductScreen(props) {
               </Grid>
               <Grid item md={6} xs={12} sx={{ marginTop: "40px" }}>
                 <List>
-                  <ListItem>
+                  <ListItem className="nopadLeft">
                     <Typography variant="h1" component="h1" sx={classes.title}>
                       {product.name}
                     </Typography>
                   </ListItem>
-                  <ListItem>
+                  <ListItem className="nopadLeft">
                     <Typography sx={classes.bold}>
                       ${new Intl.NumberFormat().format(parseInt(product.price))}
                     </Typography>
@@ -284,6 +284,7 @@ export default function ProductScreen(props) {
                   <ListItem
                     paddingBottom={"50px"}
                     sx={{ paddingBottom: "16px" }}
+                    className="nopadLeft"
                   >
                     <Typography
                       sx={{
@@ -318,14 +319,14 @@ export default function ProductScreen(props) {
                           }}
                         >
                           {" "}
-                          Guia tallas
+                          Guía tallas
                         </Link>
                       </NextLink>
                     </Button>
                   </ListItem>
                   <ListItem>
                     <Grid container spacing={2}>
-                      <Grid item>
+                      <Grid item className="nopadLeft">
                         <Button
                           size="small"
                           variant=""
@@ -399,7 +400,7 @@ export default function ProductScreen(props) {
                       </Grid>
                     </Grid>
                   </ListItem>
-                  <ListItem>
+                  <ListItem className="nopadLeft">
                     <Typography
                       sx={{
                         fontWeight: "bold",
@@ -422,7 +423,7 @@ export default function ProductScreen(props) {
                       +
                     </Button>
                   </ButtonGroup>
-                  <ListItem>
+                  <ListItem className="nopadLeft">
                     <Button
                       sx={classes.blackline}
                       onClick={addToCartHandler}
@@ -432,14 +433,15 @@ export default function ProductScreen(props) {
                       Agregar al carrito
                     </Button>
                   </ListItem>
-                  <ListItem>
+                  <ListItem className="nopadLeft">
                     <Button
                       onClick={buyNowHandler}
                       fullWidth
                       variant="contained"
                       sx={classes.buyNow}
+                      className="bottomH1"
                     >
-                      Comprar ahora
+                      Comprar Ahora
                     </Button>
                   </ListItem>
 

@@ -262,6 +262,7 @@ export default function Layout({ title, description, children }) {
                           sx={{ fontWeight: "bold" }}
                           variant=""
                           id="dropdown-basic"
+                          className="bottomH1"
                         >
                           Shop
                         </Dropdown.Toggle>
@@ -290,15 +291,19 @@ export default function Layout({ title, description, children }) {
                             </NextLink>
                           ))}
                           <Dropdown
-                            className="coleciones1"
+                            className="coleciones1 bottomH1"
                             style={{
                               border: "none",
                               backgroundColor: "white",
                               zIndex: "100%",
                             }}
                           >
-                            <Dropdown.Toggle variant="" id="dropdown-basic">
-                              Coleciones
+                            <Dropdown.Toggle
+                              variant=""
+                              id="dropdown-basic"
+                              className=" bottomH1"
+                            >
+                              Colecciones
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu
@@ -334,8 +339,12 @@ export default function Layout({ title, description, children }) {
                         </Dropdown.Menu>
                       </Dropdown>
                       <Dropdown className="coleciones2">
-                        <Dropdown.Toggle variant="" id="dropdown-basic">
-                          Coleciones
+                        <Dropdown.Toggle
+                          variant=""
+                          id="dropdown-basic"
+                          className=" bottomH1"
+                        >
+                          Colecciones
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu
