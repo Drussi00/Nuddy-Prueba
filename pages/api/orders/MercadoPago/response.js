@@ -8,12 +8,8 @@ export default async function handler(req, res) {
     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   });
   try {
-    console.log(req.params);
-    console.log(req.query);
   } catch (error) {
-    console.log(req);
-    console.log(req.params);
-    console.log(req.query);
+    console.log(req.query["data.id"]);
 
     console.log(error);
   }
