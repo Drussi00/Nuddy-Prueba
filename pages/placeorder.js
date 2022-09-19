@@ -77,6 +77,11 @@ function PlaceOrderScreen() {
         { unitario, tallaXS, tallaS, tallaM, tallaL },
         { headers: { authorization: `Bearer ${userInfo.token}` } }
       );
+      await axios.put(
+        "/api/orders/MercadoPago/response",
+        { unitario },
+        { headers: { authorization: `Bearer ${userInfo.token}` } }
+      );
     } catch (err) {
       console.log(err);
     }
