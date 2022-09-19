@@ -5,6 +5,8 @@ const handler = nc();
 handler.use(isAuth);
 handler.post(async (req, res) => {
   let preference = {
+    notification_url:
+      "https://nuddyminds.vercel.app/api/orders/MercadoPago/response",
     items: req.body.orderItems.map((producto) => {
       return {
         title: producto.name,
