@@ -178,7 +178,7 @@ export default function ProductScreen(props) {
             fontSize: "0.8rem",
           }}
         >
-          Envio gratis a todo el pais por compras superiores a $200.000
+          Envío gratis a todo el país por compras superiores a $200.000
         </Typography>
       </Box>
       <Container>

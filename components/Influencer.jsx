@@ -72,14 +72,14 @@ const Influencer = () => {
           <Typography>
             <LocalShippingIcon />
             {"  "}
-            Envios a todo el pais, 3-5 dias habiles{"  "}
+            Envíos a todo el país, 3-5 dias habiles{"  "}
           </Typography>
         </Box>
 
         <Box>
           <Typography>
             <CreditCardIcon />
-            Multiples modos de pago
+            múltiples modos de pago
           </Typography>
         </Box>
       </Box>
@@ -134,7 +134,7 @@ const Influencer = () => {
                       textAlign: "left",
                     }}
                   >
-                    Recuerda dejar tu cuenta publica unos dias para poder
+                    Recuerda dejar tu cuenta pública unos días para poder
                     observar tu perfil
                   </Typography>
                 </ListItem>
@@ -161,7 +161,7 @@ const Influencer = () => {
                     value={email}
                     name="email"
                     type="email"
-                    placeholder="Correo electronico"
+                    placeholder="Correo Electrónico"
                     style={{
                       width: "100%",
                       borderRadius: "0",
@@ -176,7 +176,7 @@ const Influencer = () => {
                     value={instagram}
                     name="instagram"
                     type="text"
-                    placeholder="Perfil instagram"
+                    placeholder="Perfil de Instagram"
                     style={{
                       width: "100%",
                       borderRadius: "0",
@@ -195,11 +195,13 @@ const Influencer = () => {
                       color: "white",
                       backgroundColor: "black",
                       borderRadius: "0",
+                      textTransform: "none",
                       "&:hover": {
                         transform: "scale(1, 1.1)",
                         backgroundColor: "black",
                       },
                     }}
+                    className=" bottomH1"
                   >
                     Aplicar
                   </Button>

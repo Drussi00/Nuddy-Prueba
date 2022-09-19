@@ -77,7 +77,7 @@ const ProductosIndex = ({ filteredH, filteredS, filteredT }) => {
           variant="h1"
           className="title"
         >
-          Choose Your style
+          Choose Your Style
         </Typography>
       </Box>
 

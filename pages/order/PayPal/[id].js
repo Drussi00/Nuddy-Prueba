@@ -176,7 +176,7 @@ function OrderScreen({ params }) {
                       variant="h2"
                       className="bottomH1"
                     >
-                      Direccion de envio
+                      Direccion de Envío{" "}
                     </Typography>
                   </ListItem>
                   <ListItem>

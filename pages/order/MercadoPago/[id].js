@@ -97,7 +97,7 @@ function OrderScreen({ params }) {
               <List>
                 <ListItem>
                   <Typography component="h1" variant="h1">
-                    Direccion de envio
+                    Direccion de Envío{" "}
                   </Typography>
                 </ListItem>
                 <ListItem>

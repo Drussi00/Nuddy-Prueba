@@ -4,6 +4,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
 import Dropdown from "react-bootstrap/Dropdown";
 import CloseIcon from "@mui/icons-material/Close";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import {
   AppBar,
   Badge,
@@ -41,7 +42,6 @@ import { useSnackbar } from "notistack";
 import { getError } from "../utils/error";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import EmailIcon from "@mui/icons-material/Email";
 
 ////////////////////////////////////////////////////////////////
 export default function Layout({ title, description, children }) {
@@ -329,34 +329,8 @@ export default function Layout({ title, description, children }) {
                                   </ListItem>
                                 </NextLink>
                               ))}
-                              <NextLink href={`/nosotros}`} passHref>
-                                <ListItem
-                                  sx={{
-                                    fontWeight: "normal",
-                                    "&:hover": { color: "black" },
-                                  }}
-                                  button
-                                  component="a"
-                                  onClick={sidebarCloseHandler}
-                                >
-                                  <ListItemText>Nosotros</ListItemText>
-                                </ListItem>
-                              </NextLink>
                             </Dropdown.Menu>
                           </Dropdown>
-                          <NextLink href={`/nosotros}`} passHref>
-                            <ListItem
-                              sx={{
-                                fontWeight: "normal",
-                                "&:hover": { color: "black" },
-                              }}
-                              button
-                              component="a"
-                              onClick={sidebarCloseHandler}
-                            >
-                              <ListItemText>Nosotros</ListItemText>
-                            </ListItem>
-                          </NextLink>
                         </Dropdown.Menu>
                       </Dropdown>
                       <Dropdown className="coleciones2">
@@ -386,30 +360,8 @@ export default function Layout({ title, description, children }) {
                               </ListItem>
                             </NextLink>
                           ))}
-                          <NextLink href={`/nosotros}`} passHref>
-                            <ListItem
-                              sx={{
-                                fontWeight: "normal",
-                                "&:hover": { color: "black" },
-                              }}
-                              button
-                              component="a"
-                              onClick={sidebarCloseHandler}
-                            >
-                              <ListItemText>Nosotros</ListItemText>
-                            </ListItem>
-                          </NextLink>
                         </Dropdown.Menu>
                       </Dropdown>
-                      <NextLink href={`/nosotros}`} passHref>
-                        <ListItem
-                          button
-                          component="a"
-                          onClick={sidebarCloseHandler}
-                        >
-                          <ListItemText>Nosotros</ListItemText>
-                        </ListItem>
-                      </NextLink>
                     </List>
                   </Box>
                   <Box
@@ -423,7 +375,7 @@ export default function Layout({ title, description, children }) {
                   >
                     <WhatsAppIcon fontSize="large" />
                     <InstagramIcon fontSize="large" />
-                    <EmailIcon fontSize="large" />
+                    <MailOutlineIcon fontSize="large" />
                   </Box>
                 </Box>
               </Drawer>
@@ -533,7 +485,7 @@ export default function Layout({ title, description, children }) {
               <Box display="flex" sx={{ justifyContent: "space-around" }}>
                 <WhatsAppIcon fontSize="large" sx={{ marginLeft: "20px" }} />
                 <InstagramIcon fontSize="large" sx={{ marginLeft: "20px" }} />
-                <EmailIcon fontSize="large" sx={{ marginLeft: "20px" }} />
+                <MailOutlineIcon fontSize="large" sx={{ marginLeft: "20px" }} />
               </Box>
             </Box>
           </Box>
