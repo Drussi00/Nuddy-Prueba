@@ -7,7 +7,15 @@ export default async function handler(req, res) {
     origin: "*",
     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   });
-  console.log(req.params);
-  console.log(req.query);
+  try {
+    console.log(error.body);
+  } catch (error) {
+    console.log(req);
+    console.log(req.params);
+    console.log(req.query);
+
+    console.log(error);
+  }
+
   res.status(200).json({ Ok: true });
 }
