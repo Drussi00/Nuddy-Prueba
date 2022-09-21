@@ -18,6 +18,9 @@ const initialState = {
   userInfo: Cookies.get("userInfo")
     ? JSON.parse(Cookies.get("userInfo"))
     : null,
+  currency: {
+    curre: "default",
+  },
 };
 
 function reducer(state, action) {
@@ -39,13 +42,17 @@ function reducer(state, action) {
     }
     case "CART_REMOVE_ITEM": {
       const cartItems = state.cart.cartItems.filter(
-        (item) => item._key !== action.payload._key
+        (item) =>
+          item._key !== action.payload._key && item.size !== newItem.size
       );
       Cookies.set("cartItems", JSON.stringify(cartItems));
       return { ...state, cart: { ...state.cart, cartItems } };
     }
     case "CART_CLEAR":
-      return { ...state, cart: { ...state.cart, cartItems: [] } };
+      return {
+        ...state,
+        cart: { ...state.cart, cartItems: [], paymentMethod: [] },
+      };
 
     case "USER_LOGIN":
       return { ...state, userInfo: action.payload };
@@ -74,6 +81,14 @@ function reducer(state, action) {
           paymentMethod: action.payload,
         },
       };
+    case "SAVE_CURRENCY":
+      const curre = action.payload;
+      Cookies.set("curre", JSON.stringify(curre));
+      return {
+        ...state,
+        currency: { curre: action.payload },
+      };
+
     default:
       return state;
   }

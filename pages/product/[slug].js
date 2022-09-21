@@ -28,14 +28,15 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 export default function ProductScreen(props) {
   const router = useRouter();
   const { slug } = props;
-  const { dispatch } = useContext(Store);
+  const { dispatch, state } = useContext(Store);
+  const { currency } = state;
   const { enqueueSnackbar } = useSnackbar();
-  const [state, setState] = useState({
+  const [stateLocal, setState] = useState({
     product: null,
     loading: true,
     error: "",
   });
-  const { product, loading, error } = state;
+  const { product, loading, error } = stateLocal;
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -45,9 +46,9 @@ export default function ProductScreen(props) {
           { slug }
         );
 
-        setState({ ...state, product, loading: false });
+        setState({ ...stateLocal, product, loading: false });
       } catch (err) {
-        setState({ ...state, error: err.message, loading: false });
+        setState({ ...stateLocal, error: err.message, loading: false });
       }
     };
     fetchData();
@@ -121,6 +122,7 @@ export default function ProductScreen(props) {
         countInStockL: product.l,
         slug: product.slug.current,
         price: product.price,
+        priceusd: product.priceusd,
         image: urlForThumbnail(product.image && product.image[0]),
         quantity,
         size,
@@ -151,6 +153,7 @@ export default function ProductScreen(props) {
         countInStockL: product.l,
         slug: product.slug.current,
         price: product.price,
+        priceusd: product.priceusd,
         image: urlForThumbnail(product.image && product.image[0]),
         quantity,
         size,
@@ -277,7 +280,16 @@ export default function ProductScreen(props) {
                   </ListItem>
                   <ListItem className="nopadLeft">
                     <Typography sx={classes.bold}>
-                      ${new Intl.NumberFormat().format(parseInt(product.price))}
+                      {currency.curre === "default"
+                        ? "$" +
+                          new Intl.NumberFormat().format(
+                            parseInt(product.price)
+                          )
+                        : new Intl.NumberFormat("en-IN", {
+                            style: "currency",
+                            currency: "USD",
+                            minimumFractionDigits: 2,
+                          }).format(parseInt(product.priceusd))}
                     </Typography>
                   </ListItem>
                   <Divider sx={classes.line} />

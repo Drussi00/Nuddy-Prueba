@@ -32,6 +32,7 @@ function CartScreen() {
   const {
     state: {
       cart: { cartItems },
+      currency: { curre },
     },
     dispatch,
   } = useContext(Store);
@@ -210,10 +211,16 @@ function CartScreen() {
                           </TableCell>
                           <TableCell align="right">
                             <Typography>
-                              $
-                              {new Intl.NumberFormat().format(
-                                parseInt(item.price)
-                              )}
+                              {curre === "default"
+                                ? "$" +
+                                  new Intl.NumberFormat().format(
+                                    parseInt(item.price)
+                                  )
+                                : new Intl.NumberFormat("en-IN", {
+                                    style: "currency",
+                                    currency: "USD",
+                                    minimumFractionDigits: 2,
+                                  }).format(parseInt(item.priceusd))}
                             </Typography>
                           </TableCell>
                           <TableCell align="right">
@@ -247,25 +254,49 @@ function CartScreen() {
                 <Card>
                   <List>
                     <ListItem>
-                      <Typography
-                        sx={{
-                          fontWeight: "bold",
-                          fontFamily: " coolvetica, sans-serif",
-                        }}
-                        variant="h2"
-                      >
-                        Subtotal (
-                        {cartItems.reduce((a, c) => a + c.quantity, 0)} items):
-                        $
-                        {new Intl.NumberFormat().format(
-                          parseInt(
-                            cartItems.reduce(
-                              (a, c) => a + c.quantity * c.price,
-                              0
-                            )
-                          )
-                        )}
-                      </Typography>
+                      <Box>
+                        <Typography
+                          sx={{
+                            fontWeight: "bold",
+                            fontFamily: " helvetica, sans-serif",
+                          }}
+                          variant="h2"
+                        >
+                          Subtotal (
+                          {cartItems.reduce((a, c) => a + c.quantity, 0)}{" "}
+                          items):{" "}
+                        </Typography>{" "}
+                        <Typography
+                          sx={{
+                            fontWeight: "bold",
+                            fontFamily: " helvetica, sans-serif",
+                          }}
+                          variant="h2"
+                        >
+                          {curre === "default"
+                            ? "$" +
+                              new Intl.NumberFormat().format(
+                                parseInt(
+                                  cartItems.reduce(
+                                    (a, c) => a + c.quantity * c.price,
+                                    0
+                                  )
+                                )
+                              )
+                            : new Intl.NumberFormat("en-IN", {
+                                style: "currency",
+                                currency: "USD",
+                                minimumFractionDigits: 2,
+                              }).format(
+                                parseInt(
+                                  cartItems.reduce(
+                                    (a, c) => a + c.quantity * c.priceusd,
+                                    0
+                                  )
+                                )
+                              )}{" "}
+                        </Typography>
+                      </Box>
                     </ListItem>
                     <ListItem>
                       <Button

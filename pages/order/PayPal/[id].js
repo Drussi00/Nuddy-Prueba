@@ -271,10 +271,11 @@ function OrderScreen({ params }) {
                               <TableCell align="right">
                                 <Typography>
                                   {" "}
-                                  $
-                                  {new Intl.NumberFormat().format(
-                                    parseInt(item.price)
-                                  )}
+                                  {new Intl.NumberFormat("en-IN", {
+                                    style: "currency",
+                                    currency: "USD",
+                                    minimumFractionDigits: 2,
+                                  }).format(parseInt(item.priceusd))}
                                 </Typography>
                               </TableCell>
                             </TableRow>
@@ -301,8 +302,11 @@ function OrderScreen({ params }) {
                       </Grid>
                       <Grid item xs={6}>
                         <Typography align="right">
-                          $
-                          {new Intl.NumberFormat().format(parseInt(itemsPrice))}
+                          {new Intl.NumberFormat("en-IN", {
+                            style: "currency",
+                            currency: "USD",
+                            minimumFractionDigits: 2,
+                          }).format(parseInt(itemsPrice))}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -316,10 +320,11 @@ function OrderScreen({ params }) {
                       <Grid item xs={6}>
                         <Typography align="right">
                           {" "}
-                          $
-                          {new Intl.NumberFormat().format(
-                            parseInt(shippingPrice)
-                          )}
+                          {new Intl.NumberFormat("en-IN", {
+                            style: "currency",
+                            currency: "USD",
+                            minimumFractionDigits: 2,
+                          }).format(parseInt(shippingPrice))}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -334,10 +339,11 @@ function OrderScreen({ params }) {
                       <Grid item xs={6}>
                         <Typography align="right">
                           <strong>
-                            $
-                            {new Intl.NumberFormat().format(
-                              parseInt(totalPrice)
-                            )}
+                            {new Intl.NumberFormat("en-IN", {
+                              style: "currency",
+                              currency: "USD",
+                              minimumFractionDigits: 2,
+                            }).format(parseInt(totalPrice))}
                           </strong>
                         </Typography>
                       </Grid>

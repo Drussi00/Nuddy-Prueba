@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import NextLink from "next/link";
 import {
   CardActionArea,
@@ -10,8 +10,12 @@ import {
 import { urlForThumbnail } from "../utils/image";
 
 import classes from "../utils/classes";
+import { Store } from "../utils/Store";
 
-const productItem = ({ product }) => {
+const ProductItem = ({ product }) => {
+  const { state } = useContext(Store);
+  const { currency } = state;
+
   return (
     <div sx={classes.card}>
       <NextLink href={`/product/${product.slug.current}`} passHref>
@@ -35,7 +39,13 @@ const productItem = ({ product }) => {
           {product.name}
         </Typography>{" "}
         <Typography align="center" sx={classes.typo}>
-          ${new Intl.NumberFormat().format(parseInt(product.price))}
+          {currency.curre === "default"
+            ? "$" + new Intl.NumberFormat().format(parseInt(product.price))
+            : new Intl.NumberFormat("en-IN", {
+                style: "currency",
+                currency: "USD",
+                minimumFractionDigits: 2,
+              }).format(parseInt(product.priceusd))}
         </Typography>
       </CardContent>
       <CardActions></CardActions>
@@ -43,4 +53,4 @@ const productItem = ({ product }) => {
   );
 };
 
-export default productItem;
+export default ProductItem;

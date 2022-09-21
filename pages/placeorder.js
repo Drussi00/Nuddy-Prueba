@@ -37,11 +37,14 @@ function PlaceOrderScreen() {
   const {
     userInfo,
     cart: { cartItems, shippingAddress, paymentMethod },
+    currency: { curre },
   } = state;
+
   const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100; // 123.456 => 123.46
-  const itemsPrice = round2(
-    cartItems.reduce((a, c) => a + c.price * c.quantity, 0)
-  );
+  const itemsPrice =
+    curre === "default"
+      ? round2(cartItems.reduce((a, c) => a + c.price * c.quantity, 0))
+      : round2(cartItems.reduce((a, c) => a + c.priceusd * c.quantity, 0));
 
   const shippingPrice = itemsPrice > 200 ? 0 : 15;
   const taxPrice = round2(itemsPrice * 0.15);
@@ -173,8 +176,9 @@ function PlaceOrderScreen() {
 
         dispatch({ type: "CART_CLEAR" });
         jsCookie.remove("cartItems");
+        jsCookie.remove("paymentMethod");
         setLoading(false);
-        console.log(data.global);
+
         router.push(`/order/MercadoPago/${orderM.data}`);
       }
     } catch (err) {
@@ -284,10 +288,16 @@ function PlaceOrderScreen() {
                             </TableCell>
                             <TableCell align="right">
                               <Typography>
-                                $
-                                {new Intl.NumberFormat().format(
-                                  parseInt(item.price)
-                                )}
+                                {curre === "default"
+                                  ? "$" +
+                                    new Intl.NumberFormat().format(
+                                      parseInt(item.price)
+                                    )
+                                  : new Intl.NumberFormat("en-IN", {
+                                      style: "currency",
+                                      currency: "USD",
+                                      minimumFractionDigits: 2,
+                                    }).format(parseInt(item.priceusd))}
                               </Typography>
                             </TableCell>
                           </TableRow>
@@ -312,8 +322,14 @@ function PlaceOrderScreen() {
                     </Grid>
                     <Grid item xs={6}>
                       <Typography align="right">
-                        {" "}
-                        ${new Intl.NumberFormat().format(parseInt(itemsPrice))}
+                        {curre === "default"
+                          ? "$" +
+                            new Intl.NumberFormat().format(parseInt(itemsPrice))
+                          : new Intl.NumberFormat("en-IN", {
+                              style: "currency",
+                              currency: "USD",
+                              minimumFractionDigits: 2,
+                            }).format(parseInt(itemsPrice))}
                       </Typography>
                     </Grid>
                   </Grid>
@@ -325,10 +341,16 @@ function PlaceOrderScreen() {
                     </Grid>
                     <Grid item xs={6}>
                       <Typography align="right">
-                        $
-                        {new Intl.NumberFormat().format(
-                          parseInt(shippingPrice)
-                        )}
+                        {curre === "default"
+                          ? "$" +
+                            new Intl.NumberFormat().format(
+                              parseInt(shippingPrice)
+                            )
+                          : new Intl.NumberFormat("en-IN", {
+                              style: "currency",
+                              currency: "USD",
+                              minimumFractionDigits: 2,
+                            }).format(parseInt(shippingPrice))}
                       </Typography>
                     </Grid>
                   </Grid>
@@ -343,8 +365,16 @@ function PlaceOrderScreen() {
                     <Grid item xs={6}>
                       <Typography align="right">
                         <strong>
-                          $
-                          {new Intl.NumberFormat().format(parseInt(totalPrice))}
+                          {curre === "default"
+                            ? "$" +
+                              new Intl.NumberFormat().format(
+                                parseInt(totalPrice)
+                              )
+                            : new Intl.NumberFormat("en-IN", {
+                                style: "currency",
+                                currency: "USD",
+                                minimumFractionDigits: 2,
+                              }).format(parseInt(totalPrice))}
                         </strong>
                       </Typography>
                     </Grid>

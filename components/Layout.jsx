@@ -22,6 +22,7 @@ import {
   ListItemText,
   Menu,
   MenuItem,
+  Select,
   ThemeProvider,
   Toolbar,
   Typography,
@@ -45,9 +46,17 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 
 ////////////////////////////////////////////////////////////////
 export default function Layout({ title, description, children }) {
+  const [moneda, setmoneda] = useState("default");
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
-  const { cart, userInfo } = state;
+  const {
+    cart,
+    userInfo,
+    currency: { curre },
+  } = state;
+  useEffect(() => {
+    console.log(cart.paymentMethod);
+  }, []);
 
   const theme = createTheme({
     components: {
@@ -140,6 +149,14 @@ export default function Layout({ title, description, children }) {
     e.preventDefault();
     router.push(`/search?query=${query}&category=Shop%20All`);
   };
+  const sortHandler = (e) => {
+    dispatch({ type: "SAVE_CURRENCY", payload: e.target.value });
+    jsCookie.set("curre", JSON.stringify(e.target.value));
+    setmoneda(e.target.value);
+  };
+  useEffect(() => {
+    curre === "default" ? setmoneda("default") : setmoneda("Usd");
+  }, [curre]);
 
   return (
     <>
@@ -402,7 +419,22 @@ export default function Layout({ title, description, children }) {
                 </NextLink>
               </Box>
 
-              <Box display="flex">
+              <Box display="flex" alignItems={"center"}>
+                <Select
+                  value={moneda}
+                  onChange={sortHandler}
+                  sx={{
+                    border: "none",
+                    fontWeight: "bold",
+                    fontFamily: " helvetica, sans-serif",
+                    display: cart.paymentMethod ? "none" : null,
+                  }}
+                  inputProps={{ "aria-label": "Without label" }}
+                  className="borrarFieldet"
+                >
+                  <MenuItem value="default">COP</MenuItem>
+                  <MenuItem value="Usd">USD</MenuItem>
+                </Select>
                 <NextLink href="/cart" passHref>
                   <Link>
                     <Typography component="span">
