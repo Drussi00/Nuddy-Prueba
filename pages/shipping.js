@@ -87,8 +87,8 @@ export default function ShippingScreen() {
                     helperText={
                       errors.fullName
                         ? errors.fullName.type === "minLength"
-                          ? "Full Name length is more than 1"
-                          : "Full Name is required"
+                          ? "Nombre deber ter mas de un caracter"
+                          : "Nombre es obligatorio"
                         : ""
                     }
                     {...field}
@@ -116,8 +116,8 @@ export default function ShippingScreen() {
                     helperText={
                       errors.address
                         ? errors.address.type === "minLength"
-                          ? "Address length is more than 1"
-                          : "Address is required"
+                          ? "Direccion debe tener mas de un caracter"
+                          : "Direccion es obligatoria"
                         : ""
                     }
                     {...field}
@@ -145,8 +145,8 @@ export default function ShippingScreen() {
                     helperText={
                       errors.country
                         ? errors.country.type === "minLength"
-                          ? "Country length is more than 1"
-                          : "Country is required"
+                          ? "Pais deber ter mas de un caracter"
+                          : "Pais es obligatorio"
                         : ""
                     }
                     {...field}
@@ -174,8 +174,8 @@ export default function ShippingScreen() {
                     helperText={
                       errors.city
                         ? errors.city.type === "minLength"
-                          ? "City length is more than 1"
-                          : "City is required"
+                          ? "Ciudad deber ter mas de un caracter"
+                          : "Ciudad es obligatoria"
                         : ""
                     }
                     {...field}
@@ -203,8 +203,8 @@ export default function ShippingScreen() {
                     helperText={
                       errors.postalCode
                         ? errors.postalCode.type === "minLength"
-                          ? "Postal Code length is more than 1"
-                          : "Postal Code is required"
+                          ? "Telefono deber ter mas de un caracter"
+                          : "Telegono es obligatorio"
                         : ""
                     }
                     {...field}

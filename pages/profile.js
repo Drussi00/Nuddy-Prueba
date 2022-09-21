@@ -89,8 +89,8 @@ function ProfileScreen() {
                     helperText={
                       errors.name
                         ? errors.name.type === "minLength"
-                          ? "Name length is more than 1"
-                          : "Name is required"
+                          ? "El nombre debe tener mas de un caracter"
+                          : "El nombre es obligatorio"
                         : ""
                     }
                     {...field}
@@ -118,8 +118,8 @@ function ProfileScreen() {
                     helperText={
                       errors.email
                         ? errors.email.type === "pattern"
-                          ? "Email is not valid"
-                          : "Email is required"
+                          ? "El email no es valido"
+                          : "Email Obligatorio"
                         : ""
                     }
                     {...field}
@@ -147,7 +147,9 @@ function ProfileScreen() {
                     inputProps={{ type: "password" }}
                     error={Boolean(errors.password)}
                     helperText={
-                      errors.password ? "Password length is more than 5" : ""
+                      errors.password
+                        ? "La contraseña debe tener mas de 5 caracteres"
+                        : ""
                     }
                     {...field}
                   ></TextField>
@@ -175,7 +177,7 @@ function ProfileScreen() {
                     error={Boolean(errors.confirmPassword)}
                     helperText={
                       errors.confirmPassword
-                        ? "Confirm Password length is more than 5"
+                        ? "La contraseña debe tener mas de 5 caracteres"
                         : ""
                     }
                     {...field}

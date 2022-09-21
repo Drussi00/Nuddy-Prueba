@@ -98,8 +98,8 @@ export default function RegisterScreen() {
                       helperText={
                         errors.name
                           ? errors.name.type === "minLength"
-                            ? "Name length is more than 1"
-                            : "Name is required"
+                            ? "Nombre debe tener mas de un caracter"
+                            : "Nombre es obligatorio"
                           : ""
                       }
                       {...field}
@@ -128,8 +128,8 @@ export default function RegisterScreen() {
                       helperText={
                         errors.email
                           ? errors.email.type === "pattern"
-                            ? "Email is not valid"
-                            : "Email is required"
+                            ? "El email no es valido"
+                            : "El email es obligatorio"
                           : ""
                       }
                       {...field}
@@ -157,8 +157,8 @@ export default function RegisterScreen() {
                       helperText={
                         errors.password
                           ? errors.password.type === "minLength"
-                            ? "Password length is more than 5"
-                            : "Password is required"
+                            ? "La contraseña debe tener mas de 5 caracteres"
+                            : "Contraseña obligatoria"
                           : ""
                       }
                       {...field}
@@ -186,8 +186,8 @@ export default function RegisterScreen() {
                       helperText={
                         errors.confirmPassword
                           ? errors.confirmPassword.type === "minLength"
-                            ? "Confirm Password length is more than 5"
-                            : "Confirm Password is required"
+                            ? "La contraseña debe tener mas de 5 caracteres"
+                            : "Confirmar contraseña obligatorio"
                           : ""
                       }
                       {...field}
