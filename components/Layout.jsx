@@ -427,7 +427,7 @@ export default function Layout({ title, description, children }) {
 
               <Box
                 display="flex"
-                sx={{ paddingRight: isDesktop ? "200px" : "0px" }}
+                sx={{ paddingRight: isDesktop ? "60px" : "0px" }}
               >
                 <NextLink href="/" passHref>
                   <Link>
