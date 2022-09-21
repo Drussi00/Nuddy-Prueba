@@ -209,6 +209,7 @@ export default function Layout({ title, description, children }) {
                   display="flex"
                   sx={{ maxWidth: "250px", flexWrap: "wrap", height: "100%" }}
                 >
+                  {" "}
                   <Box>
                     <List>
                       <ListItem>
@@ -218,7 +219,7 @@ export default function Layout({ title, description, children }) {
                           alignItems="center"
                           justifyContent="space-between"
                         >
-                          <Box display="flex">
+                          <Box display="flex" alignItems="center">
                             {isDesktop ? null : userInfo ? (
                               <>
                                 <Button
@@ -255,8 +256,26 @@ export default function Layout({ title, description, children }) {
                                   <PersonIcon />
                                 </Link>
                               </NextLink>
-                            )}
+                            )}{" "}
+                            <Box display={isDesktop ? "none" : null}>
+                              <Select
+                                value={moneda}
+                                onChange={sortHandler}
+                                sx={{
+                                  border: "none",
+                                  fontWeight: "bold",
+                                  fontFamily: " helvetica, sans-serif",
+                                  display: cart.paymentMethod ? "none" : null,
+                                }}
+                                inputProps={{ "aria-label": "Without label" }}
+                                className="borrarFieldet"
+                              >
+                                <MenuItem value="default">COP</MenuItem>
+                                <MenuItem value="Usd">USD</MenuItem>
+                              </Select>
+                            </Box>
                           </Box>
+
                           <Box>
                             <IconButton
                               aria-label="close"
@@ -420,24 +439,26 @@ export default function Layout({ title, description, children }) {
               </Box>
 
               <Box display="flex" alignItems={"center"}>
-                <Select
-                  value={moneda}
-                  onChange={sortHandler}
-                  sx={{
-                    border: "none",
-                    fontWeight: "bold",
-                    fontFamily: " helvetica, sans-serif",
-                    display: cart.paymentMethod ? "none" : null,
-                  }}
-                  inputProps={{ "aria-label": "Without label" }}
-                  className="borrarFieldet"
-                >
-                  <MenuItem value="default">COP</MenuItem>
-                  <MenuItem value="Usd">USD</MenuItem>
-                </Select>
+                <Box display={isDesktop ? null : "none"}>
+                  <Select
+                    value={moneda}
+                    onChange={sortHandler}
+                    sx={{
+                      border: "none",
+                      fontWeight: "bold",
+                      fontFamily: " helvetica, sans-serif",
+                      display: cart.paymentMethod ? "none" : null,
+                    }}
+                    inputProps={{ "aria-label": "Without label" }}
+                    className="borrarFieldet"
+                  >
+                    <MenuItem value="default">COP</MenuItem>
+                    <MenuItem value="Usd">USD</MenuItem>
+                  </Select>
+                </Box>
                 <NextLink href="/cart" passHref>
                   <Link>
-                    <Typography component="span">
+                    <Typography component="span" sx={{ marginRight: "10px" }}>
                       {cart.cartItems.length > 0 ? (
                         <Badge
                           color="primary"
