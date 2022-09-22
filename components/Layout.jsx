@@ -49,6 +49,7 @@ export default function Layout({ title, description, children }) {
   const [moneda, setmoneda] = useState("default");
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
+  const [location, setLocation] = useState(false);
   const {
     cart,
     userInfo,
@@ -56,8 +57,17 @@ export default function Layout({ title, description, children }) {
   } = state;
   useEffect(() => {
     console.log(cart.paymentMethod);
+    const metod = () => {
+      setLocation(
+        window.location.pathname.includes("/order/MercadoPago") ||
+          window.location.pathname.includes("/order/PayPal") ||
+          window.location.pathname.includes("/placeorder")
+      );
+    };
+    metod();
   }, []);
 
+  console.log(location);
   const theme = createTheme({
     components: {
       MuiLink: {
@@ -265,7 +275,7 @@ export default function Layout({ title, description, children }) {
                                   border: "none",
                                   fontWeight: "bold",
                                   fontFamily: " helvetica, sans-serif",
-                                  display: cart.paymentMethod ? "none" : null,
+                                  display: location ? "none" : null,
                                 }}
                                 inputProps={{ "aria-label": "Without label" }}
                                 className="borrarFieldet"
@@ -447,7 +457,7 @@ export default function Layout({ title, description, children }) {
                       border: "none",
                       fontWeight: "bold",
                       fontFamily: " helvetica, sans-serif",
-                      display: cart.paymentMethod ? "none" : null,
+                      display: location ? "none" : null,
                     }}
                     inputProps={{ "aria-label": "Without label" }}
                     className="borrarFieldet"
