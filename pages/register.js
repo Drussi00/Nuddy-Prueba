@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import Layout from "../components/Layout";
 import { useForm, Controller } from "react-hook-form";
 import NextLink from "next/link";
@@ -28,10 +28,6 @@ export default function RegisterScreen() {
   const { userInfo } = state;
   const router = useRouter();
   const { redirect } = router.query;
-  const [genero, setGenero] = useState("");
-  const handleChangeGenero = (event) => {
-    setGenero(event.target.value);
-  };
 
   useEffect(() => {
     if (userInfo) {
