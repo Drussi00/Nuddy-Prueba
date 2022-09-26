@@ -56,7 +56,6 @@ export default function Layout({ title, description, children }) {
     currency: { curre },
   } = state;
   useEffect(() => {
-    console.log(cart.paymentMethod);
     const metod = () => {
       setLocation(
         window.location.pathname.includes("/order/MercadoPago") ||
@@ -67,7 +66,6 @@ export default function Layout({ title, description, children }) {
     metod();
   }, []);
 
-  console.log(location);
   const theme = createTheme({
     components: {
       MuiLink: {

@@ -5,6 +5,11 @@ const handler = nc();
 handler.use(isAuth);
 handler.post(async (req, res) => {
   let preference = {
+    back_urls: {
+      success: "https://www.success.com",
+      failure: "http://www.failure.com",
+      pending: "http://www.pending.com",
+    },
     notification_url:
       "https://nuddyminds.vercel.app/api/orders/MercadoPago/response",
     items: req.body.orderItems.map((producto) => {

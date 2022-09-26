@@ -8,6 +8,7 @@ import client from "../../../utils/client";
 const handler = nc();
 
 handler.post(async (req, res) => {
+  console.log(req.body);
   const projectId = config.projectId;
   const dataset = config.dataset;
   const tokenWithWriteAccess = process.env.SANITY_AUTH_TOKEN;
@@ -18,7 +19,11 @@ handler.post(async (req, res) => {
         name: req.body.name,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password),
-        isAdmin: false,
+        apellido: req.body.apellido,
+        telefono: req.body.telefono,
+        cedula: req.body.cedula,
+        genero: req.body.genero,
+        fecha: req.body.fecha,
       },
     },
   ];
