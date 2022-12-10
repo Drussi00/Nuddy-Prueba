@@ -8,6 +8,7 @@ const handler = nc();
 handler.use(isAuth);
 
 handler.post(async (req, res) => {
+  console.log("req body", req.body);
   const projectId = config.projectId;
   const dataset = config.dataset;
   const tokenWithWriteAccess = process.env.SANITY_AUTH_TOKEN;

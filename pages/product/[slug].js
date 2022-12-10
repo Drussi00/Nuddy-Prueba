@@ -28,15 +28,14 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 export default function ProductScreen(props) {
   const router = useRouter();
   const { slug } = props;
-  const { dispatch, state } = useContext(Store);
-  const { currency } = state;
+  const { dispatch } = useContext(Store);
   const { enqueueSnackbar } = useSnackbar();
-  const [stateLocal, setState] = useState({
+  const [state, setState] = useState({
     product: null,
     loading: true,
     error: "",
   });
-  const { product, loading, error } = stateLocal;
+  const { product, loading, error } = state;
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -45,38 +44,25 @@ export default function ProductScreen(props) {
             *[_type == "product" && slug.current == $slug][0]`,
           { slug }
         );
-
-        setState({ ...stateLocal, product, loading: false });
+        setState({ ...state, product, loading: false });
       } catch (err) {
-        setState({ ...stateLocal, error: err.message, loading: false });
+        setState({ ...state, error: err.message, loading: false });
       }
     };
     fetchData();
-  }, [slug]);
+  }, [slug, state]);
   const [size, setsize] = useState("");
   const [quantity, setquantity] = useState(0);
 
-  useEffect(() => {
-    return () => {};
-  }, []);
-  const noStock = () => {
-    setquantity(0);
-    enqueueSnackbar("No quedan disponibles unidades en esta talla", {
-      variant: "error",
-    });
-  };
   const addQuantity = async () => {
     if (size !== "") {
-      if (size === "XS" && quantity < product.xs && product.xs !== 0) {
+      if (size === "S" && quantity < product.s) {
         setquantity(quantity + 1);
         console.log(quantity);
-      } else if (size === "S" && quantity < product.s && product.s !== 0) {
+      } else if (size === "M" && quantity < product.m) {
         setquantity(quantity + 1);
         console.log(quantity);
-      } else if (size === "M" && quantity < product.m && product.m !== 0) {
-        setquantity(quantity + 1);
-        console.log(quantity);
-      } else if (size === "L" && quantity < product.l && product.l !== 0) {
+      } else if (size === "L" && quantity < product.l) {
         setquantity(quantity + 1);
       } else {
         enqueueSnackbar("Maxima cantidad alcanzada", { variant: "error" });
@@ -87,12 +73,12 @@ export default function ProductScreen(props) {
   };
   const decQuantity = async () => {
     if (size !== "") {
-      if (size === "XS" && quantity < product.xs) {
+      if (size === "S" && quantity > 0) {
         setquantity(quantity - 1);
-      } else if (size === "S" && quantity > 0) {
-        setquantity(quantity - 1);
+        console.log(quantity);
       } else if (size === "M" && quantity > 0) {
         setquantity(quantity - 1);
+        console.log(quantity);
       } else if (size === "L" && quantity > 0) {
         setquantity(quantity - 1);
       } else {
@@ -116,13 +102,11 @@ export default function ProductScreen(props) {
       payload: {
         _key: product._id,
         name: product.name,
-        countInStockXS: product.xs,
         countInStockS: product.s,
         countInStockM: product.m,
         countInStockL: product.l,
         slug: product.slug.current,
         price: product.price,
-        priceusd: product.priceusd,
         image: urlForThumbnail(product.image && product.image[0]),
         quantity,
         size,
@@ -147,13 +131,11 @@ export default function ProductScreen(props) {
       payload: {
         _key: product._id,
         name: product.name,
-        countInStockXS: product.xs,
         countInStockS: product.s,
         countInStockM: product.m,
         countInStockL: product.l,
         slug: product.slug.current,
         price: product.price,
-        priceusd: product.priceusd,
         image: urlForThumbnail(product.image && product.image[0]),
         quantity,
         size,
@@ -175,13 +157,9 @@ export default function ProductScreen(props) {
     <Layout title={product?.title}>
       <Box display="flex" sx={classes.productosIndex}>
         <Typography
-          sx={{
-            fontWeight: "bold",
-            fontFamily: " coolvetica, sans-serif",
-            fontSize: "0.8rem",
-          }}
+          sx={{ fontWeight: "bold", fontFamily: " coolvetica, sans-serif" }}
         >
-          Envío gratis a todo el país por compras superiores a $200.000
+          Envio gratis a todo el pais por compras superiores a $200.000
         </Typography>
       </Box>
       <Container>
@@ -200,28 +178,10 @@ export default function ProductScreen(props) {
             >
               <Typography>
                 <NextLink href={"/"} passHref>
-                  <Link
-                    sx={{
-                      color: "#CFCFCF",
-                      fontFamily: " Helvetica, ",
-                      fontWeight: "400",
-                      fontStyle: "italic",
-                      marginRight: "5px",
-                    }}
-                  >
-                    Inicio{" "}
-                  </Link>
+                  <Link sx={{ color: "#f1f1f1" }}>Inicio</Link>
                 </NextLink>
-              </Typography>
-              <Typography
-                sx={{
-                  fontFamily: " Helvetica, ",
-                  fontWeight: "700",
-                  fontStyle: "italic",
-                }}
-              >
-                / {product.name}
-              </Typography>
+              </Typography>{" "}
+              / <Typography>{product.name}</Typography>
             </Box>
             <Grid container spacing={6}>
               <Grid item md={6} xs={12} sx={{ marginTop: "70px" }}>
@@ -245,108 +205,74 @@ export default function ProductScreen(props) {
                 <Box>
                   <div className="small-images-container">
                     {product.image?.map((item, i) => (
-                      <div
-                        key={item.name}
+                      <Image
+                        key={item.key}
+                        width={70}
+                        height={70}
+                        alt={item.name}
+                        src={urlFor(item)}
                         className={
                           i === index
                             ? "small-image selected-image"
                             : "small-image"
                         }
-                      >
-                        <Image
-                          key={item.key}
-                          width={70}
-                          height={70}
-                          alt={item.name}
-                          src={urlFor(item)}
-                          className={
-                            i === index
-                              ? "small-image selected-image"
-                              : "small-image"
-                          }
-                          onMouseEnter={() => setIndex(i)}
-                        />
-                      </div>
+                        onMouseEnter={() => setIndex(i)}
+                      />
                     ))}
                   </div>
                 </Box>
               </Grid>
               <Grid item md={6} xs={12} sx={{ marginTop: "40px" }}>
                 <List>
-                  <ListItem className="nopadLeft">
+                  <ListItem>
                     <Typography variant="h1" component="h1" sx={classes.title}>
                       {product.name}
                     </Typography>
                   </ListItem>
-                  <ListItem className="nopadLeft">
+                  <ListItem>
                     <Typography sx={classes.bold}>
-                      {currency.curre === "default"
-                        ? "$" +
-                          new Intl.NumberFormat().format(
-                            parseInt(product.price)
-                          )
-                        : new Intl.NumberFormat("en-IN", {
-                            style: "currency",
-                            currency: "USD",
-                            minimumFractionDigits: 2,
-                          }).format(parseInt(product.priceusd))}
+                      {" "}
+                      ${new Intl.NumberFormat().format(parseInt(product.price))}
                     </Typography>
                   </ListItem>
                   <Divider sx={classes.line} />
                   <ListItem
                     paddingBottom={"50px"}
                     sx={{ paddingBottom: "16px" }}
-                    className="nopadLeft"
                   >
                     <Typography
                       sx={{
                         fontWeight: "bold",
-                        fontFamily: " Helvetica,",
+                        fontFamily: " coolvetica, sans-serif",
                       }}
                     >
                       Tallas: {size}
                     </Typography>
-                    <Button
-                      sx={{
-                        textTransform: "none",
-                        backgroundColor: "transparent",
-                        textDecoration: "underline ",
-                        borderWidth: "2",
-                        textDecorationThickness: "1.5px",
-                        fontFamily: " Helvetica, ",
-                        fontWeight: "400",
-                        fontStyle: "italic",
-                      }}
-                    >
-                      <NextLink href={"/"} passHref>
-                        <Link
-                          sx={{
-                            color: "#CFCFCF",
-                            marginLeft: "50px",
-
-                            "&:hover": {
-                              color: "#CFCFCF",
-                              transform: "scale(1.1, 1.1)",
-                            },
-                          }}
-                        >
-                          {" "}
-                          Guía tallas
-                        </Link>
-                      </NextLink>
-                    </Button>
+                    <NextLink href={"/"} passHref>
+                      <Link
+                        sx={{
+                          color: "#f1f1f1",
+                          marginLeft: "50px",
+                          textDecoration: "underline",
+                          textDecorationThickness: "1.5px",
+                          textDecorationColor: "#000000",
+                          borderBottomStyle: "solid",
+                        }}
+                      >
+                        {" "}
+                        Guia tallas
+                      </Link>
+                    </NextLink>
                   </ListItem>
-                  <ListItem>
+                  <listItem>
                     <Grid container spacing={2}>
-                      <Grid item className="nopadLeft">
+                      <Grid item>
                         <Button
                           size="small"
                           variant=""
                           onClick={() => {
-                            quantity < product.xs ? setquantity(1) : noStock();
-
                             setsize("XS");
-
+                            setquantity(1);
                             setselecteXs(true);
                             setselectedS(false);
                             setselectedM(false);
@@ -362,9 +288,8 @@ export default function ProductScreen(props) {
                           size="small"
                           variant=""
                           onClick={() => {
-                            quantity < product.s ? setquantity(1) : noStock();
                             setsize("S");
-
+                            setquantity(1);
                             setselecteXs(false);
                             setselectedS(true);
                             setselectedM(false);
@@ -381,8 +306,7 @@ export default function ProductScreen(props) {
                           variant=""
                           onClick={() => {
                             setsize("M");
-                            quantity < product.m ? setquantity(1) : noStock();
-
+                            setquantity(1);
                             setselecteXs(false);
                             setselectedS(false);
                             setselectedM(true);
@@ -403,7 +327,7 @@ export default function ProductScreen(props) {
                             setselectedS(false);
                             setselectedM(false);
                             setselectedL(true);
-                            quantity < product.l ? setquantity(1) : noStock();
+                            setquantity(1);
                           }}
                           sx={selectedL ? classes.but : classes.selected}
                         >
@@ -411,12 +335,12 @@ export default function ProductScreen(props) {
                         </Button>
                       </Grid>
                     </Grid>
-                  </ListItem>
-                  <ListItem className="nopadLeft">
+                  </listItem>
+                  <ListItem>
                     <Typography
                       sx={{
                         fontWeight: "bold",
-                        fontFamily: " helvetica, sans-serif",
+                        fontFamily: " coolvetica, sans-serif",
                       }}
                     >
                       Cantidad:
@@ -435,7 +359,7 @@ export default function ProductScreen(props) {
                       +
                     </Button>
                   </ButtonGroup>
-                  <ListItem className="nopadLeft">
+                  <ListItem>
                     <Button
                       sx={classes.blackline}
                       onClick={addToCartHandler}
@@ -445,61 +369,38 @@ export default function ProductScreen(props) {
                       Agregar al carrito
                     </Button>
                   </ListItem>
-                  <ListItem className="nopadLeft">
+                  <ListItem>
                     <Button
                       onClick={buyNowHandler}
                       fullWidth
                       variant="contained"
                       sx={classes.buyNow}
-                      className="bottomH1"
                     >
-                      Comprar Ahora
+                      Comprar ahora
                     </Button>
                   </ListItem>
 
                   <Grid container spacing={0}>
                     <Grid item md={12} sx={{ justifyContent: "center" }}>
                       <Grid container spacing={1} sx={{ marginTop: "20px" }}>
-                        <Grid item md={6} xs={12}>
-                          <Typography
-                            fontSize=".8rem"
-                            sx={{ fontWeight: "bold" }}
-                          >
-                            <FiberManualRecordIcon fontSize="small" />{" "}
-                            {product.materiales}
-                          </Typography>
-                        </Grid>
-                        <Grid item md={6} xs={12}>
-                          <Typography
-                            fontSize=".8rem"
-                            sx={{ fontWeight: "bold" }}
-                          >
-                            <FiberManualRecordIcon fontSize="small" /> Peso:{" "}
-                            {product.cantidadmateriales}
-                          </Typography>
-                        </Grid>
-                        <Grid
-                          item
-                          md={6}
-                          xs={12}
-                          sx={{ justifyContent: "center" }}
-                        >
-                          <Typography
-                            fontSize=".8rem"
-                            sx={{ fontWeight: "bold" }}
-                          >
-                            <FiberManualRecordIcon fontSize="small" />{" "}
+                        <Grid item md={6} sx={{ justifyContent: "center" }}>
+                          <Typography fontSize=".8rem">
                             {product.description}
                           </Typography>
                         </Grid>
-
-                        <Grid item md={6} xs={12}>
-                          <Typography
-                            fontSize=".8rem"
-                            sx={{ fontWeight: "bold" }}
-                          >
-                            <FiberManualRecordIcon fontSize="small" />{" "}
-                            {product.envio}
+                        <Grid item md={6}>
+                          <Typography fontSize=".8rem" sx>
+                            {product.materiales}
+                          </Typography>
+                        </Grid>
+                        <Grid item md={6}>
+                          <Typography fontSize=".8rem">
+                            {product.cantidadmateriales}
+                          </Typography>
+                        </Grid>
+                        <Grid item md={6}>
+                          <Typography fontSize=".8rem">
+                            <FiberManualRecordIcon /> {product.envio}
                           </Typography>
                         </Grid>
                       </Grid>
@@ -508,90 +409,54 @@ export default function ProductScreen(props) {
 
                   <Box
                     display="flex"
-                    sx={{ marginTop: "60px", justifyContent: "space-between" }}
+                    sx={{ marginTop: "90px", justifyContent: "space-between" }}
                   >
-                    <Button
-                      sx={{
-                        textTransform: "none",
-                        backgroundColor: "transparent",
-                        textDecoration: "underline ",
-                        borderWidth: "2",
-                        textDecorationThickness: "1.5px",
-                        fontFamily: " Helvetica, ",
-                        fontWeight: "400",
-                        fontStyle: "italic",
-                      }}
-                    >
-                      <NextLink href={"/"} passHref>
-                        <Link
-                          sx={{
-                            color: "#CFCFCF",
-                            "&:hover": {
-                              color: "#CFCFCF",
-                              transform: "scale(1.1, 1.1)",
-                            },
-                          }}
-                        >
-                          {" "}
-                          Cuidado
-                        </Link>
-                      </NextLink>
-                    </Button>
-                    <Button
-                      sx={{
-                        textTransform: "none",
-                        backgroundColor: "transparent",
-                        textDecoration: "underline ",
-                        borderWidth: "2",
-                        textDecorationThickness: "1.5px",
-                        fontFamily: " Helvetica, ",
-                        fontWeight: "400",
-                        fontStyle: "italic",
-                      }}
-                    >
-                      <NextLink href={"/"} passHref>
-                        <Link
-                          sx={{
-                            color: "#CFCFCF",
+                    <NextLink href={"/"} passHref>
+                      <Link
+                        sx={{
+                          color: "#f1f1f1",
 
-                            "&:hover": {
-                              color: "#CFCFCF",
-                              transform: "scale(1.1, 1.1)",
-                            },
-                          }}
-                        >
-                          {" "}
-                          Envios
-                        </Link>
-                      </NextLink>
-                    </Button>
-                    <Button
-                      sx={{
-                        textTransform: "none",
-                        backgroundColor: "transparent",
-                        textDecoration: "underline ",
-                        borderWidth: "2",
-                        textDecorationThickness: "1.5px",
-                        fontFamily: " Helvetica, ",
-                        fontWeight: "400",
-                        fontStyle: "italic",
-                      }}
-                    >
-                      <NextLink href={"/"} passHref>
-                        <Link
-                          sx={{
-                            color: "#CFCFCF",
+                          textDecoration: "underline",
+                          textDecorationThickness: "1.5px",
+                          textDecorationColor: "#000000",
+                          borderBottomStyle: "solid",
+                          paddingLeft: "0",
+                        }}
+                      >
+                        {" "}
+                        Cuidado
+                      </Link>
+                    </NextLink>
+                    <NextLink href={"/"} passHref>
+                      <Link
+                        sx={{
+                          color: "#f1f1f1",
 
-                            "&:hover": {
-                              color: "#CFCFCF",
-                              transform: "scale(1.1, 1.1)",
-                            },
-                          }}
-                        >
-                          Devoluciones
-                        </Link>
-                      </NextLink>
-                    </Button>
+                          textDecoration: "underline",
+                          textDecorationThickness: "1.5px",
+                          textDecorationColor: "#000000",
+                          borderBottomStyle: "solid",
+                        }}
+                      >
+                        {" "}
+                        Envios
+                      </Link>
+                    </NextLink>{" "}
+                    <NextLink href={"/"} passHref>
+                      <Link
+                        sx={{
+                          color: "#f1f1f1",
+
+                          textDecoration: "underline",
+                          textDecorationThickness: "1.5px",
+                          textDecorationColor: "#000000",
+                          borderBottomStyle: "solid",
+                        }}
+                      >
+                        {" "}
+                        Devoluciones
+                      </Link>
+                    </NextLink>
                   </Box>
                 </List>
               </Grid>

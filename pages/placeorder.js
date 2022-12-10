@@ -151,6 +151,7 @@ function PlaceOrderScreen() {
             },
           }
         );
+        console.log(shippingAddress);
         const orderM = await axios.post(
           "/api/orders/PayPal",
           {
