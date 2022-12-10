@@ -1,5 +1,5 @@
 import { Box, Button, Typography, Link, useMediaQuery } from "@mui/material";
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import classes from "../utils/classes";
 import { urlFor } from "../utils/image";

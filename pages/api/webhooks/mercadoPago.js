@@ -29,6 +29,9 @@ handler.post(async (req, res) => {
           id_shop: compra.data.metadata.id_shop,
         }
       );
+      const user = await client.fetch(`*[_type == "user" && _id == $id_user]`, {
+        id_user: order[0]?.user._ref,
+      });
       if (
         order &&
         type === "payment" &&
