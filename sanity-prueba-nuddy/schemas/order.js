@@ -37,6 +37,7 @@ export default {
       title: "totalPrice",
       type: "number",
     },
+
     {
       name: "paymentMethod",
       title: "paymentMethod",
@@ -89,4 +90,7 @@ export default {
       type: "datetime",
     },
   ],
+  initialValue: {
+    isPaid: false
+  }
 };

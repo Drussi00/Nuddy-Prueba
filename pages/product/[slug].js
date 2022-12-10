@@ -2,16 +2,16 @@ import {
   Alert,
   Box,
   Button,
-  Card,
   CircularProgress,
   Grid,
-  Link,
   List,
   ListItem,
-  Rating,
   Typography,
   Divider,
   ButtonGroup,
+  Container,
+  useMediaQuery,
+  Link,
 } from "@mui/material";
 import Image from "next/image";
 import NextLink from "next/link";
@@ -24,14 +24,11 @@ import { urlFor, urlForThumbnail } from "../../utils/image";
 import { Store } from "../../utils/Store";
 import axios from "axios";
 import { useRouter } from "next/router";
-
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 export default function ProductScreen(props) {
   const router = useRouter();
   const { slug } = props;
-  const {
-    state: { cart },
-    dispatch,
-  } = useContext(Store);
+  const { dispatch } = useContext(Store);
   const { enqueueSnackbar } = useSnackbar();
   const [state, setState] = useState({
     product: null,
@@ -47,25 +44,33 @@ export default function ProductScreen(props) {
             *[_type == "product" && slug.current == $slug][0]`,
           { slug }
         );
+
         setState({ ...state, product, loading: false });
       } catch (err) {
         setState({ ...state, error: err.message, loading: false });
       }
     };
     fetchData();
-  }, []);
+  }, [slug]);
   const [size, setsize] = useState("");
   const [quantity, setquantity] = useState(0);
 
+  useEffect(() => {
+    return () => {};
+  }, []);
+
   const addQuantity = async () => {
     if (size !== "") {
-      if (size === "S" && quantity < product.s) {
+      if (size === "XS" && quantity < product.xs) {
+        setquantity(quantity + 1);
+        console.log(quantity);
+      } else if (size === "S" && quantity < product.s) {
         setquantity(quantity + 1);
         console.log(quantity);
       } else if (size === "M" && quantity < product.m) {
         setquantity(quantity + 1);
         console.log(quantity);
-      } else if ((size = "L" && quantity < product.l)) {
+      } else if (size === "L" && quantity < product.l) {
         setquantity(quantity + 1);
       } else {
         enqueueSnackbar("Maxima cantidad alcanzada", { variant: "error" });
@@ -76,13 +81,16 @@ export default function ProductScreen(props) {
   };
   const decQuantity = async () => {
     if (size !== "") {
-      if (size === "S" && quantity > 0) {
+      if (size === "XS" && quantity < product.xs) {
+        setquantity(quantity + 1);
+        console.log(quantity);
+      } else if (size === "S" && quantity > 0) {
         setquantity(quantity - 1);
         console.log(quantity);
       } else if (size === "M" && quantity > 0) {
         setquantity(quantity - 1);
         console.log(quantity);
-      } else if ((size = "L" && quantity > 0)) {
+      } else if (size === "L" && quantity > 0) {
         setquantity(quantity - 1);
       } else {
         enqueueSnackbar("La cantidad debe ser mayor a 0", { variant: "error" });
@@ -92,7 +100,7 @@ export default function ProductScreen(props) {
     }
   };
   const buyNowHandler = async () => {
-    const { data } = await axios.get(`/api/products/${product._id}`);
+    // const { data } = await axios.get(`/api/products/${product._id}`);
 
     if (quantity === 0) {
       enqueueSnackbar("Seleciona talla", { variant: "error" });
@@ -105,6 +113,7 @@ export default function ProductScreen(props) {
       payload: {
         _key: product._id,
         name: product.name,
+        countInStockXS: product.xs,
         countInStockS: product.s,
         countInStockM: product.m,
         countInStockL: product.l,
@@ -115,7 +124,7 @@ export default function ProductScreen(props) {
         size,
       },
     });
-    enqueueSnackbar(`${product.name} added to the cart`, {
+    enqueueSnackbar(`${product.name} Agregada al Carrito`, {
       variant: "success",
     });
     router.push("/cart");
@@ -134,6 +143,7 @@ export default function ProductScreen(props) {
       payload: {
         _key: product._id,
         name: product.name,
+        countInStockXS: product.xs,
         countInStockS: product.s,
         countInStockM: product.m,
         countInStockL: product.l,
@@ -149,145 +159,426 @@ export default function ProductScreen(props) {
     });
     router.push("/");
   };
+  const [index, setIndex] = useState(0);
+  const isDesktop = useMediaQuery("(min-width:600px)");
+  const [selectedXs, setselecteXs] = useState(false);
+  const [selectedS, setselectedS] = useState(false);
+  const [selectedM, setselectedM] = useState(false);
+  const [selectedL, setselectedL] = useState(false);
+
   return (
     <Layout title={product?.title}>
-      {loading ? (
-        <CircularProgress />
-      ) : error ? (
-        <Alert variant="error">{error}</Alert>
-      ) : (
-        <Box>
-          <Grid container spacing={6}>
-            <Grid item md={6} xs={12}>
-              <Image
-                src={urlFor(product.image && product.image[0])}
-                key={product.image._key}
-                alt={product.name}
-                layout="responsive"
-                width={640}
-                height={640}
-              />
-            </Grid>
-            <Grid item md={6} xs={12}>
-              <List>
-                <ListItem>
-                  <Typography sx={classes.title}>{product.name}</Typography>
-                </ListItem>
-                <ListItem>
-                  <Typography sx={classes.bold}>${product.price}</Typography>
-                </ListItem>
-                <Divider sx={classes.line} />
-                <ListItem>
-                  <Typography>Tallas</Typography>
-                </ListItem>
-                <listItem>
-                  <Grid container spacing={2}>
-                    <Grid item>
-                      <Button
-                        sx={classes.but}
-                        size="small"
-                        variant="contained"
-                        onClick={() => {
-                          setsize("S");
-                          setquantity(1);
-                          console.log(size);
-                        }}
-                      >
-                        S
-                      </Button>
-                    </Grid>
-                    <Grid item>
-                      <Button
-                        sx={classes.but}
-                        size="small"
-                        variant="contained"
-                        onClick={() => {
-                          setsize("M");
-                          setquantity(1);
-                          console.log(size);
-                        }}
-                      >
-                        M
-                      </Button>
-                    </Grid>
-                    <Grid item>
-                      <Button
-                        sx={classes.but}
-                        size="small"
-                        variant="contained"
-                        onClick={() => {
-                          setsize("L");
-                          console.log(size);
-                          setquantity(1);
-                        }}
-                      >
-                        L
-                      </Button>
-                    </Grid>
-                  </Grid>
-                </listItem>
-                <ListItem>
-                  <Typography>Cantidad</Typography>
-                </ListItem>
-                <ButtonGroup
-                  sx={classes.buttonGroup}
-                  variant="outlined"
-                  aria-label="outlined button group"
+      <Box display="flex" sx={classes.productosIndex}>
+        <Typography
+          sx={{
+            fontWeight: "bold",
+            fontFamily: " coolvetica, sans-serif",
+            fontSize: "0.8rem",
+          }}
+        >
+          Envio gratis a todo el pais por compras superiores a $200.000
+        </Typography>
+      </Box>
+      <Container>
+        {loading ? (
+          <CircularProgress />
+        ) : error ? (
+          <Alert variant="error">{error}</Alert>
+        ) : (
+          <Box>
+            <Box
+              display="flex"
+              sx={{
+                alignItems: "center",
+                marginLeft: "25px",
+              }}
+            >
+              <Typography>
+                <NextLink href={"/"} passHref>
+                  <Link
+                    sx={{
+                      color: "#CFCFCF",
+                      fontFamily: " Helvetica, ",
+                      fontWeight: "400",
+                      fontStyle: "italic",
+                      marginRight: "5px",
+                    }}
+                  >
+                    Inicio{" "}
+                  </Link>
+                </NextLink>
+              </Typography>
+              <Typography
+                sx={{
+                  fontFamily: " Helvetica, ",
+                  fontWeight: "700",
+                  fontStyle: "italic",
+                }}
+              >
+                / {product.name}
+              </Typography>
+            </Box>
+            <Grid container spacing={6}>
+              <Grid item md={6} xs={12} sx={{ marginTop: "70px" }}>
+                <Typography
+                  variant="h1"
+                  component="h1"
+                  sx={isDesktop ? classes.hidden : classes.titleMobile}
                 >
-                  <Button
-                    onClick={decQuantity}
-                    color="primary"
-                    sx={classes.buttonGroup}
+                  {product.name}
+                </Typography>
+                <Box display={"flex"} sx={{ justifyContent: "center" }}>
+                  <Image
+                    className="big-image"
+                    src={urlFor(product.image && product.image[index])}
+                    key={product.image._key}
+                    alt={product.name}
+                    width={500}
+                    height={500}
+                  />
+                </Box>
+                <Box>
+                  <div className="small-images-container">
+                    {product.image?.map((item, i) => (
+                      <div
+                        key={item.name}
+                        className={
+                          i === index
+                            ? "small-image selected-image"
+                            : "small-image"
+                        }
+                      >
+                        <Image
+                          key={item.key}
+                          width={70}
+                          height={70}
+                          alt={item.name}
+                          src={urlFor(item)}
+                          className={
+                            i === index
+                              ? "small-image selected-image"
+                              : "small-image"
+                          }
+                          onMouseEnter={() => setIndex(i)}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </Box>
+              </Grid>
+              <Grid item md={6} xs={12} sx={{ marginTop: "40px" }}>
+                <List>
+                  <ListItem>
+                    <Typography variant="h1" component="h1" sx={classes.title}>
+                      {product.name}
+                    </Typography>
+                  </ListItem>
+                  <ListItem>
+                    <Typography sx={classes.bold}>
+                      ${new Intl.NumberFormat().format(parseInt(product.price))}
+                    </Typography>
+                  </ListItem>
+                  <Divider sx={classes.line} />
+                  <ListItem
+                    paddingBottom={"50px"}
+                    sx={{ paddingBottom: "16px" }}
                   >
-                    -
-                  </Button>
-                  <Button sx={classes.buttonQ}>{quantity}</Button>
-                  <Button sx={classes.buttonGroup} onClick={addQuantity}>
-                    +
-                  </Button>
-                </ButtonGroup>
-                <ListItem>
-                  <Button
-                    sx={classes.blackline}
-                    onClick={addToCartHandler}
-                    fullWidth
-                    variant=""
-                  >
-                    Agregar al carrito
-                  </Button>
-                </ListItem>
-                <ListItem>
-                  <Button
-                    onClick={buyNowHandler}
-                    fullWidth
-                    variant="contained"
-                    sx={classes.radius}
-                  >
-                    Comprar ahora
-                  </Button>
-                </ListItem>
-                <ListItem>
-                  <Grid container spacing={0}>
-                    <Grid item md={6}>
-                      <Typography fontSize="0.6rem">
-                        {product.description}
-                      </Typography>
-                      <Typography fontSize="0.6rem">
-                        {product.materiales}
-                      </Typography>
-                      <Typography fontSize="0.6rem">
-                        {product.cantidadmateriales}
-                      </Typography>
-                      <Typography fontSize="0.6rem">{product.envio}</Typography>
+                    <Typography
+                      sx={{
+                        fontWeight: "bold",
+                        fontFamily: " Helvetica,",
+                      }}
+                    >
+                      Tallas: {size}
+                    </Typography>
+                    <Button
+                      sx={{
+                        textTransform: "none",
+                        backgroundColor: "transparent",
+                        textDecoration: "underline ",
+                        borderWidth: "2",
+                        textDecorationThickness: "1.5px",
+                        fontFamily: " Helvetica, ",
+                        fontWeight: "400",
+                        fontStyle: "italic",
+                      }}
+                    >
+                      <NextLink href={"/"} passHref>
+                        <Link
+                          sx={{
+                            color: "#CFCFCF",
+                            marginLeft: "50px",
+
+                            "&:hover": {
+                              color: "#CFCFCF",
+                              transform: "scale(1.1, 1.1)",
+                            },
+                          }}
+                        >
+                          {" "}
+                          Guia tallas
+                        </Link>
+                      </NextLink>
+                    </Button>
+                  </ListItem>
+                  <ListItem>
+                    <Grid container spacing={2}>
+                      <Grid item>
+                        <Button
+                          size="small"
+                          variant=""
+                          onClick={() => {
+                            setsize("XS");
+                            setquantity(1);
+                            setselecteXs(true);
+                            setselectedS(false);
+                            setselectedM(false);
+                            setselectedL(false);
+                          }}
+                          sx={selectedXs ? classes.but : classes.selected}
+                        >
+                          XS
+                        </Button>
+                      </Grid>
+                      <Grid item>
+                        <Button
+                          size="small"
+                          variant=""
+                          onClick={() => {
+                            setsize("S");
+                            setquantity(1);
+                            setselecteXs(false);
+                            setselectedS(true);
+                            setselectedM(false);
+                            setselectedL(false);
+                          }}
+                          sx={selectedS ? classes.but : classes.selected}
+                        >
+                          S
+                        </Button>
+                      </Grid>
+                      <Grid item>
+                        <Button
+                          size="small"
+                          variant=""
+                          onClick={() => {
+                            setsize("M");
+                            setquantity(1);
+                            setselecteXs(false);
+                            setselectedS(false);
+                            setselectedM(true);
+                            setselectedL(false);
+                          }}
+                          sx={selectedM ? classes.but : classes.selected}
+                        >
+                          M
+                        </Button>
+                      </Grid>
+                      <Grid item>
+                        <Button
+                          size="small"
+                          variant=""
+                          onClick={() => {
+                            setsize("L");
+                            setselecteXs(false);
+                            setselectedS(false);
+                            setselectedM(false);
+                            setselectedL(true);
+                            setquantity(1);
+                          }}
+                          sx={selectedL ? classes.but : classes.selected}
+                        >
+                          L
+                        </Button>
+                      </Grid>
                     </Grid>
-                    <ListItem></ListItem>
+                  </ListItem>
+                  <ListItem>
+                    <Typography
+                      sx={{
+                        fontWeight: "bold",
+                        fontFamily: " helvetica, sans-serif",
+                      }}
+                    >
+                      Cantidad:
+                    </Typography>
+                  </ListItem>
+                  <ButtonGroup
+                    sx={classes.buttonGroup}
+                    variant="outlined"
+                    aria-label="outlined button group"
+                  >
+                    <Button onClick={decQuantity} sx={classes.buttonGroup}>
+                      -
+                    </Button>
+                    <Button sx={classes.buttonQ}>{quantity}</Button>
+                    <Button sx={classes.buttonGroup} onClick={addQuantity}>
+                      +
+                    </Button>
+                  </ButtonGroup>
+                  <ListItem>
+                    <Button
+                      sx={classes.blackline}
+                      onClick={addToCartHandler}
+                      fullWidth
+                      variant=""
+                    >
+                      Agregar al carrito
+                    </Button>
+                  </ListItem>
+                  <ListItem>
+                    <Button
+                      onClick={buyNowHandler}
+                      fullWidth
+                      variant="contained"
+                      sx={classes.buyNow}
+                    >
+                      Comprar ahora
+                    </Button>
+                  </ListItem>
+
+                  <Grid container spacing={0}>
+                    <Grid item md={12} sx={{ justifyContent: "center" }}>
+                      <Grid container spacing={1} sx={{ marginTop: "20px" }}>
+                        <Grid item md={6} xs={12}>
+                          <Typography
+                            fontSize=".8rem"
+                            sx={{ fontWeight: "bold" }}
+                          >
+                            <FiberManualRecordIcon fontSize="small" />{" "}
+                            {product.materiales}
+                          </Typography>
+                        </Grid>
+                        <Grid item md={6} xs={12}>
+                          <Typography
+                            fontSize=".8rem"
+                            sx={{ fontWeight: "bold" }}
+                          >
+                            <FiberManualRecordIcon fontSize="small" /> Peso:{" "}
+                            {product.cantidadmateriales}
+                          </Typography>
+                        </Grid>
+                        <Grid
+                          item
+                          md={6}
+                          xs={12}
+                          sx={{ justifyContent: "center" }}
+                        >
+                          <Typography
+                            fontSize=".8rem"
+                            sx={{ fontWeight: "bold" }}
+                          >
+                            <FiberManualRecordIcon fontSize="small" />{" "}
+                            {product.description}
+                          </Typography>
+                        </Grid>
+
+                        <Grid item md={6} xs={12}>
+                          <Typography
+                            fontSize=".8rem"
+                            sx={{ fontWeight: "bold" }}
+                          >
+                            <FiberManualRecordIcon fontSize="small" />{" "}
+                            {product.envio}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    </Grid>
                   </Grid>
-                </ListItem>
-              </List>
+
+                  <Box
+                    display="flex"
+                    sx={{ marginTop: "60px", justifyContent: "space-between" }}
+                  >
+                    <Button
+                      sx={{
+                        textTransform: "none",
+                        backgroundColor: "transparent",
+                        textDecoration: "underline ",
+                        borderWidth: "2",
+                        textDecorationThickness: "1.5px",
+                        fontFamily: " Helvetica, ",
+                        fontWeight: "400",
+                        fontStyle: "italic",
+                      }}
+                    >
+                      <NextLink href={"/"} passHref>
+                        <Link
+                          sx={{
+                            color: "#CFCFCF",
+                            "&:hover": {
+                              color: "#CFCFCF",
+                              transform: "scale(1.1, 1.1)",
+                            },
+                          }}
+                        >
+                          {" "}
+                          Cuidado
+                        </Link>
+                      </NextLink>
+                    </Button>
+                    <Button
+                      sx={{
+                        textTransform: "none",
+                        backgroundColor: "transparent",
+                        textDecoration: "underline ",
+                        borderWidth: "2",
+                        textDecorationThickness: "1.5px",
+                        fontFamily: " Helvetica, ",
+                        fontWeight: "400",
+                        fontStyle: "italic",
+                      }}
+                    >
+                      <NextLink href={"/"} passHref>
+                        <Link
+                          sx={{
+                            color: "#CFCFCF",
+
+                            "&:hover": {
+                              color: "#CFCFCF",
+                              transform: "scale(1.1, 1.1)",
+                            },
+                          }}
+                        >
+                          {" "}
+                          Envios
+                        </Link>
+                      </NextLink>
+                    </Button>
+                    <Button
+                      sx={{
+                        textTransform: "none",
+                        backgroundColor: "transparent",
+                        textDecoration: "underline ",
+                        borderWidth: "2",
+                        textDecorationThickness: "1.5px",
+                        fontFamily: " Helvetica, ",
+                        fontWeight: "400",
+                        fontStyle: "italic",
+                      }}
+                    >
+                      <NextLink href={"/"} passHref>
+                        <Link
+                          sx={{
+                            color: "#CFCFCF",
+
+                            "&:hover": {
+                              color: "#CFCFCF",
+                              transform: "scale(1.1, 1.1)",
+                            },
+                          }}
+                        >
+                          Devoluciones
+                        </Link>
+                      </NextLink>
+                    </Button>
+                  </Box>
+                </List>
+              </Grid>
             </Grid>
-          </Grid>
-        </Box>
-      )}
+          </Box>
+        )}
+      </Container>
     </Layout>
   );
 }

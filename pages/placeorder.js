@@ -42,9 +42,45 @@ function PlaceOrderScreen() {
   const itemsPrice = round2(
     cartItems.reduce((a, c) => a + c.price * c.quantity, 0)
   );
+
   const shippingPrice = itemsPrice > 200 ? 0 : 15;
   const taxPrice = round2(itemsPrice * 0.15);
   const totalPrice = round2(itemsPrice + shippingPrice + taxPrice);
+
+  const size = async () => {
+    let tallaXS;
+    let tallaS;
+    let tallaM;
+    let tallaL;
+    let unitario;
+    cartItems.map((item) => {
+      unitario = item;
+      if (item.size === "XS") {
+        tallaXS = item.countInStockXS - item.quantity;
+      } else {
+        if (item.size === "S") {
+          tallaS = item.countInStockS - item.quantity;
+        } else {
+          if (item.size === "M") {
+            tallaM = item.countInStockM - item.quantity;
+          } else {
+            if (item.size === "L") {
+              tallaL = item.countInStockLp - item.quantity;
+            }
+          }
+        }
+      }
+    });
+    try {
+      await axios.put(
+        "/api/products/tallas",
+        { unitario, tallaXS, tallaS, tallaM, tallaL },
+        { headers: { authorization: `Bearer ${userInfo.token}` } }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
   useEffect(() => {
     if (!paymentMethod) {
       router.push("/payment");
@@ -55,9 +91,10 @@ function PlaceOrderScreen() {
   }, [cartItems, paymentMethod, router]);
 
   const placeOrderHandler = async () => {
+    size();
     try {
       setLoading(true);
-      if(paymentMethod === "PayPal"){
+      if (paymentMethod === "PayPal") {
         const { data } = await axios.post(
           "/api/orders/PayPal",
           {
@@ -82,9 +119,30 @@ function PlaceOrderScreen() {
         dispatch({ type: "CART_CLEAR" });
         jsCookie.remove("cartItems");
         setLoading(false);
-        
+
         router.push(`/order/PayPal/${data}`);
-      }else{
+      } else {
+        await axios.post(
+          "/api/orders/PayPal",
+          {
+            orderItems: cartItems.map((x) => ({
+              ...x,
+              countInStock: undefined,
+              slug: undefined,
+            })),
+            shippingAddress,
+            paymentMethod,
+            itemsPrice,
+            shippingPrice,
+            taxPrice,
+            totalPrice,
+          },
+          {
+            headers: {
+              authorization: `Bearer ${userInfo.token}`,
+            },
+          }
+        );
         const { data } = await axios.post(
           "/api/orders/MercadoPago",
           {
@@ -106,24 +164,24 @@ function PlaceOrderScreen() {
             },
           }
         );
-        console.log(data);
         dispatch({ type: "CART_CLEAR" });
         jsCookie.remove("cartItems");
         setLoading(false);
+        console.log(data.global);
         router.push(`/order/MercadoPago/${data.global}`);
       }
-   
     } catch (err) {
       setLoading(false);
       enqueueSnackbar(getError(err), { variant: "error" });
     }
   };
+
   return (
     <Layout title="Place Order">
       <Container>
         <CheckoutWizard activeStep={3}></CheckoutWizard>
         <Typography component="h1" variant="h1">
-          Place Order
+          Crear Orden
         </Typography>
 
         <Grid container spacing={1}>
@@ -131,8 +189,8 @@ function PlaceOrderScreen() {
             <Card sx={classes.section}>
               <List>
                 <ListItem>
-                  <Typography component="h2" variant="h2">
-                    Shipping Address
+                  <Typography component="h1" variant="h1">
+                    Direccion
                   </Typography>
                 </ListItem>
                 <ListItem>
@@ -146,7 +204,7 @@ function PlaceOrderScreen() {
                     variant="contianed"
                     color="secondary"
                   >
-                    Edit
+                    Editar
                   </Button>
                 </ListItem>
               </List>
@@ -154,8 +212,8 @@ function PlaceOrderScreen() {
             <Card sx={classes.section}>
               <List>
                 <ListItem>
-                  <Typography component="h2" variant="h2">
-                    Payment Method
+                  <Typography component="h1" variant="h1">
+                    Metodo de pago
                   </Typography>
                 </ListItem>
                 <ListItem>{paymentMethod}</ListItem>
@@ -165,7 +223,7 @@ function PlaceOrderScreen() {
                     variant="contianed"
                     color="secondary"
                   >
-                    Edit
+                    Editar
                   </Button>
                 </ListItem>
               </List>
@@ -173,8 +231,8 @@ function PlaceOrderScreen() {
             <Card sx={classes.section}>
               <List>
                 <ListItem>
-                  <Typography component="h2" variant="h2">
-                    Order Items
+                  <Typography component="h1" variant="h1">
+                    Productos
                   </Typography>
                 </ListItem>
                 <ListItem>
@@ -182,11 +240,11 @@ function PlaceOrderScreen() {
                     <Table>
                       <TableHead>
                         <TableRow>
-                          <TableCell>Image</TableCell>
-                          <TableCell>Name</TableCell>
-                          <TableCell align="right">size</TableCell>
-                          <TableCell align="right">Quantity</TableCell>
-                          <TableCell align="right">Price</TableCell>
+                          <TableCell>Imagen</TableCell>
+                          <TableCell>Nombre</TableCell>
+                          <TableCell align="right">Talla</TableCell>
+                          <TableCell align="right">Cantidad</TableCell>
+                          <TableCell align="right">Precio</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -218,7 +276,12 @@ function PlaceOrderScreen() {
                               <Typography>{item.quantity}</Typography>
                             </TableCell>
                             <TableCell align="right">
-                              <Typography>${item.price}</Typography>
+                              <Typography>
+                                $
+                                {new Intl.NumberFormat().format(
+                                  parseInt(item.price)
+                                )}
+                              </Typography>
                             </TableCell>
                           </TableRow>
                         ))}
@@ -233,25 +296,33 @@ function PlaceOrderScreen() {
             <Card sx={classes.section}>
               <List>
                 <ListItem>
-                  <Typography variant="h2">Order Summary</Typography>
+                  <Typography variant="h1">Resumen de la Orden</Typography>
                 </ListItem>
                 <ListItem>
                   <Grid container>
                     <Grid item xs={6}>
-                      <Typography>Items:</Typography>
+                      <Typography>Productos:</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <Typography align="right">${itemsPrice}</Typography>
+                      <Typography align="right">
+                        {" "}
+                        ${new Intl.NumberFormat().format(parseInt(itemsPrice))}
+                      </Typography>
                     </Grid>
                   </Grid>
                 </ListItem>
                 <ListItem>
                   <Grid container>
                     <Grid item xs={6}>
-                      <Typography>Shipping:</Typography>
+                      <Typography>Costo de envio:</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <Typography align="right">${shippingPrice}</Typography>
+                      <Typography align="right">
+                        $
+                        {new Intl.NumberFormat().format(
+                          parseInt(shippingPrice)
+                        )}
+                      </Typography>
                     </Grid>
                   </Grid>
                 </ListItem>
@@ -264,7 +335,10 @@ function PlaceOrderScreen() {
                     </Grid>
                     <Grid item xs={6}>
                       <Typography align="right">
-                        <strong>${totalPrice}</strong>
+                        <strong>
+                          $
+                          {new Intl.NumberFormat().format(parseInt(totalPrice))}
+                        </strong>
                       </Typography>
                     </Grid>
                   </Grid>
@@ -273,11 +347,18 @@ function PlaceOrderScreen() {
                   <Button
                     onClick={placeOrderHandler}
                     variant="contained"
-                    color="primary"
+                    sx={{
+                      backgroundColor: "black",
+                      borderRadius: "0",
+                      "&:hover": {
+                        backgroundColor: "black",
+                        transform: "scale(1, 1.1)",
+                      },
+                    }}
                     fullWidth
                     disabled={loading}
                   >
-                    Place Order
+                    Crear Orden
                   </Button>
                 </ListItem>
                 {loading && (

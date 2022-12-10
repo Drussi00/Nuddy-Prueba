@@ -13,7 +13,6 @@ import {
   CssBaseline,
   Divider,
   Drawer,
-  Grid,
   IconButton,
   InputBase,
   Link,
@@ -22,7 +21,6 @@ import {
   ListItemText,
   Menu,
   MenuItem,
-  Switch,
   ThemeProvider,
   Toolbar,
   Typography,
@@ -30,7 +28,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import CancelIcon from "@mui/icons-material/Cancel";
+
 import Head from "next/head";
 import NextLink from "next/link";
 import classes from "../utils/classes";
@@ -44,7 +42,6 @@ import { getError } from "../utils/error";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import EmailIcon from "@mui/icons-material/Email";
-import { styled, alpha } from "@mui/material/styles";
 
 ////////////////////////////////////////////////////////////////
 export default function Layout({ title, description, children }) {
@@ -52,7 +49,7 @@ export default function Layout({ title, description, children }) {
   
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
-  const { darkMode, cart, userInfo } = state;
+  const { cart, userInfo } = state;
 
   const theme = createTheme({
     components: {
@@ -85,11 +82,8 @@ export default function Layout({ title, description, children }) {
   });
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const loginMenuCloseHandler = (e, redirect) => {
+  const loginMenuCloseHandler = () => {
     setAnchorEl(null);
-    if (redirect) {
-      router.push(redirect);
-    }
   };
   const loginClickHandler = (e) => {
     setAnchorEl(e.currentTarget);
@@ -114,6 +108,7 @@ export default function Layout({ title, description, children }) {
 
   const { enqueueSnackbar } = useSnackbar();
   const [categories, setCategories] = useState([]);
+  const [coleciones, setcoleciones] = useState([]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -125,7 +120,16 @@ export default function Layout({ title, description, children }) {
       }
     };
     fetchCategories();
-  }, [enqueueSnackbar, setCategories]);
+    const fetchColeciones = async () => {
+      try {
+        const { data } = await axios.get(`/api/products/coleciones`);
+        setcoleciones(data);
+      } catch (err) {
+        enqueueSnackbar(getError(err), { variant: "error" });
+      }
+    };
+    fetchColeciones();
+  }, [enqueueSnackbar]);
 
   const isDesktop = useMediaQuery("(min-width:600px)");
 
@@ -146,283 +150,394 @@ export default function Layout({ title, description, children }) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AppBar position="static" sx={classes.appbar}>
-          <Toolbar sx={classes.toolbar}>
-            <Box display="flex" alignItems="center">
-              <IconButton
-                edge="start"
-                aria-label="open drawer"
-                onClick={sidebarOpenHandler}
-                sx={classes.menuButton}
-              >
-                <MenuIcon sx={classes.navbarButton} />
-              </IconButton>
-              <Box sx={isDesktop ? classes.visible : classes.hidden}>
-                <form onSubmit={submitHandler}>
-                  <Box sx={classes.searchForm}>
-                    {" "}
-                    <IconButton
-                      type="submit"
-                      sx={classes.searchButton}
-                      aria-label="search"
-                    >
-                      <SearchIcon sx={classes.navbarButton} />
-                    </IconButton>
-                    <InputBase
-                      name="query"
-                      sx={classes.searchInput}
-                      placeholder="Busca Productos"
-                      onChange={queryChangeHandler}
-                    />
-                  </Box>
-                </form>
-              </Box>
-            </Box>
-            <Drawer
-              sx={{ width: "250px" }}
-              anchor="left"
-              open={sidbarVisible}
-              onClose={sidebarCloseHandler}
-            >
-              <List>
-                <ListItem sx={{ paddingTop: "0" }}>
-                  <Box
-                    sx={{ width: "220px" }}
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="end"
-                  >
-                    <Box display="flex">
+        <Box>
+          <AppBar position="static" sx={classes.appbar}>
+            <Toolbar sx={classes.toolbar}>
+              <Box display="flex" alignItems="center">
+                <IconButton
+                  edge="start"
+                  aria-label="open drawer"
+                  onClick={sidebarOpenHandler}
+                  sx={classes.menuButton}
+                >
+                  <MenuIcon sx={classes.navbarButton} />
+                </IconButton>
+                <Box sx={isDesktop ? classes.visible : classes.hidden}>
+                  <form onSubmit={submitHandler}>
+                    <Box sx={classes.searchForm}>
+                      {" "}
                       <IconButton
-                        aria-label="close"
-                        onClick={sidebarCloseHandler}
+                        type="submit"
+                        sx={classes.searchButton}
+                        aria-label="search"
                       >
-                        <CloseIcon sx={{ color: "black" }} />
+                        <SearchIcon sx={classes.navbarButton} />
                       </IconButton>
+                      <InputBase
+                        name="query"
+                        sx={classes.searchInput}
+                        placeholder="Busca Productos"
+                        onChange={queryChangeHandler}
+                      />
                     </Box>
-                  </Box>
-                </ListItem>
-                <Divider light />
-                <Dropdown style={{ zIndex: "100%" }}>
-                  <Dropdown.Toggle variant="" id="dropdown-basic">
-                    Shop
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu
-                    style={{ backgroundColor: "white", border: "none" }}
-                  >
-                    {categories.map((category) => (
-                      <NextLink
-                        key={category}
-                        href={`/search?category=${category}`}
-                        passHref
-                      >
-                        <ListItem
-                          button
-                          component="a"
-                          onClick={sidebarCloseHandler}
+                  </form>
+                </Box>
+              </Box>
+              <Drawer
+                sx={{ maxWidth: "250px" }}
+                anchor="left"
+                open={sidbarVisible}
+                onClose={sidebarCloseHandler}
+              >
+                <Box
+                  display="flex"
+                  sx={{ maxWidth: "250px", flexWrap: "wrap", height: "100%" }}
+                >
+                  <Box>
+                    <List>
+                      <ListItem>
+                        <Box
+                          sx={{ width: "220px" }}
+                          display="flex"
+                          alignItems="center"
+                          justifyContent="space-between"
                         >
-                          <ListItemText primary={category}></ListItemText>
-                        </ListItem>
-                      </NextLink>
-                    ))}
-                    <Dropdown
-                      className="coleciones1"
-                      style={{
-                        border: "none",
-                        backgroundColor: "white",
-                        zIndex: "100%",
-                      }}
-                    >
-                      <Dropdown.Toggle variant="" id="dropdown-basic">
-                        Coleciones
-                      </Dropdown.Toggle>
+                          <Box display="flex">
+                            {isDesktop ? null : userInfo ? (
+                              <>
+                                <Button
+                                  aria-controls="simple-menu"
+                                  aria-haspopup="true"
+                                  sx={classes.navbarButton}
+                                  onClick={(e) => loginClickHandler(e)}
+                                >
+                                  {userInfo.name}
+                                </Button>
+                                <Menu
+                                  id="simple-menu"
+                                  anchorEl={anchorEl}
+                                  keepMounted
+                                  open={Boolean(anchorEl)}
+                                  onClose={loginMenuCloseHandler}
+                                >
+                                  <MenuItem
+                                    onClick={(e) =>
+                                      loginMenuCloseHandler(e, "/profile")
+                                    }
+                                  >
+                                    Perfil
+                                  </MenuItem>
 
-                      <Dropdown.Menu
+                                  <MenuItem onClick={logoutClickHandler}>
+                                    Cerrar sesion
+                                  </MenuItem>
+                                </Menu>
+                              </>
+                            ) : (
+                              <NextLink href="/login" passHref>
+                                <Link>
+                                  <PersonIcon />
+                                </Link>
+                              </NextLink>
+                            )}
+                          </Box>
+                          <Box>
+                            <IconButton
+                              aria-label="close"
+                              onClick={sidebarCloseHandler}
+                            >
+                              <CloseIcon sx={{ color: "black" }} />
+                            </IconButton>
+                          </Box>
+                        </Box>
+                      </ListItem>
+
+                      <Divider light />
+                      <Dropdown
                         style={{
-                          backgroundColor: "white",
-                          border: "none",
+                          zIndex: "100%",
+                          "&:hover": { border: "none" },
                         }}
                       >
-                        {categories.map((category) => (
-                          <NextLink
-                            key={category}
-                            href={`/search?category=${category}`}
-                            passHref
+                        <Dropdown.Toggle
+                          sx={{ fontWeight: "bold" }}
+                          variant=""
+                          id="dropdown-basic"
+                        >
+                          Shop
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu
+                          style={{ backgroundColor: "white", border: "none" }}
+                        >
+                          {categories.map((category) => (
+                            <NextLink
+                              key={category}
+                              href={`/search?category=${category}`}
+                              passHref
+                              sx={{}}
+                            >
+                              <ListItem
+                                button
+                                component="a"
+                                onClick={sidebarCloseHandler}
+                                sx={{
+                                  fontWeight: "normal",
+                                  "&:hover": { color: "black" },
+                                }}
+                              >
+                                <ListItemText primary={category}></ListItemText>
+                              </ListItem>
+                            </NextLink>
+                          ))}
+                          <Dropdown
+                            className="coleciones1"
+                            style={{
+                              border: "none",
+                              backgroundColor: "white",
+                              zIndex: "100%",
+                            }}
                           >
+                            <Dropdown.Toggle variant="" id="dropdown-basic">
+                              Coleciones
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu
+                              style={{
+                                backgroundColor: "white",
+                                border: "none",
+                              }}
+                            >
+                              {coleciones.map((colecion) => (
+                                <NextLink
+                                  sx={{ "&:hover": { color: "black" } }}
+                                  key={colecion}
+                                  href={`/search?colecion=${colecion}&category=Shop+All`}
+                                  passHref
+                                >
+                                  <ListItem
+                                    sx={{
+                                      fontWeight: "normal",
+                                      "&:hover": { color: "black" },
+                                    }}
+                                    button
+                                    component="a"
+                                    onClick={sidebarCloseHandler}
+                                  >
+                                    <ListItemText
+                                      primary={colecion}
+                                    ></ListItemText>
+                                  </ListItem>
+                                </NextLink>
+                              ))}
+                              <NextLink href={`/nosotros}`} passHref>
+                                <ListItem
+                                  sx={{
+                                    fontWeight: "normal",
+                                    "&:hover": { color: "black" },
+                                  }}
+                                  button
+                                  component="a"
+                                  onClick={sidebarCloseHandler}
+                                >
+                                  <ListItemText>Nosotros</ListItemText>
+                                </ListItem>
+                              </NextLink>
+                            </Dropdown.Menu>
+                          </Dropdown>
+                          <NextLink href={`/nosotros}`} passHref>
                             <ListItem
+                              sx={{
+                                fontWeight: "normal",
+                                "&:hover": { color: "black" },
+                              }}
                               button
                               component="a"
                               onClick={sidebarCloseHandler}
                             >
-                              <ListItemText primary={category}></ListItemText>
+                              <ListItemText>Nosotros</ListItemText>
                             </ListItem>
                           </NextLink>
-                        ))}
-                        <NextLink href={`/nosotros}`} passHref>
-                          <ListItem
-                            button
-                            component="a"
-                            onClick={sidebarCloseHandler}
-                          >
-                            <ListItemText>Nosotros</ListItemText>
-                          </ListItem>
-                        </NextLink>
-                      </Dropdown.Menu>
-                    </Dropdown>
-                    <NextLink href={`/nosotros}`} passHref>
-                      <ListItem
-                        button
-                        component="a"
-                        onClick={sidebarCloseHandler}
-                      >
-                        <ListItemText>Nosotros</ListItemText>
-                      </ListItem>
-                    </NextLink>
-                  </Dropdown.Menu>
-                </Dropdown>
-                <Dropdown className="coleciones2">
-                  <Dropdown.Toggle variant="" id="dropdown-basic">
-                    Coleciones
-                  </Dropdown.Toggle>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                      <Dropdown className="coleciones2">
+                        <Dropdown.Toggle variant="" id="dropdown-basic">
+                          Coleciones
+                        </Dropdown.Toggle>
 
-                  <Dropdown.Menu
-                    style={{ backgroundColor: "white", border: "none" }}
-                  >
-                    {categories.map((category) => (
-                      <NextLink
-                        key={category}
-                        href={`/search?category=${category}`}
-                        passHref
-                      >
+                        <Dropdown.Menu
+                          style={{ backgroundColor: "white", border: "none" }}
+                        >
+                          {coleciones.map((colecion) => (
+                            <NextLink
+                              key={colecion}
+                              href={`/search?colecion=${colecion}&category=Shop+All`}
+                              passHref
+                            >
+                              <ListItem
+                                sx={{
+                                  fontWeight: "normal",
+                                  "&:hover": { color: "black" },
+                                }}
+                                button
+                                component="a"
+                                onClick={sidebarCloseHandler}
+                              >
+                                <ListItemText primary={colecion}></ListItemText>
+                              </ListItem>
+                            </NextLink>
+                          ))}
+                          <NextLink href={`/nosotros}`} passHref>
+                            <ListItem
+                              sx={{
+                                fontWeight: "normal",
+                                "&:hover": { color: "black" },
+                              }}
+                              button
+                              component="a"
+                              onClick={sidebarCloseHandler}
+                            >
+                              <ListItemText>Nosotros</ListItemText>
+                            </ListItem>
+                          </NextLink>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                      <NextLink href={`/nosotros}`} passHref>
                         <ListItem
                           button
                           component="a"
                           onClick={sidebarCloseHandler}
                         >
-                          <ListItemText primary={category}></ListItemText>
+                          <ListItemText>Nosotros</ListItemText>
                         </ListItem>
                       </NextLink>
-                    ))}
-                    <NextLink href={`/nosotros}`} passHref>
-                      <ListItem
-                        button
-                        component="a"
-                        onClick={sidebarCloseHandler}
-                      >
-                        <ListItemText>Nosotros</ListItemText>
-                      </ListItem>
-                    </NextLink>
-                  </Dropdown.Menu>
-                </Dropdown>
-                <NextLink href={`/nosotros}`} passHref>
-                  <ListItem button component="a" onClick={sidebarCloseHandler}>
-                    <ListItemText>Nosotros</ListItemText>
-                  </ListItem>
-                </NextLink>
-              </List>
-            </Drawer>
-
-            <Box display="flex" sx={{ paddingRight: isDesktop?"200px":"0" }}>
-              <NextLink href="/" passHref>
-                <Link>
-                  <Typography sx={classes.brand}>Nuddy Minds </Typography>
-                </Link>
-              </NextLink>
-            </Box>
-
-            <Box display="flex">
-              <NextLink href="/cart" passHref>
-                <Link>
-                  <Typography component="span">
-                    {cart.cartItems.length > 0 ? (
-                      <Badge
-                        color="secondary"
-                        badgeContent={cart.cartItems.length}
-                      >
-                        <ShoppingCartIcon fontSize="small" />
-                      </Badge>
-                    ) : (
-                      <ShoppingCartIcon />
-                    )}
-                  </Typography>
-                </Link>
-              </NextLink>
-
-              {userInfo ? (
-                <>
-                {(isDesktop)?<>
-                  <Button
-                    aria-controls="simple-menu"
-                    aria-haspopup="true"
-                    sx={classes.navbarButton}
-                    onClick={loginClickHandler}
+                    </List>
+                  </Box>
+                  <Box
+                    display="flex"
+                    alignItems={"end"}
+                    sx={{
+                      justifyContent: "space-around",
+                      width: "100%",
+                      paddingBottom: "10px",
+                    }}
                   >
-                    {userInfo.name}
-                  </Button>
-                  <Menu
-                    id="simple-menu"
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={loginMenuCloseHandler}
-                  >
-                    <MenuItem
-                      onClick={(e) => loginMenuCloseHandler(e, "/profile")}
-                    >
-                      Profile
-                    </MenuItem>
-                    <MenuItem
-                      onClick={(e) =>
-                        loginMenuCloseHandler(e, "/order-history")
-                      }
-                    >
-                      Order History
-                    </MenuItem>
-                    <MenuItem onClick={logoutClickHandler}>Logout</MenuItem>
-                  </Menu></>:null}
-                </>
-              ) : (
-                <NextLink href="/login" passHref>
+                    <WhatsAppIcon fontSize="large" />
+                    <InstagramIcon fontSize="large" />
+                    <EmailIcon fontSize="large" />
+                  </Box>
+                </Box>
+              </Drawer>
+
+              <Box
+                display="flex"
+                sx={{ paddingRight: isDesktop ? "200px" : "0px" }}
+              >
+                <NextLink href="/" passHref>
                   <Link>
-                    <PersonIcon />
+                    <Typography variant="h1" component="h1" sx={classes.brand}>
+                      Nuddy Minds{" "}
+                    </Typography>
                   </Link>
                 </NextLink>
-              )}
+              </Box>
+
+              <Box display="flex">
+                <NextLink href="/cart" passHref>
+                  <Link>
+                    <Typography component="span">
+                      {cart.cartItems.length > 0 ? (
+                        <Badge
+                          color="primary"
+                          badgeContent={cart.cartItems.length}
+                        >
+                          <ShoppingCartIcon fontSize="small" />
+                        </Badge>
+                      ) : (
+                        <ShoppingCartIcon />
+                      )}
+                    </Typography>
+                  </Link>
+                </NextLink>
+                {isDesktop ? (
+                  userInfo ? (
+                    <>
+                      <Button
+                        aria-controls="simple-menu"
+                        aria-haspopup="true"
+                        sx={classes.navbarButton}
+                        onClick={(e) => loginClickHandler(e)}
+                      >
+                        {userInfo.name}
+                      </Button>
+                      <Menu
+                        id="simple-menu"
+                        anchorEl={anchorEl}
+                        keepMounted
+                        open={Boolean(anchorEl)}
+                        onClose={loginMenuCloseHandler}
+                      >
+                        <MenuItem
+                          onClick={(e) => loginMenuCloseHandler(e, "/profile")}
+                        >
+                          Perfil
+                        </MenuItem>
+
+                        <MenuItem onClick={logoutClickHandler}>
+                          Cerrar sesion
+                        </MenuItem>
+                      </Menu>
+                    </>
+                  ) : (
+                    <NextLink href="/login" passHref>
+                      <Link>
+                        <PersonIcon />
+                      </Link>
+                    </NextLink>
+                  )
+                ) : null}
+              </Box>
+            </Toolbar>
+          </AppBar>
+          <Divider />
+          <Container
+            disableGutters={true}
+            component="main"
+            maxWidth="false"
+            sx={classes.main}
+          >
+            {children}
+          </Container>
+          <Divider sx={{ color: "black", opacity: "1" }} />
+          <Box
+            display="flex"
+            justifyContent={"space-between"}
+            component="footer"
+            sx={{
+              paddingRight: isDesktop ? "50px" : "30px",
+              marginLeft: isDesktop ? "50px" : "30px",
+
+              marginTop: 5,
+              marginBottom: 5,
+              textAlign: "center",
+            }}
+          >
+            <Box>
+              <Box>
+                <Typography align="justify">All rights reserved. </Typography>
+              </Box>
+              <Box>
+                <Typography align="justify"> Nuddy minds.</Typography>
+              </Box>
             </Box>
-          </Toolbar>
-        </AppBar>
-        <Container
-          component="main"
-          disableGutters="true"
-          maxWidth="false"
-          sx={classes.main}
-        >
-          {children}
-        </Container>
-        <Divider sx={{ color: "black" }} />
-        <Box display="flex" component="footer" sx={classes.footer}>
-          <Grid container spacing={130}>
-            <Grid item sx={{ marginLeft: "40px" }}>
-              <Box>
-                <Box>
-                  <Typography align="justify">All rights reserved. </Typography>
-                </Box>
-                <Box>
-                  <Typography align="justify"> Nuddy minds.</Typography>
-                </Box>
+            <Box>
+              <Box display="flex" sx={{ justifyContent: "space-around" }}>
+                <WhatsAppIcon fontSize="large" sx={{ marginLeft: "20px" }} />
+                <InstagramIcon fontSize="large" sx={{ marginLeft: "20px" }} />
+                <EmailIcon fontSize="large" sx={{ marginLeft: "20px" }} />
               </Box>
-            </Grid>
-            <Grid item>
-              <Box>
-                <Box display="flex" sx={{ justifyContent: "space-around" }}>
-                  <WhatsAppIcon fontSize="large" sx={{ marginLeft: "20px" }} />
-                  <InstagramIcon fontSize="large" sx={{ marginLeft: "20px" }} />
-                  <EmailIcon fontSize="large" sx={{ marginLeft: "20px" }} />
-                </Box>
-              </Box>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </Box>
       </ThemeProvider>
     </>

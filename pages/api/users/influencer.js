@@ -1,5 +1,5 @@
 import nc from "next-connect";
-import bcrypt from "bcryptjs";
+
 import axios from "axios";
 import config from "../../../utils/config";
 import { signToken } from "../../../utils/auth";
@@ -14,21 +14,21 @@ handler.post(async (req, res) => {
   const createMutations = [
     {
       create: {
-        _type: "user",
-        name: req.body.name,
+        _type: "influencer",
+        name: req.body.username,
         email: req.body.email,
-        password: bcrypt.hashSync(req.body.password),
-        isAdmin: false,
+        instagram: req.body.instagram,
+        checked: false,
       },
     },
   ];
-  const existUser = await client.fetch(
-    `*[_type == "user" && email == $email][0]`,
+  const existInfluencer = await client.fetch(
+    `*[_type == "influencer" && email == $email][0]`,
     {
       email: req.body.email,
     }
   );
-  if (existUser) {
+  if (existInfluencer) {
     return res.status(401).send({ message: "Este email ya esta registrado" });
   }
   const { data } = await axios.post(
@@ -41,15 +41,16 @@ handler.post(async (req, res) => {
       },
     }
   );
-  const userId = data.results[0].id;
-  const user = {
-    _id: userId,
-    name: req.body.name,
+  const innfluencerId = data.results[0].id;
+  const influencer = {
+    _id: innfluencerId,
+    name: req.body.username,
     email: req.body.email,
-    isAdmin: false,
+    instagram: req.body.instagram,
+    checked: false,
   };
-  const token = signToken(user);
-  res.send({ ...user, token });
+  const token = signToken(influencer);
+  res.send({ ...influencer, token });
 });
 
 export default handler;

@@ -1,5 +1,3 @@
-
-
 const classes = {
   section: {
     marginTop: 1,
@@ -11,9 +9,10 @@ const classes = {
   },
   main: {
     marginTop: 0,
-    minHeight: "100vh",
   },
   footer: {
+    paddingRight: "50px",
+    marginLeft: "50px",
     marginTop: 5,
     marginBottom: 5,
     textAlign: "center",
@@ -33,7 +32,9 @@ const classes = {
     fontSize: "1.5rem",
   },
   navbarButton: {
+    fontFamily: "helvetica",
     color: "#000000",
+    fontWeight: "bold",
   },
   fullWidth: {
     width: "100%",
@@ -54,6 +55,10 @@ const classes = {
     backgroundColor: "#ffffff",
     borderRadius: 1,
   },
+  imagec: {
+    minWidth: "670px",
+    height: "670px",
+  },
   searchInput: {
     paddingLeft: 1,
     color: "#000000",
@@ -61,6 +66,7 @@ const classes = {
       color: "#606060",
     },
   },
+  n: {},
   searchButton: {
     padding: 1,
     borderRadius: "0 0px 0px 0",
@@ -68,32 +74,80 @@ const classes = {
       color: "black",
     },
   },
-  title: { fontWeight: "bold", fontSize: "3rem" },
-  bold: { fontWeight: "bold", fontSize: "2.2rem" },
-  line: { background: "black", height: "2px" },
-  but: { fontSize: "12px", border: "1px solid black ", borderWidth: ".1" },
+  title: {
+    fontWeight: "bold",
+    fontSize: "2.5rem",
+    paddingBottom: "0",
+  },
+  titleMobile: {
+    fontWeight: "bold",
+    fontSize: "3rem",
+    fontFamily: " coolvetica, sans-serif",
+    textAlign: "center",
+  },
+  bold: {
+    fontWeight: "bold",
+    fontSize: "2.2rem",
+    fontFamily: " Helvetica, ",
+    fontWeight: "700",
+  },
+  line: {
+    border: "1px solid white",
+    borderTop: "1px solid black",
+    height: "2px",
+    opacity: "1",
+  },
+  but: {
+    fontWeight: "bold",
+    fontFamily: " coolvetica, sans-serif",
+    transform: "scale(1.1, 1.1)",
+    fontSize: "12px",
+    border: "1.5px solid black ",
+    borderWidth: ".1",
+    borderRadius: "0",
+
+    "&:hover": {
+      transform: "scale(1.1, 1.1)",
+    },
+  },
   blackline: {
     borderBottomStyle: "solid",
     fontWeight: "bold",
     textDecoration: "underline ",
     borderWidth: "1",
     textDecorationThickness: "1.5px",
+    fontWeight: "bold",
+    fontFamily: " coolvetica, sans-serif",
+
+    "&:hover": {
+      transform: "scale(1.1, 1.1)",
+      backgroundColor: "transparent",
+      textDecoration: "underline ",
+      borderWidth: "1",
+      textDecorationThickness: "1.5px",
+    },
   },
   radius: { borderRadius: "100px" },
   buttonQ: { width: "80px", borderWidth: "1px", borderColor: "black" },
-  buttonGroup: { borderWidth: "1px", borderColor: "black" },
-  productosIndex: {
-    borderWidth: "1.5px",
-    borderStyle: "solid",
+  buttonGroup: {
+    fontWeight: "bold",
+    fontFamily: " coolvetica, sans-serif",
+    borderRadius: "0 ",
+    borderWidth: "1px",
     borderColor: "black",
+  },
+  productosIndex: {
+    height: "30px",
     width: "100%vw",
-    background: "#A7D1E7",
+    background: "#f1f1f1",
     textAlign: "center",
     alignItems: "center",
     justifyContent: "center",
+    marginBottom: "20px",
   },
   imageP: {
     filter: " drop-shadow(-2px 26px 18px rgba(0, 0, 0, 0.6));",
+    zIndex: "0",
   },
   card: {
     cursor: "pointer",
@@ -103,6 +157,66 @@ const classes = {
     "&:hover": {
       transform: "scale(1.1, 1.1)",
     },
+  },
+  catBut: {
+    "&:hover": {
+      transform: "scale(1.1, 1.1)",
+      backgroundColor: "transparent",
+      textDecoration: "underline ",
+      borderWidth: "2",
+      textDecorationThickness: "1.5px",
+    },
+  },
+  visibleI: {
+    display: "initial",
+    filter: " drop-shadow(-2px 26px 18px rgba(0, 0, 0, 0.6));",
+  },
+  buyNow: {
+    backgroundColor: "black",
+    color: "white",
+    border: "1.5px solid black",
+    borderRadius: "0",
+    fontWeight: "bold",
+    fontFamily: " helvetica, sans-serif",
+
+    "&:hover": {
+      transform: "scale(1.1, 1.1)",
+    },
+  },
+  selected: {
+    border: "1.5px solid #CFCFCF",
+    fontWeight: "bold",
+    fontFamily: " helvetica, sans-serif",
+    fontSize: "12px",
+    borderRadius: "0 ",
+    borderWidth: ".1",
+
+    "&:hover": {
+      transform: "scale(1.1, 1.1)",
+    },
+  },
+  productsIndexBox: {
+    justifyContent: "center",
+    paddingTop: "0px",
+    alignItems: "center",
+    paddingBottom: "50px",
+  },
+  typo: {
+    fontWeight: "500",
+    fontFamily: " coolvetica, sans-serif",
+    color: "white",
+  },
+  productIndex: {
+    fontWeight: "700",
+    fontFamily: " helvetica, sans-serif",
+    textTransform: "none",
+    fontSize: "1.3rem",
+  },
+  productIndexTitle: {
+    fontWeight: "700",
+    fontFamily: " helvetica, sans-serif",
+    textTransform: "none",
+    fontSize: "2rem",
   },
 };
 

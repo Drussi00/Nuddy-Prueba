@@ -4,6 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import NextLink from "next/link";
 import Form from "../components/Form";
 import {
+  Box,
   Button,
   Container,
   Link,
@@ -11,6 +12,7 @@ import {
   ListItem,
   TextField,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 import axios from "axios";
@@ -58,149 +60,176 @@ export default function RegisterScreen() {
       enqueueSnackbar(getError(err), { variant: "error" });
     }
   };
+  const isDesktop = useMediaQuery("(min-width:600px)");
   return (
     <Layout title="Register">
       <Container>
-        <Form onSubmit={handleSubmit(submitHandler)}>
-          <Typography component="h1" variant="h1">
-            Register
-          </Typography>
-          <List>
-            <ListItem>
-              <Controller
-                name="name"
-                control={control}
-                defaultValue=""
-                rules={{
-                  required: true,
-                  minLength: 2,
-                }}
-                render={({ field }) => (
-                  <TextField
-                    variant="outlined"
-                    fullWidth
-                    id="name"
-                    label="Name"
-                    inputProps={{ type: "name" }}
-                    error={Boolean(errors.name)}
-                    helperText={
-                      errors.name
-                        ? errors.name.type === "minLength"
-                          ? "Name length is more than 1"
-                          : "Name is required"
-                        : ""
-                    }
-                    {...field}
-                  ></TextField>
-                )}
-              ></Controller>
-            </ListItem>
+        <Box sx={{ paddingBottom: isDesktop ? "90px" : "50px" }}>
+          <Form onSubmit={handleSubmit(submitHandler)}>
+            <Typography
+              sx={{
+                fontWeight: "bold",
+                fontFamily: " coolvetica, sans-serif",
+                fontSize: "2rem",
+              }}
+              component="h1"
+              variant="h1"
+            >
+              Registrate
+            </Typography>
+            <List>
+              <ListItem>
+                <Controller
+                  name="name"
+                  control={control}
+                  defaultValue=""
+                  rules={{
+                    required: true,
+                    minLength: 2,
+                  }}
+                  render={({ field }) => (
+                    <TextField
+                      variant="outlined"
+                      fullWidth
+                      id="name"
+                      label="Nombre"
+                      inputProps={{ type: "name" }}
+                      error={Boolean(errors.name)}
+                      helperText={
+                        errors.name
+                          ? errors.name.type === "minLength"
+                            ? "Name length is more than 1"
+                            : "Name is required"
+                          : ""
+                      }
+                      {...field}
+                    ></TextField>
+                  )}
+                ></Controller>
+              </ListItem>
 
-            <ListItem>
-              <Controller
-                name="email"
-                control={control}
-                defaultValue=""
-                rules={{
-                  required: true,
-                  pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
-                }}
-                render={({ field }) => (
-                  <TextField
-                    variant="outlined"
-                    fullWidth
-                    id="email"
-                    label="Email"
-                    inputProps={{ type: "email" }}
-                    error={Boolean(errors.email)}
-                    helperText={
-                      errors.email
-                        ? errors.email.type === "pattern"
-                          ? "Email is not valid"
-                          : "Email is required"
-                        : ""
-                    }
-                    {...field}
-                  ></TextField>
-                )}
-              ></Controller>
-            </ListItem>
-            <ListItem>
-              <Controller
-                name="password"
-                control={control}
-                defaultValue=""
-                rules={{
-                  required: true,
-                  minLength: 6,
-                }}
-                render={({ field }) => (
-                  <TextField
-                    variant="outlined"
-                    fullWidth
-                    id="password"
-                    label="Password"
-                    inputProps={{ type: "password" }}
-                    error={Boolean(errors.password)}
-                    helperText={
-                      errors.password
-                        ? errors.password.type === "minLength"
-                          ? "Password length is more than 5"
-                          : "Password is required"
-                        : ""
-                    }
-                    {...field}
-                  ></TextField>
-                )}
-              ></Controller>
-            </ListItem>
-            <ListItem>
-              <Controller
-                name="confirmPassword"
-                control={control}
-                defaultValue=""
-                rules={{
-                  required: true,
-                  minLength: 6,
-                }}
-                render={({ field }) => (
-                  <TextField
-                    variant="outlined"
-                    fullWidth
-                    id="confirmPassword"
-                    label="Confirm Password"
-                    inputProps={{ type: "password" }}
-                    error={Boolean(errors.confirmPassword)}
-                    helperText={
-                      errors.confirmPassword
-                        ? errors.confirmPassword.type === "minLength"
-                          ? "Confirm Password length is more than 5"
-                          : "Confirm Password is required"
-                        : ""
-                    }
-                    {...field}
-                  ></TextField>
-                )}
-              ></Controller>
-            </ListItem>
-            <ListItem>
-              <Button
-                variant="contained"
-                type="submit"
-                fullWidth
-                color="primary"
-              >
-                Register
-              </Button>
-            </ListItem>
-            <ListItem>
-              Already have an account?{" "}
-              <NextLink href={`/login?redirect=${redirect || "/"}`} passHref>
-                <Link>Login</Link>
-              </NextLink>
-            </ListItem>
-          </List>
-        </Form>
+              <ListItem>
+                <Controller
+                  name="email"
+                  control={control}
+                  defaultValue=""
+                  rules={{
+                    required: true,
+                    pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                  }}
+                  render={({ field }) => (
+                    <TextField
+                      variant="outlined"
+                      fullWidth
+                      id="email"
+                      label="Email"
+                      inputProps={{ type: "email" }}
+                      error={Boolean(errors.email)}
+                      helperText={
+                        errors.email
+                          ? errors.email.type === "pattern"
+                            ? "Email is not valid"
+                            : "Email is required"
+                          : ""
+                      }
+                      {...field}
+                    ></TextField>
+                  )}
+                ></Controller>
+              </ListItem>
+              <ListItem>
+                <Controller
+                  name="password"
+                  control={control}
+                  defaultValue=""
+                  rules={{
+                    required: true,
+                    minLength: 6,
+                  }}
+                  render={({ field }) => (
+                    <TextField
+                      variant="outlined"
+                      fullWidth
+                      id="password"
+                      label="Contraseña"
+                      inputProps={{ type: "password" }}
+                      error={Boolean(errors.password)}
+                      helperText={
+                        errors.password
+                          ? errors.password.type === "minLength"
+                            ? "Password length is more than 5"
+                            : "Password is required"
+                          : ""
+                      }
+                      {...field}
+                    ></TextField>
+                  )}
+                ></Controller>
+              </ListItem>
+              <ListItem>
+                <Controller
+                  name="confirmPassword"
+                  control={control}
+                  defaultValue=""
+                  rules={{
+                    required: true,
+                    minLength: 6,
+                  }}
+                  render={({ field }) => (
+                    <TextField
+                      variant="outlined"
+                      fullWidth
+                      id="confirmPassword"
+                      label="Confirma Contraseña"
+                      inputProps={{ type: "password" }}
+                      error={Boolean(errors.confirmPassword)}
+                      helperText={
+                        errors.confirmPassword
+                          ? errors.confirmPassword.type === "minLength"
+                            ? "Confirm Password length is more than 5"
+                            : "Confirm Password is required"
+                          : ""
+                      }
+                      {...field}
+                    ></TextField>
+                  )}
+                ></Controller>
+              </ListItem>
+              <ListItem>
+                <Button
+                  variant="contained"
+                  type="submit"
+                  fullWidth
+                  sx={{
+                    paddingLeft: "10px",
+                    backgroundColor: "black",
+                    borderRadius: "0 ",
+                    "&:hover": {
+                      backgroundColor: "black",
+                      transform: "scale(1, 1.1)",
+                    },
+                  }}
+                >
+                  Registrate
+                </Button>
+              </ListItem>
+              <ListItem>
+                Ya tienes una cuenta?
+                <NextLink href={`/login?redirect=${redirect || "/"}`} passHref>
+                  <Link
+                    sx={{
+                      paddingLeft: "10px",
+                      color: "black",
+                      "&:hover": { color: "black" },
+                    }}
+                  >
+                    Inicia sesion
+                  </Link>
+                </NextLink>
+              </ListItem>
+            </List>
+          </Form>
+        </Box>
       </Container>
     </Layout>
   );

@@ -37,8 +37,8 @@ export default {
       },
     },
     {
-      name: "brand",
-      title: "Brand",
+      name: "favorito",
+      title: "Favorito",
       type: "string",
     },
     {
@@ -46,7 +46,16 @@ export default {
       title: "Category",
       type: "string",
     },
-
+    {
+      name: "colecion",
+      title: "Colecion",
+      type: "string",
+    },
+    {
+      name: "xs",
+      title: "XS",
+      type: "number",
+    },
     {
       name: "s",
       title: "S",

@@ -4,7 +4,6 @@ import { createContext, useReducer } from "react";
 export const Store = createContext();
 
 const initialState = {
-  darkMode: Cookies.get("darkMode") === "ON" ? true : false,
   cart: {
     cartItems: Cookies.get("cartItems")
       ? JSON.parse(Cookies.get("cartItems"))
@@ -23,18 +22,16 @@ const initialState = {
 
 function reducer(state, action) {
   switch (action.type) {
-    case "DARK_MODE_ON":
-      return { ...state, darkMode: true };
-    case "DARK_MODE_OFF":
-      return { ...state, darkMode: false };
     case "CART_ADD_ITEM": {
       const newItem = action.payload;
       const existItem = state.cart.cartItems.find(
-        (item) => item._key === newItem._key
+        (item) => item._key === newItem._key && item.size === newItem.size
       );
       const cartItems = existItem
         ? state.cart.cartItems.map((item) =>
-            item._key === existItem._key ? newItem : item
+            item._key === existItem._key && item.size === newItem.size
+              ? newItem
+              : item
           )
         : [...state.cart.cartItems, newItem];
       Cookies.set("cartItems", JSON.stringify(cartItems));
