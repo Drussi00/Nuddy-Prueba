@@ -127,7 +127,6 @@ function PlaceOrderScreen() {
         dispatch({ type: "CART_CLEAR" });
         jsCookie.remove("cartItems");
         setLoading(false);
-        console.log(data);
         router.push(`/order/PayPal/${data}`);
       } else {
         const { data } = await axios.post(
@@ -151,36 +150,12 @@ function PlaceOrderScreen() {
             },
           }
         );
-        console.log(shippingAddress);
-        const orderM = await axios.post(
-          "/api/orders/PayPal",
-          {
-            orderItems: cartItems.map((x) => ({
-              ...x,
-              countInStock: undefined,
-              slug: undefined,
-            })),
-            shippingAddress,
-            paymentMethod,
-            itemsPrice,
-            shippingPrice,
-            taxPrice,
-            totalPrice,
-            data,
-          },
-          {
-            headers: {
-              authorization: `Bearer ${userInfo.token}`,
-            },
-          }
-        );
-
         dispatch({ type: "CART_CLEAR" });
         jsCookie.remove("cartItems");
         jsCookie.remove("paymentMethod");
         setLoading(false);
 
-        router.push(`/order/MercadoPago/${orderM.data}`);
+        router.push(`/order/MercadoPago/${data}`);
       }
     } catch (err) {
       setLoading(false);
