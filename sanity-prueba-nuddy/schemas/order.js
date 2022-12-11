@@ -90,4 +90,7 @@ export default {
       type: "datetime",
     },
   ],
+  initialValue: {
+    isPaid: false
+  }
 };
