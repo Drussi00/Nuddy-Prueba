@@ -19,20 +19,6 @@ handler.post(async (req, res) => {
 })
 
 try {
-  console.log( {
-    create: {
-      _type: "order",
-      createdAt: new Date().toISOString(),
-      ...req.body,
-      orderItems,
-      userName: req.user.name,
-      user: {
-        _type: "reference",
-        _ref: req.user._id,
-      },
-      
-    },
-  })
     const { data } = await axios.post(
       `https://${projectId}.api.sanity.io/v1/data/mutate/${dataset}?returnIds=true`,
       {
@@ -76,10 +62,33 @@ try {
 
     const response = await mercadopago.preferences.create(preference);
     console.log(response);
-
-    res.status(201).json({
-      global: response.body.id,
-    });
+    // {
+    //   global: response.body.id,
+    // }
+    await axios.post(
+      `https://${config.projectId}.api.sanity.io/v1/data/mutate/${config.dataset}`,
+      {
+        mutations: [
+          {
+            patch: {
+              id: data.results[0].id,
+              set: {
+                data: {
+                  global: response.body.id
+                },
+              },
+            },
+          },
+        ],
+      },
+      {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${tokenWithWriteAccess}`,
+        },
+      }
+    );
+    res.status(201).send(data.results[0].id);
   } catch (error) {
     console.log(error);
     res.status(400).json({ error: "error en la peticion" });

@@ -127,7 +127,6 @@ function PlaceOrderScreen() {
         dispatch({ type: "CART_CLEAR" });
         jsCookie.remove("cartItems");
         setLoading(false);
-        console.log(data);
         router.push(`/order/PayPal/${data}`);
       } else {
         const { data } = await axios.post(
@@ -156,7 +155,7 @@ function PlaceOrderScreen() {
         jsCookie.remove("paymentMethod");
         setLoading(false);
 
-        router.push(`/order/MercadoPago/${orderM.data}`);
+        router.push(`/order/MercadoPago/${data}`);
       }
     } catch (err) {
       setLoading(false);
