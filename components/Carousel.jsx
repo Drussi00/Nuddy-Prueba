@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Carousel from "react-bootstrap/Carousel";
+
 import { urlFor } from "../utils/image";
 
 function carousel({ images }) {
