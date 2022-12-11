@@ -4,6 +4,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
 import Dropdown from "react-bootstrap/Dropdown";
 import CloseIcon from "@mui/icons-material/Close";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import {
   AppBar,
   Badge,
@@ -21,6 +22,7 @@ import {
   ListItemText,
   Menu,
   MenuItem,
+  Select,
   ThemeProvider,
   Toolbar,
   Typography,
@@ -41,15 +43,28 @@ import { useSnackbar } from "notistack";
 import { getError } from "../utils/error";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import EmailIcon from "@mui/icons-material/Email";
 
 ////////////////////////////////////////////////////////////////
 export default function Layout({ title, description, children }) {
- 
-  
+  const [moneda, setmoneda] = useState("default");
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
-  const { cart, userInfo } = state;
+  const [location, setLocation] = useState(false);
+  const {
+    cart,
+    userInfo,
+    currency: { curre },
+  } = state;
+  useEffect(() => {
+    const metod = () => {
+      setLocation(
+        window.location.pathname.includes("/order/MercadoPago") ||
+          window.location.pathname.includes("/order/PayPal") ||
+          window.location.pathname.includes("/placeorder")
+      );
+    };
+    metod();
+  }, []);
 
   const theme = createTheme({
     components: {
@@ -82,8 +97,9 @@ export default function Layout({ title, description, children }) {
   });
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const loginMenuCloseHandler = () => {
+  const loginMenuCloseHandler = (e) => {
     setAnchorEl(null);
+    router.push(e);
   };
   const loginClickHandler = (e) => {
     setAnchorEl(e.currentTarget);
@@ -141,6 +157,14 @@ export default function Layout({ title, description, children }) {
     e.preventDefault();
     router.push(`/search?query=${query}&category=Shop%20All`);
   };
+  const sortHandler = (e) => {
+    dispatch({ type: "SAVE_CURRENCY", payload: e.target.value });
+    jsCookie.set("curre", JSON.stringify(e.target.value));
+    setmoneda(e.target.value);
+  };
+  useEffect(() => {
+    curre === "default" ? setmoneda("default") : setmoneda("Usd");
+  }, [curre]);
 
   return (
     <>
@@ -193,6 +217,7 @@ export default function Layout({ title, description, children }) {
                   display="flex"
                   sx={{ maxWidth: "250px", flexWrap: "wrap", height: "100%" }}
                 >
+                  {" "}
                   <Box>
                     <List>
                       <ListItem>
@@ -202,7 +227,7 @@ export default function Layout({ title, description, children }) {
                           alignItems="center"
                           justifyContent="space-between"
                         >
-                          <Box display="flex">
+                          <Box display="flex" alignItems="center">
                             {isDesktop ? null : userInfo ? (
                               <>
                                 <Button
@@ -221,8 +246,8 @@ export default function Layout({ title, description, children }) {
                                   onClose={loginMenuCloseHandler}
                                 >
                                   <MenuItem
-                                    onClick={(e) =>
-                                      loginMenuCloseHandler(e, "/profile")
+                                    onClick={() =>
+                                      loginMenuCloseHandler("/profile")
                                     }
                                   >
                                     Perfil
@@ -239,8 +264,26 @@ export default function Layout({ title, description, children }) {
                                   <PersonIcon />
                                 </Link>
                               </NextLink>
-                            )}
+                            )}{" "}
+                            <Box display={isDesktop ? "none" : null}>
+                              <Select
+                                value={moneda}
+                                onChange={sortHandler}
+                                sx={{
+                                  border: "none",
+                                  fontWeight: "bold",
+                                  fontFamily: " helvetica, sans-serif",
+                                  display: location ? "none" : null,
+                                }}
+                                inputProps={{ "aria-label": "Without label" }}
+                                className="borrarFieldet"
+                              >
+                                <MenuItem value="default">COP</MenuItem>
+                                <MenuItem value="Usd">USD</MenuItem>
+                              </Select>
+                            </Box>
                           </Box>
+
                           <Box>
                             <IconButton
                               aria-label="close"
@@ -263,6 +306,7 @@ export default function Layout({ title, description, children }) {
                           sx={{ fontWeight: "bold" }}
                           variant=""
                           id="dropdown-basic"
+                          className="bottomH1"
                         >
                           Shop
                         </Dropdown.Toggle>
@@ -291,15 +335,19 @@ export default function Layout({ title, description, children }) {
                             </NextLink>
                           ))}
                           <Dropdown
-                            className="coleciones1"
+                            className="coleciones1 bottomH1"
                             style={{
                               border: "none",
                               backgroundColor: "white",
                               zIndex: "100%",
                             }}
                           >
-                            <Dropdown.Toggle variant="" id="dropdown-basic">
-                              Coleciones
+                            <Dropdown.Toggle
+                              variant=""
+                              id="dropdown-basic"
+                              className=" bottomH1"
+                            >
+                              Colecciones
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu
@@ -330,39 +378,17 @@ export default function Layout({ title, description, children }) {
                                   </ListItem>
                                 </NextLink>
                               ))}
-                              <NextLink href={`/nosotros}`} passHref>
-                                <ListItem
-                                  sx={{
-                                    fontWeight: "normal",
-                                    "&:hover": { color: "black" },
-                                  }}
-                                  button
-                                  component="a"
-                                  onClick={sidebarCloseHandler}
-                                >
-                                  <ListItemText>Nosotros</ListItemText>
-                                </ListItem>
-                              </NextLink>
                             </Dropdown.Menu>
                           </Dropdown>
-                          <NextLink href={`/nosotros}`} passHref>
-                            <ListItem
-                              sx={{
-                                fontWeight: "normal",
-                                "&:hover": { color: "black" },
-                              }}
-                              button
-                              component="a"
-                              onClick={sidebarCloseHandler}
-                            >
-                              <ListItemText>Nosotros</ListItemText>
-                            </ListItem>
-                          </NextLink>
                         </Dropdown.Menu>
                       </Dropdown>
                       <Dropdown className="coleciones2">
-                        <Dropdown.Toggle variant="" id="dropdown-basic">
-                          Coleciones
+                        <Dropdown.Toggle
+                          variant=""
+                          id="dropdown-basic"
+                          className=" bottomH1"
+                        >
+                          Colecciones
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu
@@ -387,30 +413,8 @@ export default function Layout({ title, description, children }) {
                               </ListItem>
                             </NextLink>
                           ))}
-                          <NextLink href={`/nosotros}`} passHref>
-                            <ListItem
-                              sx={{
-                                fontWeight: "normal",
-                                "&:hover": { color: "black" },
-                              }}
-                              button
-                              component="a"
-                              onClick={sidebarCloseHandler}
-                            >
-                              <ListItemText>Nosotros</ListItemText>
-                            </ListItem>
-                          </NextLink>
                         </Dropdown.Menu>
                       </Dropdown>
-                      <NextLink href={`/nosotros}`} passHref>
-                        <ListItem
-                          button
-                          component="a"
-                          onClick={sidebarCloseHandler}
-                        >
-                          <ListItemText>Nosotros</ListItemText>
-                        </ListItem>
-                      </NextLink>
                     </List>
                   </Box>
                   <Box
@@ -424,14 +428,14 @@ export default function Layout({ title, description, children }) {
                   >
                     <WhatsAppIcon fontSize="large" />
                     <InstagramIcon fontSize="large" />
-                    <EmailIcon fontSize="large" />
+                    <MailOutlineIcon fontSize="large" />
                   </Box>
                 </Box>
               </Drawer>
 
               <Box
                 display="flex"
-                sx={{ paddingRight: isDesktop ? "200px" : "0px" }}
+                sx={{ paddingRight: isDesktop ? "60px" : "0px" }}
               >
                 <NextLink href="/" passHref>
                   <Link>
@@ -442,10 +446,27 @@ export default function Layout({ title, description, children }) {
                 </NextLink>
               </Box>
 
-              <Box display="flex">
+              <Box display="flex" alignItems={"center"}>
+                <Box display={isDesktop ? null : "none"}>
+                  <Select
+                    value={moneda}
+                    onChange={sortHandler}
+                    sx={{
+                      border: "none",
+                      fontWeight: "bold",
+                      fontFamily: " helvetica, sans-serif",
+                      display: location ? "none" : null,
+                    }}
+                    inputProps={{ "aria-label": "Without label" }}
+                    className="borrarFieldet"
+                  >
+                    <MenuItem value="default">COP</MenuItem>
+                    <MenuItem value="Usd">USD</MenuItem>
+                  </Select>
+                </Box>
                 <NextLink href="/cart" passHref>
                   <Link>
-                    <Typography component="span">
+                    <Typography component="span" sx={{ marginRight: "10px" }}>
                       {cart.cartItems.length > 0 ? (
                         <Badge
                           color="primary"
@@ -478,7 +499,7 @@ export default function Layout({ title, description, children }) {
                         onClose={loginMenuCloseHandler}
                       >
                         <MenuItem
-                          onClick={(e) => loginMenuCloseHandler(e, "/profile")}
+                          onClick={() => loginMenuCloseHandler("/profile")}
                         >
                           Perfil
                         </MenuItem>
@@ -534,7 +555,7 @@ export default function Layout({ title, description, children }) {
               <Box display="flex" sx={{ justifyContent: "space-around" }}>
                 <WhatsAppIcon fontSize="large" sx={{ marginLeft: "20px" }} />
                 <InstagramIcon fontSize="large" sx={{ marginLeft: "20px" }} />
-                <EmailIcon fontSize="large" sx={{ marginLeft: "20px" }} />
+                <MailOutlineIcon fontSize="large" sx={{ marginLeft: "20px" }} />
               </Box>
             </Box>
           </Box>

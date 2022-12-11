@@ -14,6 +14,11 @@ export default {
       type: "number",
     },
     {
+      name: "priceusd",
+      title: "Priceusd",
+      type: "number",
+    },
+    {
       name: "image",
       title: "Image",
       type: "array",

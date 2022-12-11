@@ -13,6 +13,7 @@ import {
   TextField,
   Typography,
   useMediaQuery,
+  MenuItem,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 import axios from "axios";
@@ -21,7 +22,7 @@ import { useRouter } from "next/router";
 import { Store } from "../utils/Store";
 import { getError } from "../utils/error";
 ///////////////////////////////////////////////////////////////////////////////////
-
+const generos = ["Masculino", "Femenino", "Indefinido"];
 export default function RegisterScreen() {
   const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
@@ -42,9 +43,19 @@ export default function RegisterScreen() {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const submitHandler = async ({ name, email, password, confirmPassword }) => {
+  const submitHandler = async ({
+    name,
+    email,
+    password,
+    confirmPassword,
+    apellido,
+    telefono,
+    cedula,
+    genero,
+    fecha,
+  }) => {
     if (password !== confirmPassword) {
-      enqueueSnackbar("Passwords don't match", { variant: "error" });
+      enqueueSnackbar("Las contraseñas no coinciden", { variant: "error" });
       return;
     }
     try {
@@ -52,6 +63,11 @@ export default function RegisterScreen() {
         name,
         email,
         password,
+        apellido,
+        telefono,
+        cedula,
+        genero,
+        fecha,
       });
       dispatch({ type: "USER_LOGIN", payload: data });
       jsCookie.set("userInfo", JSON.stringify(data));
@@ -75,7 +91,7 @@ export default function RegisterScreen() {
               component="h1"
               variant="h1"
             >
-              Registrate
+              Regístrate
             </Typography>
             <List>
               <ListItem>
@@ -98,8 +114,8 @@ export default function RegisterScreen() {
                       helperText={
                         errors.name
                           ? errors.name.type === "minLength"
-                            ? "Name length is more than 1"
-                            : "Name is required"
+                            ? "Nombre debe tener mas de un caracter"
+                            : "Nombre es obligatorio"
                           : ""
                       }
                       {...field}
@@ -107,8 +123,65 @@ export default function RegisterScreen() {
                   )}
                 ></Controller>
               </ListItem>
-
               <ListItem>
+                <Controller
+                  name="apellido"
+                  control={control}
+                  defaultValue=""
+                  rules={{
+                    required: true,
+                    minLength: 2,
+                  }}
+                  render={({ field }) => (
+                    <TextField
+                      variant="outlined"
+                      fullWidth
+                      id="apellido"
+                      label="Apellido"
+                      {...field}
+                    ></TextField>
+                  )}
+                ></Controller>
+              </ListItem>
+              <ListItem display="flex" className="space-between">
+                <Controller
+                  name="telefono"
+                  control={control}
+                  defaultValue=""
+                  rules={{
+                    required: true,
+                  }}
+                  render={({ field }) => (
+                    <TextField
+                      variant="outlined"
+                      sx={{ width: "49%" }}
+                      id="telefono"
+                      label="Telefono"
+                      inputProps={{ type: "string" }}
+                      {...field}
+                    ></TextField>
+                  )}
+                ></Controller>
+                <Controller
+                  name="cedula"
+                  control={control}
+                  defaultValue=""
+                  rules={{
+                    required: true,
+                  }}
+                  render={({ field }) => (
+                    <TextField
+                      variant="outlined"
+                      sx={{ width: "49%" }}
+                      id="cedula"
+                      label="Cedula"
+                      inputProps={{ type: "string" }}
+                      {...field}
+                    ></TextField>
+                  )}
+                ></Controller>
+              </ListItem>
+              <ListItem sx={{ paddingBottom: "0" }}>
                 <Controller
                   name="email"
                   control={control}
@@ -128,14 +201,66 @@ export default function RegisterScreen() {
                       helperText={
                         errors.email
                           ? errors.email.type === "pattern"
-                            ? "Email is not valid"
-                            : "Email is required"
+                            ? "El email no es valido"
+                            : "El email es obligatorio"
                           : ""
                       }
                       {...field}
                     ></TextField>
                   )}
                 ></Controller>
+              </ListItem>{" "}
+              <ListItem sx={{ paddingBottom: "0", paddingTop: "0" }}>
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  sx={{ width: "100%" }}
+                >
+                  <Controller
+                    name="genero"
+                    control={control}
+                    defaultValue=""
+                    rules={{
+                      required: true,
+                    }}
+                    render={({ field }) => (
+                      <TextField
+                        margin="normal"
+                        id="genero"
+                        select
+                        label="Genero"
+                        sx={{ width: "50%", backgroundColor: "white" }}
+                        {...field}
+                      >
+                        {generos.map((option) => (
+                          <MenuItem key={option} value={option}>
+                            {option}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                    )}
+                  ></Controller>
+                  <Controller
+                    name="fecha"
+                    control={control}
+                    defaultValue=""
+                    rules={{
+                      required: true,
+                    }}
+                    render={({ field }) => (
+                      <TextField
+                        margin="normal"
+                        className="date"
+                        variant="outlined"
+                        type="date"
+                        sx={{ width: "48%", backgroundColor: "white" }}
+                        id="fecha"
+                        {...field}
+                      ></TextField>
+                    )}
+                  ></Controller>
+                </Box>
               </ListItem>
               <ListItem>
                 <Controller
@@ -157,8 +282,8 @@ export default function RegisterScreen() {
                       helperText={
                         errors.password
                           ? errors.password.type === "minLength"
-                            ? "Password length is more than 5"
-                            : "Password is required"
+                            ? "La contraseña debe tener mas de 5 caracteres"
+                            : "Contraseña obligatoria"
                           : ""
                       }
                       {...field}
@@ -186,8 +311,8 @@ export default function RegisterScreen() {
                       helperText={
                         errors.confirmPassword
                           ? errors.confirmPassword.type === "minLength"
-                            ? "Confirm Password length is more than 5"
-                            : "Confirm Password is required"
+                            ? "La contraseña debe tener mas de 5 caracteres"
+                            : "Confirmar contraseña obligatorio"
                           : ""
                       }
                       {...field}

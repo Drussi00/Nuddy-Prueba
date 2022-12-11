@@ -5,6 +5,10 @@
 body .MuiTypography-root.MuiTypography-h1 {
   font-family: cooper !important;
 }
+.mercadopago-button {
+  width: 100%;
+  background: black !important;
+}
 
 .MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12.MuiGrid-grid-md-6 {
   padding-top: 0;
@@ -13,11 +17,21 @@ body .MuiTypography-root.MuiTypography-h1 {
   font-family: cooper !important;
 }
 
+.nopadLeft {
+  padding-left: 0 !important;
+}
+.MuiListItem-root.MuiListItem-gutters.MuiListItem-padding.space-between {
+  justify-content: space-between;
+  align-items: center;
+}
 body .MuiTypography-root.MuiTypography-h1 .title {
   font-family: cooper !important;
   font-size: 2rem;
 }
 
+.MuiFormControl-root.MuiTextField-root.paddingTop {
+  padding-top: 6px !important;
+}
 .title.MuiListItem-root.MuiListItem-gutters.MuiListItem-padding {
   justify-content: center;
 }
@@ -29,7 +43,9 @@ body .MuiTypography-root.MuiTypography-h1 .title {
   fieldset {
   display: none;
 }
-
+.MuiFormControl-root.MuiTextField-root.date fieldset legend {
+  display: none;
+}
 .dropdown-toggle.btn {
   border: none;
   width: 100%;

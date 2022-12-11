@@ -71,8 +71,7 @@ export default function Home() {
           <Box paddingTop={5} paddingBottom={5}>
             <Influencer />
           </Box>
-          <Box paddingBottom={5}>
-            {" "}
+          <Box paddingBottom={7}>
             <Newsletter />
           </Box>
         </div>

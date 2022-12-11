@@ -37,11 +37,14 @@ function PlaceOrderScreen() {
   const {
     userInfo,
     cart: { cartItems, shippingAddress, paymentMethod },
+    currency: { curre },
   } = state;
+
   const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100; // 123.456 => 123.46
-  const itemsPrice = round2(
-    cartItems.reduce((a, c) => a + c.price * c.quantity, 0)
-  );
+  const itemsPrice =
+    curre === "default"
+      ? round2(cartItems.reduce((a, c) => a + c.price * c.quantity, 0))
+      : round2(cartItems.reduce((a, c) => a + c.priceusd * c.quantity, 0));
 
   const shippingPrice = itemsPrice > 200 ? 0 : 15;
   const taxPrice = round2(itemsPrice * 0.15);
@@ -65,7 +68,7 @@ function PlaceOrderScreen() {
             tallaM = item.countInStockM - item.quantity;
           } else {
             if (item.size === "L") {
-              tallaL = item.countInStockLp - item.quantity;
+              tallaL = item.countInStockL - item.quantity;
             }
           }
         }
@@ -75,6 +78,11 @@ function PlaceOrderScreen() {
       await axios.put(
         "/api/products/tallas",
         { unitario, tallaXS, tallaS, tallaM, tallaL },
+        { headers: { authorization: `Bearer ${userInfo.token}` } }
+      );
+      await axios.put(
+        "/api/orders/MercadoPago/response",
+        { unitario },
         { headers: { authorization: `Bearer ${userInfo.token}` } }
       );
     } catch (err) {
@@ -119,30 +127,9 @@ function PlaceOrderScreen() {
         dispatch({ type: "CART_CLEAR" });
         jsCookie.remove("cartItems");
         setLoading(false);
-
+        console.log(data);
         router.push(`/order/PayPal/${data}`);
       } else {
-        await axios.post(
-          "/api/orders/PayPal",
-          {
-            orderItems: cartItems.map((x) => ({
-              ...x,
-              countInStock: undefined,
-              slug: undefined,
-            })),
-            shippingAddress,
-            paymentMethod,
-            itemsPrice,
-            shippingPrice,
-            taxPrice,
-            totalPrice,
-          },
-          {
-            headers: {
-              authorization: `Bearer ${userInfo.token}`,
-            },
-          }
-        );
         const { data } = await axios.post(
           "/api/orders/MercadoPago",
           {
@@ -166,9 +153,10 @@ function PlaceOrderScreen() {
         );
         dispatch({ type: "CART_CLEAR" });
         jsCookie.remove("cartItems");
+        jsCookie.remove("paymentMethod");
         setLoading(false);
-        console.log(data.global);
-        router.push(`/order/MercadoPago/${data.global}`);
+
+        router.push(`/order/MercadoPago/${orderM.data}`);
       }
     } catch (err) {
       setLoading(false);
@@ -217,15 +205,6 @@ function PlaceOrderScreen() {
                   </Typography>
                 </ListItem>
                 <ListItem>{paymentMethod}</ListItem>
-                <ListItem>
-                  <Button
-                    onClick={() => router.push("/payment")}
-                    variant="contianed"
-                    color="secondary"
-                  >
-                    Editar
-                  </Button>
-                </ListItem>
               </List>
             </Card>
             <Card sx={classes.section}>
@@ -241,7 +220,7 @@ function PlaceOrderScreen() {
                       <TableHead>
                         <TableRow>
                           <TableCell>Imagen</TableCell>
-                          <TableCell>Nombre</TableCell>
+                          <TableCell>Producto</TableCell>
                           <TableCell align="right">Talla</TableCell>
                           <TableCell align="right">Cantidad</TableCell>
                           <TableCell align="right">Precio</TableCell>
@@ -277,10 +256,16 @@ function PlaceOrderScreen() {
                             </TableCell>
                             <TableCell align="right">
                               <Typography>
-                                $
-                                {new Intl.NumberFormat().format(
-                                  parseInt(item.price)
-                                )}
+                                {curre === "default"
+                                  ? "$" +
+                                    new Intl.NumberFormat().format(
+                                      parseInt(item.price)
+                                    )
+                                  : new Intl.NumberFormat("en-IN", {
+                                      style: "currency",
+                                      currency: "USD",
+                                      minimumFractionDigits: 2,
+                                    }).format(parseInt(item.priceusd))}
                               </Typography>
                             </TableCell>
                           </TableRow>
@@ -305,8 +290,14 @@ function PlaceOrderScreen() {
                     </Grid>
                     <Grid item xs={6}>
                       <Typography align="right">
-                        {" "}
-                        ${new Intl.NumberFormat().format(parseInt(itemsPrice))}
+                        {curre === "default"
+                          ? "$" +
+                            new Intl.NumberFormat().format(parseInt(itemsPrice))
+                          : new Intl.NumberFormat("en-IN", {
+                              style: "currency",
+                              currency: "USD",
+                              minimumFractionDigits: 2,
+                            }).format(parseInt(itemsPrice))}
                       </Typography>
                     </Grid>
                   </Grid>
@@ -318,10 +309,16 @@ function PlaceOrderScreen() {
                     </Grid>
                     <Grid item xs={6}>
                       <Typography align="right">
-                        $
-                        {new Intl.NumberFormat().format(
-                          parseInt(shippingPrice)
-                        )}
+                        {curre === "default"
+                          ? "$" +
+                            new Intl.NumberFormat().format(
+                              parseInt(shippingPrice)
+                            )
+                          : new Intl.NumberFormat("en-IN", {
+                              style: "currency",
+                              currency: "USD",
+                              minimumFractionDigits: 2,
+                            }).format(parseInt(shippingPrice))}
                       </Typography>
                     </Grid>
                   </Grid>
@@ -336,8 +333,16 @@ function PlaceOrderScreen() {
                     <Grid item xs={6}>
                       <Typography align="right">
                         <strong>
-                          $
-                          {new Intl.NumberFormat().format(parseInt(totalPrice))}
+                          {curre === "default"
+                            ? "$" +
+                              new Intl.NumberFormat().format(
+                                parseInt(totalPrice)
+                              )
+                            : new Intl.NumberFormat("en-IN", {
+                                style: "currency",
+                                currency: "USD",
+                                minimumFractionDigits: 2,
+                              }).format(parseInt(totalPrice))}
                         </strong>
                       </Typography>
                     </Grid>

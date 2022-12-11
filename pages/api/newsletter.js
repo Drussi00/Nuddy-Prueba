@@ -2,7 +2,7 @@ const mailchimp = require("@mailchimp/mailchimp_marketing");
 
 mailchimp.setConfig({
   apiKey: process.env.MAILCHIMP_API_KEY,
-  server: "us20",
+  server: "us10",
 });
 
 export default async (req, res) => {
@@ -15,7 +15,7 @@ export default async (req, res) => {
 
   try {
     const run = async () => {
-      const response = await mailchimp.lists.batchListMembers("0731756f45", {
+      const response = await mailchimp.lists.batchListMembers("fd99576834", {
         members: [{ email_address: email, status: "subscribed" }],
       });
       console.log(response);

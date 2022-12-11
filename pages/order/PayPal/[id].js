@@ -64,7 +64,6 @@ function OrderScreen({ params }) {
     paymentMethod,
     orderItems,
     itemsPrice,
-    taxPrice,
     shippingPrice,
     totalPrice,
     isPaid,
@@ -95,6 +94,7 @@ function OrderScreen({ params }) {
         dispatch({ type: "FETCH_FAIL", payload: getError(err) });
       }
     };
+
     if (!order._id || successPay || (order._id && order._id !== orderId)) {
       fetchOrder();
       if (successPay) {
@@ -171,8 +171,12 @@ function OrderScreen({ params }) {
               <Card sx={classes.section}>
                 <List>
                   <ListItem>
-                    <Typography component="h2" variant="h2">
-                      Shipping Address
+                    <Typography
+                      component="h2"
+                      variant="h2"
+                      className="bottomH1"
+                    >
+                      Direccion de Envío{" "}
                     </Typography>
                   </ListItem>
                   <ListItem>
@@ -192,8 +196,12 @@ function OrderScreen({ params }) {
               <Card sx={classes.section}>
                 <List>
                   <ListItem>
-                    <Typography component="h2" variant="h2">
-                      Payment Method
+                    <Typography
+                      component="h2"
+                      variant="h2"
+                      className="bottomH1"
+                    >
+                      Metodo de pago
                     </Typography>
                   </ListItem>
                   <ListItem>{paymentMethod}</ListItem>
@@ -206,8 +214,12 @@ function OrderScreen({ params }) {
               <Card sx={classes.section}>
                 <List>
                   <ListItem>
-                    <Typography component="h2" variant="h2">
-                      Order Items
+                    <Typography
+                      component="h2"
+                      variant="h2"
+                      className="bottomH1"
+                    >
+                      Productos
                     </Typography>
                   </ListItem>
                   <ListItem>
@@ -215,10 +227,11 @@ function OrderScreen({ params }) {
                       <Table>
                         <TableHead>
                           <TableRow>
-                            <TableCell>Image</TableCell>
-                            <TableCell>Name</TableCell>
-                            <TableCell align="right">Quantity</TableCell>
-                            <TableCell align="right">Price</TableCell>
+                            <TableCell>Imagen</TableCell>
+                            <TableCell> Producto</TableCell>
+                            <TableCell align="right">Talla</TableCell>
+                            <TableCell align="right">Cantidad</TableCell>
+                            <TableCell align="right">Precio</TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
@@ -250,10 +263,20 @@ function OrderScreen({ params }) {
                                 </NextLink>
                               </TableCell>
                               <TableCell align="right">
+                                <Typography>{item.size}</Typography>
+                              </TableCell>
+                              <TableCell align="right">
                                 <Typography>{item.quantity}</Typography>
                               </TableCell>
                               <TableCell align="right">
-                                <Typography>${item.price}</Typography>
+                                <Typography>
+                                  {" "}
+                                  {new Intl.NumberFormat("en-IN", {
+                                    style: "currency",
+                                    currency: "USD",
+                                    minimumFractionDigits: 2,
+                                  }).format(parseInt(item.priceusd))}
+                                </Typography>
                               </TableCell>
                             </TableRow>
                           ))}
@@ -268,35 +291,41 @@ function OrderScreen({ params }) {
               <Card sx={classes.section}>
                 <List>
                   <ListItem>
-                    <Typography variant="h2">Order Summary</Typography>
+                    <Typography variant="h2" className="bottomH1">
+                      Resumen de la Orden
+                    </Typography>
                   </ListItem>
                   <ListItem>
                     <Grid container>
                       <Grid item xs={6}>
-                        <Typography>Items:</Typography>
+                        <Typography>Productos:</Typography>
                       </Grid>
                       <Grid item xs={6}>
-                        <Typography align="right">${itemsPrice}</Typography>
+                        <Typography align="right">
+                          {new Intl.NumberFormat("en-IN", {
+                            style: "currency",
+                            currency: "USD",
+                            minimumFractionDigits: 2,
+                          }).format(parseInt(itemsPrice))}
+                        </Typography>
                       </Grid>
                     </Grid>
                   </ListItem>
+
                   <ListItem>
                     <Grid container>
                       <Grid item xs={6}>
-                        <Typography>Tax:</Typography>
+                        <Typography>Costo de envio:</Typography>
                       </Grid>
                       <Grid item xs={6}>
-                        <Typography align="right">${taxPrice}</Typography>
-                      </Grid>
-                    </Grid>
-                  </ListItem>
-                  <ListItem>
-                    <Grid container>
-                      <Grid item xs={6}>
-                        <Typography>Shipping:</Typography>
-                      </Grid>
-                      <Grid item xs={6}>
-                        <Typography align="right">${shippingPrice}</Typography>
+                        <Typography align="right">
+                          {" "}
+                          {new Intl.NumberFormat("en-IN", {
+                            style: "currency",
+                            currency: "USD",
+                            minimumFractionDigits: 2,
+                          }).format(parseInt(shippingPrice))}
+                        </Typography>
                       </Grid>
                     </Grid>
                   </ListItem>
@@ -309,7 +338,13 @@ function OrderScreen({ params }) {
                       </Grid>
                       <Grid item xs={6}>
                         <Typography align="right">
-                          <strong>${totalPrice}</strong>
+                          <strong>
+                            {new Intl.NumberFormat("en-IN", {
+                              style: "currency",
+                              currency: "USD",
+                              minimumFractionDigits: 2,
+                            }).format(parseInt(totalPrice))}
+                          </strong>
                         </Typography>
                       </Grid>
                     </Grid>

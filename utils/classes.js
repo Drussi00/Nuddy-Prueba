@@ -96,6 +96,7 @@ const classes = {
     borderTop: "1px solid black",
     height: "2px",
     opacity: "1",
+    width: "97%",
   },
   but: {
     fontWeight: "bold",
@@ -169,7 +170,6 @@ const classes = {
   },
   visibleI: {
     display: "initial",
-    filter: " drop-shadow(-2px 26px 18px rgba(0, 0, 0, 0.6));",
   },
   buyNow: {
     backgroundColor: "black",
@@ -178,6 +178,7 @@ const classes = {
     borderRadius: "0",
     fontWeight: "bold",
     fontFamily: " helvetica, sans-serif",
+    textTransform: "none",
 
     "&:hover": {
       transform: "scale(1.1, 1.1)",
@@ -202,8 +203,8 @@ const classes = {
     paddingBottom: "50px",
   },
   typo: {
-    fontWeight: "500",
-    fontFamily: " coolvetica, sans-serif",
+    fontWeight: "bold",
+    fontFamily: " helvetica, sans-serif",
     color: "white",
   },
   productIndex: {

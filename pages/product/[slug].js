@@ -44,27 +44,19 @@ export default function ProductScreen(props) {
             *[_type == "product" && slug.current == $slug][0]`,
           { slug }
         );
-
         setState({ ...state, product, loading: false });
       } catch (err) {
         setState({ ...state, error: err.message, loading: false });
       }
     };
     fetchData();
-  }, [slug]);
+  }, [slug, state]);
   const [size, setsize] = useState("");
   const [quantity, setquantity] = useState(0);
 
-  useEffect(() => {
-    return () => {};
-  }, []);
-
   const addQuantity = async () => {
     if (size !== "") {
-      if (size === "XS" && quantity < product.xs) {
-        setquantity(quantity + 1);
-        console.log(quantity);
-      } else if (size === "S" && quantity < product.s) {
+      if (size === "S" && quantity < product.s) {
         setquantity(quantity + 1);
         console.log(quantity);
       } else if (size === "M" && quantity < product.m) {
@@ -81,10 +73,7 @@ export default function ProductScreen(props) {
   };
   const decQuantity = async () => {
     if (size !== "") {
-      if (size === "XS" && quantity < product.xs) {
-        setquantity(quantity + 1);
-        console.log(quantity);
-      } else if (size === "S" && quantity > 0) {
+      if (size === "S" && quantity > 0) {
         setquantity(quantity - 1);
         console.log(quantity);
       } else if (size === "M" && quantity > 0) {
@@ -113,7 +102,6 @@ export default function ProductScreen(props) {
       payload: {
         _key: product._id,
         name: product.name,
-        countInStockXS: product.xs,
         countInStockS: product.s,
         countInStockM: product.m,
         countInStockL: product.l,
@@ -143,7 +131,6 @@ export default function ProductScreen(props) {
       payload: {
         _key: product._id,
         name: product.name,
-        countInStockXS: product.xs,
         countInStockS: product.s,
         countInStockM: product.m,
         countInStockL: product.l,
@@ -170,11 +157,7 @@ export default function ProductScreen(props) {
     <Layout title={product?.title}>
       <Box display="flex" sx={classes.productosIndex}>
         <Typography
-          sx={{
-            fontWeight: "bold",
-            fontFamily: " coolvetica, sans-serif",
-            fontSize: "0.8rem",
-          }}
+          sx={{ fontWeight: "bold", fontFamily: " coolvetica, sans-serif" }}
         >
           Envio gratis a todo el pais por compras superiores a $200.000
         </Typography>
@@ -195,28 +178,10 @@ export default function ProductScreen(props) {
             >
               <Typography>
                 <NextLink href={"/"} passHref>
-                  <Link
-                    sx={{
-                      color: "#CFCFCF",
-                      fontFamily: " Helvetica, ",
-                      fontWeight: "400",
-                      fontStyle: "italic",
-                      marginRight: "5px",
-                    }}
-                  >
-                    Inicio{" "}
-                  </Link>
+                  <Link sx={{ color: "#f1f1f1" }}>Inicio</Link>
                 </NextLink>
-              </Typography>
-              <Typography
-                sx={{
-                  fontFamily: " Helvetica, ",
-                  fontWeight: "700",
-                  fontStyle: "italic",
-                }}
-              >
-                / {product.name}
-              </Typography>
+              </Typography>{" "}
+              / <Typography>{product.name}</Typography>
             </Box>
             <Grid container spacing={6}>
               <Grid item md={6} xs={12} sx={{ marginTop: "70px" }}>
@@ -240,28 +205,19 @@ export default function ProductScreen(props) {
                 <Box>
                   <div className="small-images-container">
                     {product.image?.map((item, i) => (
-                      <div
-                        key={item.name}
+                      <Image
+                        key={item.key}
+                        width={70}
+                        height={70}
+                        alt={item.name}
+                        src={urlFor(item)}
                         className={
                           i === index
                             ? "small-image selected-image"
                             : "small-image"
                         }
-                      >
-                        <Image
-                          key={item.key}
-                          width={70}
-                          height={70}
-                          alt={item.name}
-                          src={urlFor(item)}
-                          className={
-                            i === index
-                              ? "small-image selected-image"
-                              : "small-image"
-                          }
-                          onMouseEnter={() => setIndex(i)}
-                        />
-                      </div>
+                        onMouseEnter={() => setIndex(i)}
+                      />
                     ))}
                   </div>
                 </Box>
@@ -275,6 +231,7 @@ export default function ProductScreen(props) {
                   </ListItem>
                   <ListItem>
                     <Typography sx={classes.bold}>
+                      {" "}
                       ${new Intl.NumberFormat().format(parseInt(product.price))}
                     </Typography>
                   </ListItem>
@@ -286,42 +243,28 @@ export default function ProductScreen(props) {
                     <Typography
                       sx={{
                         fontWeight: "bold",
-                        fontFamily: " Helvetica,",
+                        fontFamily: " coolvetica, sans-serif",
                       }}
                     >
                       Tallas: {size}
                     </Typography>
-                    <Button
-                      sx={{
-                        textTransform: "none",
-                        backgroundColor: "transparent",
-                        textDecoration: "underline ",
-                        borderWidth: "2",
-                        textDecorationThickness: "1.5px",
-                        fontFamily: " Helvetica, ",
-                        fontWeight: "400",
-                        fontStyle: "italic",
-                      }}
-                    >
-                      <NextLink href={"/"} passHref>
-                        <Link
-                          sx={{
-                            color: "#CFCFCF",
-                            marginLeft: "50px",
-
-                            "&:hover": {
-                              color: "#CFCFCF",
-                              transform: "scale(1.1, 1.1)",
-                            },
-                          }}
-                        >
-                          {" "}
-                          Guia tallas
-                        </Link>
-                      </NextLink>
-                    </Button>
+                    <NextLink href={"/"} passHref>
+                      <Link
+                        sx={{
+                          color: "#f1f1f1",
+                          marginLeft: "50px",
+                          textDecoration: "underline",
+                          textDecorationThickness: "1.5px",
+                          textDecorationColor: "#000000",
+                          borderBottomStyle: "solid",
+                        }}
+                      >
+                        {" "}
+                        Guia tallas
+                      </Link>
+                    </NextLink>
                   </ListItem>
-                  <ListItem>
+                  <listItem>
                     <Grid container spacing={2}>
                       <Grid item>
                         <Button
@@ -392,12 +335,12 @@ export default function ProductScreen(props) {
                         </Button>
                       </Grid>
                     </Grid>
-                  </ListItem>
+                  </listItem>
                   <ListItem>
                     <Typography
                       sx={{
                         fontWeight: "bold",
-                        fontFamily: " helvetica, sans-serif",
+                        fontFamily: " coolvetica, sans-serif",
                       }}
                     >
                       Cantidad:
@@ -440,46 +383,24 @@ export default function ProductScreen(props) {
                   <Grid container spacing={0}>
                     <Grid item md={12} sx={{ justifyContent: "center" }}>
                       <Grid container spacing={1} sx={{ marginTop: "20px" }}>
-                        <Grid item md={6} xs={12}>
-                          <Typography
-                            fontSize=".8rem"
-                            sx={{ fontWeight: "bold" }}
-                          >
-                            <FiberManualRecordIcon fontSize="small" />{" "}
-                            {product.materiales}
-                          </Typography>
-                        </Grid>
-                        <Grid item md={6} xs={12}>
-                          <Typography
-                            fontSize=".8rem"
-                            sx={{ fontWeight: "bold" }}
-                          >
-                            <FiberManualRecordIcon fontSize="small" /> Peso:{" "}
-                            {product.cantidadmateriales}
-                          </Typography>
-                        </Grid>
-                        <Grid
-                          item
-                          md={6}
-                          xs={12}
-                          sx={{ justifyContent: "center" }}
-                        >
-                          <Typography
-                            fontSize=".8rem"
-                            sx={{ fontWeight: "bold" }}
-                          >
-                            <FiberManualRecordIcon fontSize="small" />{" "}
+                        <Grid item md={6} sx={{ justifyContent: "center" }}>
+                          <Typography fontSize=".8rem">
                             {product.description}
                           </Typography>
                         </Grid>
-
-                        <Grid item md={6} xs={12}>
-                          <Typography
-                            fontSize=".8rem"
-                            sx={{ fontWeight: "bold" }}
-                          >
-                            <FiberManualRecordIcon fontSize="small" />{" "}
-                            {product.envio}
+                        <Grid item md={6}>
+                          <Typography fontSize=".8rem" sx>
+                            {product.materiales}
+                          </Typography>
+                        </Grid>
+                        <Grid item md={6}>
+                          <Typography fontSize=".8rem">
+                            {product.cantidadmateriales}
+                          </Typography>
+                        </Grid>
+                        <Grid item md={6}>
+                          <Typography fontSize=".8rem">
+                            <FiberManualRecordIcon /> {product.envio}
                           </Typography>
                         </Grid>
                       </Grid>
@@ -488,90 +409,54 @@ export default function ProductScreen(props) {
 
                   <Box
                     display="flex"
-                    sx={{ marginTop: "60px", justifyContent: "space-between" }}
+                    sx={{ marginTop: "90px", justifyContent: "space-between" }}
                   >
-                    <Button
-                      sx={{
-                        textTransform: "none",
-                        backgroundColor: "transparent",
-                        textDecoration: "underline ",
-                        borderWidth: "2",
-                        textDecorationThickness: "1.5px",
-                        fontFamily: " Helvetica, ",
-                        fontWeight: "400",
-                        fontStyle: "italic",
-                      }}
-                    >
-                      <NextLink href={"/"} passHref>
-                        <Link
-                          sx={{
-                            color: "#CFCFCF",
-                            "&:hover": {
-                              color: "#CFCFCF",
-                              transform: "scale(1.1, 1.1)",
-                            },
-                          }}
-                        >
-                          {" "}
-                          Cuidado
-                        </Link>
-                      </NextLink>
-                    </Button>
-                    <Button
-                      sx={{
-                        textTransform: "none",
-                        backgroundColor: "transparent",
-                        textDecoration: "underline ",
-                        borderWidth: "2",
-                        textDecorationThickness: "1.5px",
-                        fontFamily: " Helvetica, ",
-                        fontWeight: "400",
-                        fontStyle: "italic",
-                      }}
-                    >
-                      <NextLink href={"/"} passHref>
-                        <Link
-                          sx={{
-                            color: "#CFCFCF",
+                    <NextLink href={"/"} passHref>
+                      <Link
+                        sx={{
+                          color: "#f1f1f1",
 
-                            "&:hover": {
-                              color: "#CFCFCF",
-                              transform: "scale(1.1, 1.1)",
-                            },
-                          }}
-                        >
-                          {" "}
-                          Envios
-                        </Link>
-                      </NextLink>
-                    </Button>
-                    <Button
-                      sx={{
-                        textTransform: "none",
-                        backgroundColor: "transparent",
-                        textDecoration: "underline ",
-                        borderWidth: "2",
-                        textDecorationThickness: "1.5px",
-                        fontFamily: " Helvetica, ",
-                        fontWeight: "400",
-                        fontStyle: "italic",
-                      }}
-                    >
-                      <NextLink href={"/"} passHref>
-                        <Link
-                          sx={{
-                            color: "#CFCFCF",
+                          textDecoration: "underline",
+                          textDecorationThickness: "1.5px",
+                          textDecorationColor: "#000000",
+                          borderBottomStyle: "solid",
+                          paddingLeft: "0",
+                        }}
+                      >
+                        {" "}
+                        Cuidado
+                      </Link>
+                    </NextLink>
+                    <NextLink href={"/"} passHref>
+                      <Link
+                        sx={{
+                          color: "#f1f1f1",
 
-                            "&:hover": {
-                              color: "#CFCFCF",
-                              transform: "scale(1.1, 1.1)",
-                            },
-                          }}
-                        >
-                          Devoluciones
-                        </Link>
-                      </NextLink>
-                    </Button>
+                          textDecoration: "underline",
+                          textDecorationThickness: "1.5px",
+                          textDecorationColor: "#000000",
+                          borderBottomStyle: "solid",
+                        }}
+                      >
+                        {" "}
+                        Envios
+                      </Link>
+                    </NextLink>{" "}
+                    <NextLink href={"/"} passHref>
+                      <Link
+                        sx={{
+                          color: "#f1f1f1",
+
+                          textDecoration: "underline",
+                          textDecorationThickness: "1.5px",
+                          textDecorationColor: "#000000",
+                          borderBottomStyle: "solid",
+                        }}
+                      >
+                        {" "}
+                        Devoluciones
+                      </Link>
+                    </NextLink>
                   </Box>
                 </List>
               </Grid>

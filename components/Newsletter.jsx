@@ -54,9 +54,9 @@ const Newsletter = () => {
           <Typography
             component=""
             variant="text"
-            sx={{ fontWeight: "bold", fontSize: "0.7rem" }}
+            sx={{ fontWeight: "bold", fontSize: "0.9rem" }}
           >
-            Mantente actualizado sobre lanzamientos limitados, noticias,
+            ¡Mantente actualizado sobre lanzamientos limitados, noticias,
             eventos!
           </Typography>
         </ListItem>
@@ -80,17 +80,19 @@ const Newsletter = () => {
               id="newsletter"
               type="text"
               className="form-control"
-              placeholder="Agrega tu correo electronico "
+              placeholder="Agrega tu correo 
+              electrónico "
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             ></input>
             <span className="input-group-btn">
               <Button
-                className="btn "
+                className="btn bottomH1"
                 sx={{
                   backgroundColor: "black",
                   color: "white",
                   borderRadius: "0",
+                  textTransform: "none",
                   "&:hover": {
                     backgroundColor: "black",
                     color: "white",
@@ -102,7 +104,7 @@ const Newsletter = () => {
                   subscribe(e), setEmail("");
                 }}
               >
-                Suscribete
+                Suscríbete
               </Button>
             </span>
           </div>
@@ -131,11 +133,11 @@ const Newsletter = () => {
                 }}
                 align="right"
               >
-                Si me gustaria recibir la newsletter de Nuddy Minds. al
-                registrarme en el boletin, acepto la informacion de proteccion
+                Sí, me gustaría recibir newsletters de Nuddy Minds. Al
+                registrarme en el boletín, acepto la información de protección
                 de datos de Nuddy Minds y doy mi consentimiento para la
-                recopilacion, el almacenamiento y el procesamiento de mis datos
-                alli descritos{" "}
+                recopilación, el almacenamiento y el procesamiento de datos allí
+                descritos.
               </Typography>
             </div>
           </div>

@@ -27,6 +27,7 @@ export default function PaymentScreen() {
   const { state, dispatch } = useContext(Store);
   const {
     cart: { shippingAddress },
+    currency: { curre },
   } = state;
 
   useEffect(() => {
@@ -73,11 +74,13 @@ export default function PaymentScreen() {
                     onChange={(e) => setPaymentMethod(e.target.value)}
                   >
                     <FormControlLabel
+                      sx={{ display: curre === "default" ? "none" : null }}
                       label="PayPal"
                       value="PayPal"
                       control={<Radio />}
                     ></FormControlLabel>
                     <FormControlLabel
+                      sx={{ display: curre === "default" ? null : "none" }}
                       label="MercadoPago"
                       value="MercadoPago"
                       control={<Radio />}
